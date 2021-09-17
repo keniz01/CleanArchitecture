@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {
     public class Region : Entity<Guid>
     {
         private IDictionary<Guid, Country> _countries;
+
         public Region(Guid id, string name, double area, Coordinates coordinates) : base(id)
         {
             Name = name.Validate();

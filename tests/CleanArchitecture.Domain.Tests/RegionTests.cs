@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using NUnit.Framework;
 using System;
-using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Tests
 {

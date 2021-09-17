@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Domain.Common
+﻿using CleanArchitecture.Domain.Exceptions;
+
+namespace CleanArchitecture.Domain.Entities
 {
     public class Entity<TId> : IEntity<TId>
     {

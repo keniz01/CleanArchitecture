@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Domain.Common
+namespace CleanArchitecture.Domain.Exceptions
 {
     public static class ValidationExtensions
     {
@@ -23,6 +23,7 @@ namespace CleanArchitecture.Domain.Common
                     }
 
                     break;
+
                 case TypeCode.Double:
                     if (Convert.ToInt32(input.ToString()) < 1)
                     {
@@ -30,6 +31,7 @@ namespace CleanArchitecture.Domain.Common
                     }
 
                     break;
+
                 case TypeCode.Object:
                     if (typeof(T) == typeof(Guid))
                     {

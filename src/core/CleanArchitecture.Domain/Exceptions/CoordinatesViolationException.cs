@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace CleanArchitecture.Domain.Common
+namespace CleanArchitecture.Domain.Exceptions
 {
     public class CoordinatesViolationException : Exception
     {
@@ -16,7 +16,7 @@ namespace CleanArchitecture.Domain.Common
         }
 
         public CoordinatesViolationException(SerializationInfo info, StreamingContext context)
-            : base(info,  context)
+            : base(info, context)
         {
         }
     }

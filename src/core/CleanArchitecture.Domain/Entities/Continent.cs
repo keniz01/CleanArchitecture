@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {

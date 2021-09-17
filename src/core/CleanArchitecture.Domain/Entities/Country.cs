@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Domain.Common;
-using System;
+﻿using System;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {
@@ -16,7 +16,7 @@ namespace CleanArchitecture.Domain.Entities
 
         /// <summary>Country capital city.</summary>
         public CapitalCity CapitalCity { get; private set; }
-        
+
         public Country(Guid id, string name, double area, Coordinates coordinates, CapitalCity capitalCity) : base(id)
         {
             Name = name.Validate();

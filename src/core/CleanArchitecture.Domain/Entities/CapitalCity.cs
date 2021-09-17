@@ -1,5 +1,5 @@
 ﻿using System;
-using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {

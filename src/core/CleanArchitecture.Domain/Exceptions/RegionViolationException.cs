@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace CleanArchitecture.Domain.Common
+namespace CleanArchitecture.Domain.Exceptions
 {
     public class RegionViolationException : Exception
     {
