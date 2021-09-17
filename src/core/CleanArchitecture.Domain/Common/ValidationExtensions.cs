@@ -2,8 +2,14 @@
 
 namespace CleanArchitecture.Domain.Common
 {
-    static class ValidationExtensions
+    public static class ValidationExtensions
     {
+        /// <summary>
+        /// Validates domain inputs.
+        /// </summary>
+        /// <typeparam name="T">The input type.</typeparam>
+        /// <param name="input">The input value.</param>
+        /// <returns>The input value.</returns>
         public static T Validate<T>(this T input)
         {
             var inputTypeCode = Type.GetTypeCode(typeof(T));

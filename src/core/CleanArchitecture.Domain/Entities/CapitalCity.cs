@@ -9,11 +9,16 @@ namespace CleanArchitecture.Domain.Entities
         {
             Name = name.Validate();
             Area = area.Validate();
-            Coordinates = coordinates ?? throw new ArgumentNullException(nameof(coordinates)); ;
+            Coordinates = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
         }
 
+        /// <summary>Capital city name.</summary>
         public string Name { get; }
+
+        /// <summary>Capital city area.</summary>
         public double Area { get; }
+
+        /// <summary>Capital city coordinates.</summary>
         public Coordinates Coordinates { get; }
     }
 }
