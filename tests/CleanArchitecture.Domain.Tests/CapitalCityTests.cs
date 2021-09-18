@@ -36,7 +36,6 @@ namespace CleanArchitecture.Domain.Tests
         public void Create_CapitalCity_Should_Create_New_CapitalCity()
         {
             var capitalCityId = Guid.NewGuid();
-            var capitalCity = new CapitalCity(capitalCityId, "Edinburgh", 264, new Coordinates(55.953251, -3.188267));
             Assert.DoesNotThrow(() => _ = new CapitalCity(capitalCityId, "Edinburgh", 264, new Coordinates(55.953251, -3.188267)));
         }
     }
