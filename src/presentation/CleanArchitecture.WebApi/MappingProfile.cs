@@ -17,8 +17,10 @@ namespace CleanArchitecture.WebApi
         {
             CreateMap<GetContinentIdRequestDto, GetContinentIdRequest>();
             CreateMap<GetContinentCountriesResponse, GetContinentCountriesResponseDto>()
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries));
+                .ForMember(dest => dest.CountryCount, opt => opt.MapFrom(src => src.Countries.Count));
             CreateMap<CountryDto, Country>().ReverseMap();
+            CreateMap<CapitalCityDto, CapitalCity>().ReverseMap();
+            CreateMap<CoordinateDto, Coordinate>().ReverseMap();
         }
     }
 }

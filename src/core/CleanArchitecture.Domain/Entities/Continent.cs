@@ -8,7 +8,7 @@ namespace CleanArchitecture.Domain.Entities
     {
         private IDictionary<Guid, Region> _regions;
 
-        public Continent(Guid id, string name, double area, Coordinates coordinates) : base(id)
+        public Continent(Guid id, string name, double area, Coordinate coordinates) : base(id)
         {
             Name = name.Validate();
             Area = area.Validate();
@@ -23,7 +23,7 @@ namespace CleanArchitecture.Domain.Entities
         public double Area { get; }
 
         /// <summary>Continent coordinates.</summary>
-        public Coordinates Coordinates { get; }
+        public Coordinate Coordinates { get; }
 
         public void AddOrUpdateRegion(Region region)
         {

@@ -5,7 +5,7 @@ namespace CleanArchitecture.Domain.Entities
 {
     public class CapitalCity : Entity<Guid>
     {
-        public CapitalCity(Guid id, string name, double area, Coordinates coordinates) : base(id)
+        public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : base(id)
         {
             Name = name.Validate();
             Area = area.Validate();
@@ -19,6 +19,6 @@ namespace CleanArchitecture.Domain.Entities
         public double Area { get; }
 
         /// <summary>Capital city coordinates.</summary>
-        public Coordinates Coordinates { get; }
+        public Coordinate Coordinates { get; }
     }
 }

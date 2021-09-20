@@ -1,8 +1,8 @@
 ﻿namespace CleanArchitecture.Domain.Entities
 {
-    public class Coordinates
+    public class Coordinate
     {
-        public Coordinates(double latitude, double longitude)
+        public Coordinate(double latitude, double longitude)
         {
             Latitude = latitude;
             Longitude = longitude;

@@ -12,12 +12,12 @@ namespace CleanArchitecture.Domain.Entities
         public double Area { get; }
 
         /// <summary>Country GPS coordinates.</summary>
-        public Coordinates Coordinates { get; private set; }
+        public Coordinate Coordinates { get; }
 
         /// <summary>Country capital city.</summary>
-        public CapitalCity CapitalCity { get; private set; }
+        public CapitalCity CapitalCity { get; }
 
-        public Country(Guid id, string name, double area, Coordinates coordinates, CapitalCity capitalCity) : base(id)
+        public Country(Guid id, string name, double area, Coordinate coordinates, CapitalCity capitalCity) : base(id)
         {
             Name = name.Validate();
             Area = area.Validate();
