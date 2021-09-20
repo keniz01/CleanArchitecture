@@ -15,8 +15,6 @@ namespace CleanArchitecture.Application
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<IEnumerable<Country>, GetContinentCountriesResponse>()
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src));
         }
     }
 }

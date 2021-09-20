@@ -14,7 +14,7 @@ namespace CleanArchitecture.Application
         public GetContinentCountriesRequestHandler(IContinentRepository continentRepository, IMapper mapper)
         {
             _continentRepository = continentRepository ?? throw new ArgumentNullException(nameof(continentRepository));
-            _mapper = mapper;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<GetContinentCountriesResponse> Handle(GetContinentIdRequest request, CancellationToken cancellationToken)
