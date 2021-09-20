@@ -5,7 +5,7 @@ namespace CleanArchitecture.Application
 {
     public class GetContinentCountriesResponse
     {
-        private GetContinentCountriesResponse()
+        protected GetContinentCountriesResponse()
         {
 
         }

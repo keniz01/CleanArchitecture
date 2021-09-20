@@ -16,8 +16,9 @@ namespace CleanArchitecture.WebApi
         public MappingProfile()
         {
             CreateMap<GetContinentIdRequestDto, GetContinentIdRequest>();
-            CreateMap<GetContinentCountriesResponseDto, GetContinentCountriesResponse>();
-            CreateMap<CountryDto, Country>();
+            CreateMap<GetContinentCountriesResponse, GetContinentCountriesResponseDto>()
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries));
+            CreateMap<CountryDto, Country>().ReverseMap();
         }
     }
 }

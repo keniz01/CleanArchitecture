@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -65,8 +63,8 @@ namespace CleanArchitecture.WebApi
 
                 //options.AddSecurityRequirement(requirement);
 
-                var xmlCommentsFilePath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetEntryAssembly()?.GetName().Name}.xml");
-                options.IncludeXmlComments(xmlCommentsFilePath);
+                //var xmlCommentsFilePath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetEntryAssembly()?.GetName().Name}.xml");
+                //options.IncludeXmlComments(xmlCommentsFilePath);
             });
 
             return services;
