@@ -34,8 +34,6 @@ namespace CleanArchitecture.Application.Tests
             var response = await handler.Handle(new GetContinentIdRequest(Guid.NewGuid()), CancellationToken.None);
 
             CollectionAssert.IsNotEmpty(response.Countries);
-
-            //mockMediator.Verify
         }
     }
 }

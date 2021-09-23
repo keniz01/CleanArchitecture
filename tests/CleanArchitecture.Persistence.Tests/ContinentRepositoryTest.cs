@@ -12,6 +12,7 @@ namespace CleanArchitecture.Persistence.Tests
     [TestFixture]
     public class ContinentRepositoryTest
     {
+        [Test]
         public async Task Continent_GetContinentCountries_Should_Return_A_ListOf_Countries_On_The_Continent_By_ContinentId()
         {
             var repository = new Mock<IContinentRepository>();

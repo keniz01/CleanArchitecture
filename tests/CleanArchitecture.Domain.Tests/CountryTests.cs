@@ -9,10 +9,10 @@ namespace CleanArchitecture.Domain.Tests
     public class CountryTests
     {
         [Test]
-        public void Create_Country_Should_Throw_InputViolationException_When_Area_Is_Less_Than_1()
+        public void Create_Country_Should_Throw_InputViolationException_When_Area_Is_Less_Than_0()
         {
             var capitalCity = new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(55.953251, -3.188267));
-            Assert.Throws<InputViolationException>(() => _ = new Country(Guid.NewGuid(), "Scotland", 0, new Coordinate(55.953251, -3.188267), capitalCity));
+            Assert.Throws<InputViolationException>(() => _ = new Country(Guid.NewGuid(), "Scotland", -1, new Coordinate(55.953251, -3.188267), capitalCity));
         }
 
         [Test]

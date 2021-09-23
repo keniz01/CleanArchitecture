@@ -1,6 +1,6 @@
 using Autofac;
 
-namespace CleanArchitecture.WebApi
+namespace CleanArchitecture.WebApi.Middleware
 {
     public static class AutofacExtensions
     {

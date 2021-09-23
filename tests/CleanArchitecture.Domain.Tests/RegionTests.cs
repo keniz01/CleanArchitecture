@@ -9,9 +9,9 @@ namespace CleanArchitecture.Domain.Tests
     public class RegionTests
     {
         [Test]
-        public void Create_Region_Should_Throw_InputViolationException_When_Area_Is_Less_Than_1()
+        public void Create_Region_Should_Throw_InputViolationException_When_Area_Is_Less_Than_0()
         {
-            Assert.Throws<InputViolationException>(() => _ = new CapitalCity(Guid.NewGuid(), "Eastern Europe", default, new Coordinate(55.953251, -3.188267)));
+            Assert.Throws<InputViolationException>(() => _ = new CapitalCity(Guid.NewGuid(), "Eastern Europe", -1, new Coordinate(55.953251, -3.188267)));
         }
 
         [Test]

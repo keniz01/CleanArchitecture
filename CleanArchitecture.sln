@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Application", "src\core\CleanArchitecture.Application\CleanArchitecture.Application.csproj", "{B7765A03-02B4-4ABB-A00D-BB5A5BF70599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Domain", "src\core\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj", "{F294FAB2-DE73-4F82-ABFC-59DD0AB773B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Domain", "src\core\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj", "{F294FAB2-DE73-4F82-ABFC-59DD0AB773B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F62EE302-CFFA-43A4-856E-B79E96FF2EAD}"
 EndProject
@@ -15,23 +15,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{648AD9DC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{71AC23AA-D0E8-48C1-8062-0D3BAA7604A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Persistence", "src\infrastructure\CleanArchitecture.Persistence\CleanArchitecture.Persistence.csproj", "{8B779CD3-DC10-4508-AAC2-DD78FB3701DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Persistence", "src\infrastructure\CleanArchitecture.Persistence\CleanArchitecture.Persistence.csproj", "{8B779CD3-DC10-4508-AAC2-DD78FB3701DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{D692C24C-F7DD-45DC-B10B-5FA42CA9F67C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Infrastructure", "src\infrastructure\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj", "{21EFCFF2-29CD-462A-AE6A-9A4B4BCC39B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infrastructure", "src\infrastructure\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj", "{21EFCFF2-29CD-462A-AE6A-9A4B4BCC39B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.WebApi", "src\presentation\CleanArchitecture.WebApi\CleanArchitecture.WebApi.csproj", "{A343DD20-5D39-442B-B81D-E90E8969DC0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.WebApi", "src\presentation\CleanArchitecture.WebApi\CleanArchitecture.WebApi.csproj", "{A343DD20-5D39-442B-B81D-E90E8969DC0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Application.Tests", "tests\CleanArchitecture.Application.Tests\CleanArchitecture.Application.Tests.csproj", "{BA30F2DF-2212-40A7-9D75-6E7DB3EA6BD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Application.Tests", "tests\CleanArchitecture.Application.Tests\CleanArchitecture.Application.Tests.csproj", "{BA30F2DF-2212-40A7-9D75-6E7DB3EA6BD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Domain.Tests", "tests\CleanArchitecture.Domain.Tests\CleanArchitecture.Domain.Tests.csproj", "{0205BF7A-AFAE-4C28-8288-C58C898F904E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Domain.Tests", "tests\CleanArchitecture.Domain.Tests\CleanArchitecture.Domain.Tests.csproj", "{0205BF7A-AFAE-4C28-8288-C58C898F904E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.WebApi.Tests", "tests\CleanArchitecture.WebApi.Tests\CleanArchitecture.WebApi.Tests.csproj", "{6E433F92-661A-454F-8F11-C53EEE91407A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.WebApi.Tests", "tests\CleanArchitecture.WebApi.Tests\CleanArchitecture.WebApi.Tests.csproj", "{6E433F92-661A-454F-8F11-C53EEE91407A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Persistence.Tests", "tests\CleanArchitecture.Persistence.Tests\CleanArchitecture.Persistence.Tests.csproj", "{6C307F23-8363-4E56-8D6D-F418199741ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Persistence.Tests", "tests\CleanArchitecture.Persistence.Tests\CleanArchitecture.Persistence.Tests.csproj", "{6C307F23-8363-4E56-8D6D-F418199741ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Infrastructure.Tests", "tests\CleanArchitecture.Infrastructure.Tests\CleanArchitecture.Infrastructure.Tests.csproj", "{9D5B8825-E71B-4357-8224-4E74966D2383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infrastructure.Tests", "tests\CleanArchitecture.Infrastructure.Tests\CleanArchitecture.Infrastructure.Tests.csproj", "{9D5B8825-E71B-4357-8224-4E74966D2383}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{4B361C01-5CDA-49F3-B2F7-3D1EACACE7CA}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Notes.txt = Documentation\Notes.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

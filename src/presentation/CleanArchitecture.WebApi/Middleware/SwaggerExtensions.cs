@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace CleanArchitecture.WebApi
+namespace CleanArchitecture.WebApi.Middleware
 {
     /// <summary>
     /// Swagger extension methods.

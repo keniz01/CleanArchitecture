@@ -9,9 +9,9 @@ namespace CleanArchitecture.Domain.Tests
     public class ContinentTests
     {
         [Test]
-        public void Create_Continent_Should_Throw_InputViolationException_When_Area_Is_Less_Than_1()
+        public void Create_Continent_Should_Throw_InputViolationException_When_Area_Is_Less_Than_0()
         {
-            Assert.Throws<InputViolationException>(() => _ = new Continent(Guid.NewGuid(), "Edinburgh", default, new Coordinate(55.953251, -3.188267)));
+            Assert.Throws<InputViolationException>(() => _ = new Continent(Guid.NewGuid(), "Edinburgh", -1, new Coordinate(55.953251, -3.188267)));
         }
 
         [Test]

@@ -1,40 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {
     public class Continent : Entity<Guid>
     {
-        private IDictionary<Guid, Region> _regions;
+        private Continent(Guid id) : base(id)
+        {
 
-        public Continent(Guid id, string name, double area, Coordinate coordinates) : base(id)
+        }
+
+        public Continent(Guid id, string name, double area, Coordinate coordinates) : this(id)
         {
             Name = name.Validate();
             Area = area.Validate();
             Coordinates = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
-            _regions = new Dictionary<Guid, Region>();
         }
 
         /// <summary>Continent name.</summary>
-        public string Name { get; }
+        public string Name { get; protected set; }
 
         /// <summary>Continent area in Km².</summary>
-        public double Area { get; }
+        public double Area { get; protected set; }
 
         /// <summary>Continent coordinates.</summary>
-        public Coordinate Coordinates { get; }
+        public Coordinate Coordinates { get; protected set; }
 
-        public void AddOrUpdateRegion(Region region)
+        public IList<Region> Regions { get; protected set; } = new List<Region>();
+
+        public Continent AddOrUpdateRegion(Region region)
         {
             _ = region ?? throw new RegionViolationException(nameof(region));
-            _regions.Add(region.Id, region);
+            Regions.Add(region);
+            return this;
         }
 
         public Region GetRegionById(Guid id)
         {
             _ = id.Validate();
-            return _regions.ContainsKey(id) ? _regions[id] : default;
+            return Regions.SingleOrDefault(region => region.Id == id);
         }
     }
 }

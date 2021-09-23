@@ -1,8 +1,13 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using CleanArchitecture.Persistence;
+using CleanArchitecture.WebApi.Middleware;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -10,11 +15,15 @@ namespace CleanArchitecture.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             try
             {
-                CreateHostBuilder(args).Build().Run();
+                await CreateHostBuilder(args)
+                    .Build()
+                    .MigrateDatabase()
+                    .SeedDatabase()
+                    .RunAsync();
             }
             catch (Exception ex)
             {
@@ -52,6 +61,11 @@ namespace CleanArchitecture.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureServices((webHostBuilderContext, services) =>
+                        services.AddDbContext<DatabaseContext>(opt =>
+                            opt.UseSqlServer(
+                                webHostBuilderContext.Configuration.GetConnectionString("ContinentDatabase"),
+                                b => b.MigrationsAssembly("CleanArchitecture.Persistence"))));
                 })
                 .ConfigureAppConfiguration(config =>
                 {

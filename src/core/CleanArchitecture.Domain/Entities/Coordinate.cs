@@ -2,13 +2,18 @@
 {
     public class Coordinate
     {
-        public Coordinate(double latitude, double longitude)
+        private Coordinate()
+        {
+                
+        }
+
+        public Coordinate(double latitude, double longitude) : this()
         {
             Latitude = latitude;
             Longitude = longitude;
         }
 
-        public double Latitude { get; }
-        public double Longitude { get; }
+        public double Latitude { get; protected set; }
+        public double Longitude { get; protected set; }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.WebApi
+namespace CleanArchitecture.WebApi.Middleware
 {
     public static class AutoMapperExtensions
     {

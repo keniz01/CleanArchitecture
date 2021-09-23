@@ -1,14 +1,11 @@
-using System;
-using System.IO;
-using System.Reflection;
 using Autofac;
 using CleanArchitecture.Application;
 using CleanArchitecture.Persistence;
 using MediatR;
-using MediatR.Extensions.Autofac.DependencyInjection;
+using System.Reflection;
 using Module = Autofac.Module;
 
-namespace CleanArchitecture.WebApi
+namespace CleanArchitecture.WebApi.Middleware
 {
     public class RegisterServicesModule : Module
     {
@@ -30,11 +27,6 @@ namespace CleanArchitecture.WebApi
 
             builder.RegisterAssemblyTypes(typeof(GetContinentCountriesRequestHandler).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
-
-            var logPath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetEntryAssembly()?.GetName().Name}.log");
-
-            // Register serilog.
-            //builder.RegisterSerilog(logPath);
 
             base.Load(builder);
         }

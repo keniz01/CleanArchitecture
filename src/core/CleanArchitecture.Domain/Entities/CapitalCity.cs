@@ -5,7 +5,12 @@ namespace CleanArchitecture.Domain.Entities
 {
     public class CapitalCity : Entity<Guid>
     {
-        public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : base(id)
+        private CapitalCity(Guid id): base(id)
+        {
+                
+        }
+
+        public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : this(id)
         {
             Name = name.Validate();
             Area = area.Validate();
@@ -13,12 +18,16 @@ namespace CleanArchitecture.Domain.Entities
         }
 
         /// <summary>Capital city name.</summary>
-        public string Name { get; }
+        public string Name { get; protected set; }
 
         /// <summary>Capital city area.</summary>
-        public double Area { get; }
+        public double Area { get; protected set; }
 
         /// <summary>Capital city coordinates.</summary>
-        public Coordinate Coordinates { get; }
+        public Coordinate Coordinates { get; protected set; }
+
+        public Guid CountryId { get; protected set; }
+
+        public Country Country { get; protected set; }
     }
 }
