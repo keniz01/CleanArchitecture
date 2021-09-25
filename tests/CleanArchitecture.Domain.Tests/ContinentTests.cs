@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Exceptions;
 using NUnit.Framework;
 using System;
-using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Tests
 {
@@ -37,7 +37,7 @@ namespace CleanArchitecture.Domain.Tests
         {
             Assert.DoesNotThrow(() => _ = new Continent(Guid.NewGuid(), "Europe", 12000, new Coordinate(55.953251, -3.188267)));
         }
-        
+
         [Test]
         public void Update_Continent_Should_Add_Or_Update_Region()
         {

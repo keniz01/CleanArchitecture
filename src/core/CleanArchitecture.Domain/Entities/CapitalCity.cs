@@ -1,13 +1,13 @@
-﻿using System;
-using CleanArchitecture.Domain.Exceptions;
+﻿using CleanArchitecture.Domain.Exceptions;
+using System;
 
 namespace CleanArchitecture.Domain.Entities
 {
     public class CapitalCity : Entity<Guid>
     {
-        private CapitalCity(Guid id): base(id)
+        private CapitalCity(Guid id) : base(id)
         {
-            
+
         }
 
         public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : this(id)

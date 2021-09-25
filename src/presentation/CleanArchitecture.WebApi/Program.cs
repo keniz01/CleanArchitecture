@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using CleanArchitecture.Persistence;
 using CleanArchitecture.WebApi.Middleware;
@@ -10,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi
 {

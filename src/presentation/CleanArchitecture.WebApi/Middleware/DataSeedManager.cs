@@ -1,11 +1,10 @@
-using System;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitecture.WebApi.Middleware
 {

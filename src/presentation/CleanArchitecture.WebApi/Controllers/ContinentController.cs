@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using CleanArchitecture.Application;
+using CleanArchitecture.WebApi.Models;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.WebApi.Models;
-using Microsoft.Extensions.Logging;
-using MediatR;
-using AutoMapper;
-using CleanArchitecture.Application;
-using Microsoft.AspNetCore.Http;
 
 namespace CleanArchitecture.WebApi.Controllers
 {

@@ -6,7 +6,7 @@ namespace CleanArchitecture.Domain.Entities
     {
         private Entity()
         {
-                
+
         }
 
         public Entity(TId id) : this() => Id = id.Validate();

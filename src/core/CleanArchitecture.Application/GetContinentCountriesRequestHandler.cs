@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CleanArchitecture.Domain.Services;
+﻿using CleanArchitecture.Domain.Services;
 using MediatR;
 using System;
 using System.Threading;
@@ -14,7 +13,7 @@ namespace CleanArchitecture.Application
 
         public async Task<GetContinentCountriesResponse> Handle(GetContinentCountriesRequest request, CancellationToken cancellationToken)
         {
-            var countries = await _continentRepository.GetContinentCountriesAsync(request.ContinentId, 
+            var countries = await _continentRepository.GetContinentCountriesAsync(request.ContinentId,
                 request.PageNumber, request.PageSize, cancellationToken);
             return new GetContinentCountriesResponse(countries);
         }

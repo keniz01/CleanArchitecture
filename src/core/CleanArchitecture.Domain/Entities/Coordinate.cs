@@ -4,7 +4,7 @@
     {
         private Coordinate()
         {
-                
+
         }
 
         public Coordinate(double latitude, double longitude) : this()

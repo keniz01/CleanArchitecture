@@ -1,12 +1,12 @@
-﻿using CleanArchitecture.Domain.Services;
+﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Pagination;
+using CleanArchitecture.Domain.Services;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Pagination;
-using NUnit.Framework;
 
 namespace CleanArchitecture.Application.Tests
 {
@@ -28,7 +28,7 @@ namespace CleanArchitecture.Application.Tests
                     new Country(Guid.NewGuid(), "Republic of Ireland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))
                 }, 1, 20, 100, 200));
-            
+
             var handler = new GetContinentCountriesRequestHandler(repository.Object);
             var response = await handler.Handle(new GetContinentCountriesRequest(Guid.NewGuid(), 1, 20), CancellationToken.None);
 

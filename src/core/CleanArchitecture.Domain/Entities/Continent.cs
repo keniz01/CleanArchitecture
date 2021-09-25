@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CleanArchitecture.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CleanArchitecture.Domain.Exceptions;
 
 namespace CleanArchitecture.Domain.Entities
 {

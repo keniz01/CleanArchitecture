@@ -7,14 +7,14 @@ namespace CleanArchitecture.Persistence
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-                
+
         }
 
         public DbSet<Continent> Continents { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<CapitalCity> CapitalCities { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Continent>(builder =>
