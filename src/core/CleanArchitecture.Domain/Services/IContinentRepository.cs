@@ -9,5 +9,7 @@ namespace CleanArchitecture.Domain.Services
     public interface IContinentRepository
     {
         Task<PagedList<Country>> GetContinentCountriesAsync(Guid continentId, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<Continent> AddOrUpdateContinentAsync(Continent continent, CancellationToken cancellationToken);
+        Task<Continent> GetContinentAsync(Guid continentId, CancellationToken cancellationToken);
     }
 }

@@ -46,5 +46,25 @@ namespace CleanArchitecture.Domain.Entities
             _ = id.Validate();
             return Countries.SingleOrDefault(country => country.Id == id);
         }
+
+        public Region UpdateName(string regionName)
+        {
+            regionName.Validate();
+            Name = regionName;
+            return this;
+        }
+
+        public Region UpdateArea(double area)
+        {
+            area.Validate();
+            Area = area;
+            return this;
+        }
+
+        public Region UpdateCoordinates(double latitude, double longitude)
+        {
+            Coordinates = new Coordinate(latitude, longitude);
+            return this;
+        }
     }
 }

@@ -34,5 +34,21 @@ namespace CleanArchitecture.Persistence.Repositories
 
             return response;
         }
+
+        public async Task<Continent> AddOrUpdateContinentAsync(Continent continent, CancellationToken cancellationToken)
+        {
+            _ = continent ?? throw new ArgumentNullException(nameof(continent));
+            _context.Entry(continent).State = continent.Id == Guid.Empty ? EntityState.Added : EntityState.Modified;
+            await _context.SaveChangesAsync(cancellationToken);
+            return continent;
+        }
+
+        public async Task<Continent> GetContinentAsync(Guid continentId, CancellationToken cancellationToken)
+        {
+            return await _context.Continents
+                .Include(continent => continent.Regions)
+                .ThenInclude(continent => continent.Countries)
+                .SingleOrDefaultAsync(continent => continent.Id == continentId, cancellationToken);
+        }
     }
 }
