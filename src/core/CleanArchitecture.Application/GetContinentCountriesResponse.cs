@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Pagination;
 
 namespace CleanArchitecture.Application
 {
@@ -10,8 +11,8 @@ namespace CleanArchitecture.Application
 
         }
 
-        public GetContinentCountriesResponse(IList<Country> countries) : this() => Countries = countries;
+        public GetContinentCountriesResponse(PagedList<Country> pagedResults) : this() => PagedResults = pagedResults;
         
-        public IList<Country> Countries { get; }
+        public PagedList<Country> PagedResults { get; }
     }
 }

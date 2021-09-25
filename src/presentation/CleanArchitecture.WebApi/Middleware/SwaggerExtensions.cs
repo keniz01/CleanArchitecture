@@ -51,7 +51,7 @@ namespace CleanArchitecture.WebApi.Middleware
                 //    Reference = new OpenApiReference
                 //    {
                 //        Type = ReferenceType.SecurityScheme,
-                //        Id = "ApiKey"
+                //        ContinentId = "ApiKey"
                 //    },
                 //    In = ParameterLocation.Header
                 //};

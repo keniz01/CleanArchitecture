@@ -1,6 +1,6 @@
 using Autofac;
 using CleanArchitecture.Application;
-using CleanArchitecture.Persistence;
+using CleanArchitecture.Persistence.Repositories;
 using MediatR;
 using System.Reflection;
 using Module = Autofac.Module;

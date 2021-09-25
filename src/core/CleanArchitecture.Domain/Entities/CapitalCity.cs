@@ -7,7 +7,7 @@ namespace CleanArchitecture.Domain.Entities
     {
         private CapitalCity(Guid id): base(id)
         {
-                
+            
         }
 
         public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : this(id)

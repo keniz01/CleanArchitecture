@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CleanArchitecture.Application;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.WebApi.Controllers;
 using CleanArchitecture.WebApi.Models;
 using MediatR;
@@ -31,8 +32,8 @@ namespace CleanArchitecture.WebApi.Tests
             var logger = new Mock<ILogger<ContinentController>>();
 
             var mediator = new Mock<IMediator>();
-            mediator.Setup(m => m.Send(It.IsAny<GetContinentIdRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetContinentCountriesResponse(new List<Country>
+            mediator.Setup(m => m.Send(It.IsAny<GetContinentCountriesRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetContinentCountriesResponse(new PagedList<Country>(new List<Country>
                 {
                     new(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))),
@@ -40,13 +41,13 @@ namespace CleanArchitecture.WebApi.Tests
                         new CapitalCity(Guid.NewGuid(), "Cardiff", 264, new Coordinate(34.748383, -12.828839))),
                     new(Guid.NewGuid(), "Republic of Ireland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))
-                }));
+                }, 1, 20, 20, 105)));
 
             var continentController = new ContinentController(logger.Object, mediator.Object, _mapper);
             var continentCountries =
-                await continentController.GetContinentCountriesAsync(new GetContinentIdRequestDto { Id = Guid.NewGuid() }, CancellationToken.None);
+                await continentController.GetContinentCountriesAsync(new GetContinentCountriesRequestDto { ContinentId = Guid.NewGuid() }, CancellationToken.None);
 
-            Assert.IsTrue(continentCountries.Data.Countries.Count > 0);
+            Assert.IsTrue(continentCountries.Data.PagedResults.Count > 0);
         }
     }
 }

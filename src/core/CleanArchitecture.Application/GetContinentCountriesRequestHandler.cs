@@ -6,20 +6,16 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace CleanArchitecture.Application
 {
-    public class GetContinentCountriesRequestHandler : IRequestHandler<GetContinentIdRequest, GetContinentCountriesResponse>
+    public class GetContinentCountriesRequestHandler : IRequestHandler<GetContinentCountriesRequest, GetContinentCountriesResponse>
     {
         private readonly IContinentRepository _continentRepository;
-        private readonly IMapper _mapper;
 
-        public GetContinentCountriesRequestHandler(IContinentRepository continentRepository, IMapper mapper)
-        {
-            _continentRepository = continentRepository ?? throw new ArgumentNullException(nameof(continentRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        }
+        public GetContinentCountriesRequestHandler(IContinentRepository continentRepository) => _continentRepository = continentRepository ?? throw new ArgumentNullException(nameof(continentRepository));
 
-        public async Task<GetContinentCountriesResponse> Handle(GetContinentIdRequest request, CancellationToken cancellationToken)
+        public async Task<GetContinentCountriesResponse> Handle(GetContinentCountriesRequest request, CancellationToken cancellationToken)
         {
-            var countries = await _continentRepository.GetContinentCountriesAsync(request.Id, cancellationToken);
+            var countries = await _continentRepository.GetContinentCountriesAsync(request.ContinentId, 
+                request.PageNumber, request.PageSize, cancellationToken);
             return new GetContinentCountriesResponse(countries);
         }
     }

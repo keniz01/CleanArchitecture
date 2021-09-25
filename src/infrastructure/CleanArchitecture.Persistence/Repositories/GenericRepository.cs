@@ -3,7 +3,7 @@
 //using System.Threading.Tasks;
 //using CleanArchitecture.Domain.Entities;
 
-//namespace CleanArchitecture.Persistence
+//namespace CleanArchitecture.Persistence.Repositories
 //{
 //    public class GenericRepository
 //    {

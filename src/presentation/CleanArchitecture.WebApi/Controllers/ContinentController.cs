@@ -33,13 +33,13 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<>))]
         [HttpPost("continent-countries")]
-        public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync(GetContinentIdRequestDto getContinentIdDto, CancellationToken cancellationToken)
+        public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync(GetContinentCountriesRequestDto getContinentCountriesDto, CancellationToken cancellationToken)
         {
-            _ = getContinentIdDto ?? throw new ArgumentNullException(nameof(getContinentIdDto));
+            _ = getContinentCountriesDto ?? throw new ArgumentNullException(nameof(getContinentCountriesDto));
 
             _logger.LogInformation("Calling GetContinentCountriesAsync().");
 
-            var request = _mapper.Map<GetContinentIdRequest>(getContinentIdDto);
+            var request = _mapper.Map<GetContinentCountriesRequest>(getContinentCountriesDto);
             var response = await _mediator.Send(request, cancellationToken);
             var result = _mapper.Map<GetContinentCountriesResponseDto>(response);
 

@@ -82,7 +82,7 @@ namespace CleanArchitecture.WebApi
                             .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment);
 
 #if DEBUG
-                    // Used to filter out potentially bad data due debugging.
+                    // Used to filter out potentially bad pagedResults due debugging.
                     // Very useful when doing Seq dashboards and want to remove logs under debugging session.
                     loggerConfiguration.Enrich.WithProperty("DebuggerAttached", Debugger.IsAttached);
 #endif
