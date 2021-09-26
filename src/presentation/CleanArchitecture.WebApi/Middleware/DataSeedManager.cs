@@ -138,7 +138,7 @@ namespace CleanArchitecture.WebApi.Middleware
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Eswatini (Swaziland)", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Mbabane", 0, new(0, 0))))),
                 new Continent(Guid.NewGuid(), "South America", 0, new(0, 0))
-                    .AddOrUpdateRegion(new Region(Guid.NewGuid(), "South America", 0, new(0, 0))
+                    .AddOrUpdateRegion(new Region(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), "South America", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Suriname", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Paramaribo", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "French Guyana", 0, new(0, 0),
@@ -299,7 +299,7 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Riga", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Republic of Ireland", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Dublin", 0, new(0, 0))))),
-                new Continent(Guid.NewGuid(), "Asia", 0, new(0, 0))
+                new Continent(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), "Asia", 0, new(0, 0))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Southern Asia", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Afghanistan", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Kabul", 0, new(0, 0))))
