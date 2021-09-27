@@ -3,7 +3,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-namespace CleanArchitecture.Application
+namespace CleanArchitecture.Application.Continent
 {
     public class GetContinentCountriesRequestHandler : IRequestHandler<GetContinentCountriesRequest, GetContinentCountriesResponse>
     {

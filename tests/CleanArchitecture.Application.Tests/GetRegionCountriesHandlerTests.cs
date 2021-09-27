@@ -1,40 +1,42 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Application.Region;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
+using CleanArchitecture.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Continent;
-using CleanArchitecture.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Application.Tests
 {
     [TestFixture]
-    public class GetContinentCountriesHandlerTests
+    public class GetRegionCountriesHandlerTests
     {
-        private readonly IContinentRepository _continentRepository;
+        private readonly IRegionRepository _regionRepository;
 
-        public GetContinentCountriesHandlerTests()
+        public GetRegionCountriesHandlerTests()
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;")
                 .EnableDetailedErrors()
                 .Options;
             var context = new DatabaseContext(options);
-            _continentRepository = new ContinentRepository(context);
+
+            //TODO: Dependency injection.
+            _regionRepository = new RegionRepository(context);
         }
 
         [Test]
-        public async Task Unit_Test_Continent_GetContinentCountriesRequestHandler_Should_return_continent_countries_by_continent_id()
+        public async Task Unit_Test_Region_GetRegionCountriesRequestHandler_Should_return_region_countries_by_region_id()
         {
-            var repository = new Mock<IContinentRepository>();
+            var repository = new Mock<IRegionRepository>();
             repository.Setup(repo =>
-                    repo.GetContinentCountriesAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                    repo.GetRegionCountriesAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(() => new PagedList<Country>(new List<Country>()
                 {
                     new Country(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
@@ -45,17 +47,17 @@ namespace CleanArchitecture.Application.Tests
                         new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))
                 }, 1, 20, 100, 200));
 
-            var handler = new GetContinentCountriesRequestHandler(repository.Object);
-            var response = await handler.Handle(new GetContinentCountriesRequest(Guid.NewGuid(), 1, 20), CancellationToken.None);
+            var handler = new GetRegionCountriesRequestHandler(repository.Object);
+            var response = await handler.Handle(new GetRegionCountriesRequest(Guid.NewGuid(), 1, 20), CancellationToken.None);
 
             CollectionAssert.IsNotEmpty(response.PagedResults.Data);
         }
 
         [Test]
-        public async Task Integration_Test_Continent_GetContinentCountriesRequestHandler_Should_return_continent_countries_by_continent_id()
+        public async Task Integration_Test_Region_GetRegionCountriesRequestHandler_Should_return_region_countries_by_region_id()
         {
-            var handler = new GetContinentCountriesRequestHandler(_continentRepository);
-            var response = await handler.Handle(new GetContinentCountriesRequest(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), 1, 20), CancellationToken.None);
+            var handler = new GetRegionCountriesRequestHandler(_regionRepository);
+            var response = await handler.Handle(new GetRegionCountriesRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 20), CancellationToken.None);
 
             CollectionAssert.IsNotEmpty(response.PagedResults.Data);
         }

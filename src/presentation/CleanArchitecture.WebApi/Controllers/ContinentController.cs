@@ -9,6 +9,7 @@ using System;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Continent;
 
 namespace CleanArchitecture.WebApi.Controllers
 {

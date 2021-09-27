@@ -1,4 +1,5 @@
 using AutoMapper;
+using CleanArchitecture.Application.Continent;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 

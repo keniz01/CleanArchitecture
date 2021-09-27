@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 
-namespace CleanArchitecture.Application
+namespace CleanArchitecture.Application.Continent
 {
     public class GetContinentCountriesResponse
     {

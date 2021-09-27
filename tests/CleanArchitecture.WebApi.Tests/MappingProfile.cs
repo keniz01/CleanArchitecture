@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Application;
+using CleanArchitecture.Application.Continent;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.WebApi.Models;
 

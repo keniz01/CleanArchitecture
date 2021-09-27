@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace CleanArchitecture.Application
+namespace CleanArchitecture.Application.Continent
 {
     public class GetContinentCountriesRequest : IRequest<GetContinentCountriesResponse>
     {

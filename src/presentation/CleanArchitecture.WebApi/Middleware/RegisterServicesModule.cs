@@ -3,6 +3,7 @@ using CleanArchitecture.Application;
 using CleanArchitecture.Persistence.Repositories;
 using MediatR;
 using System.Reflection;
+using CleanArchitecture.Application.Continent;
 using Module = Autofac.Module;
 
 namespace CleanArchitecture.WebApi.Middleware
