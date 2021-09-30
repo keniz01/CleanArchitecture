@@ -35,7 +35,7 @@ namespace CleanArchitecture.Domain.Exceptions
                 case TypeCode.Object:
                     if (typeof(T) == typeof(Guid))
                     {
-                        if (input == null || Guid.Parse(input.ToString() ?? string.Empty) == Guid.Empty)
+                        if (!Guid.TryParse(input.ToString(), out _))
                         {
                             throw new InputViolationException(nameof(input));
                         }

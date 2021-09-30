@@ -21,12 +21,6 @@ namespace CleanArchitecture.Domain.Tests
         }
 
         [Test]
-        public void Create_Continent_Should_Throw_IdViolationException_When_Id_Is_Null_Or_Empty()
-        {
-            Assert.Throws<InputViolationException>(() => _ = new Continent(default, "Edinburgh", 264, new Coordinate(55.953251, -3.188267)));
-        }
-
-        [Test]
         public void Create_Continent_Should_Throw_CoordinatesViolationException_When_Coordinates_Is_Null()
         {
             Assert.Throws<CoordinatesViolationException>(() => _ = new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, default));

@@ -1,9 +1,10 @@
-﻿using CleanArchitecture.Domain.Services;
-using MediatR;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-namespace CleanArchitecture.Application.Region
+using CleanArchitecture.Domain.Services;
+using MediatR;
+
+namespace CleanArchitecture.Application.Region.GetRegionCountries
 {
     public class GetRegionCountriesRequestHandler : IRequestHandler<GetRegionCountriesRequest, GetRegionCountriesResponse>
     {

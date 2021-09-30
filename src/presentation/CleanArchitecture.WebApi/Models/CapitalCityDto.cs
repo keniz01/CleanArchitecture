@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.WebApi.Models
 {
-    public class CapitalCityDto
+    public class CapitalCityDto : ModelBase
     {
         public string Name { get; set; }
 

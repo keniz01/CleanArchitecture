@@ -1,7 +1,7 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
-namespace CleanArchitecture.Application.Region
+namespace CleanArchitecture.Application.Region.GetRegionCountries
 {
     public class GetRegionCountriesRequest : IRequest<GetRegionCountriesResponse>
     {

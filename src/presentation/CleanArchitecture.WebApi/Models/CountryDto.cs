@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.WebApi.Models
 {
-    public class CountryDto
+    public class CountryDto : ModelBase
     {
         /// <summary>Country name.</summary>
         public string Name { get; set; }

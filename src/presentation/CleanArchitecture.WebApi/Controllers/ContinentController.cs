@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Application;
+using CleanArchitecture.Application.Continent;
 using CleanArchitecture.WebApi.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,13 +9,12 @@ using System;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Continent;
 
 namespace CleanArchitecture.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
-    public class ContinentController : Controller
+    public class ContinentController : ControllerBase
     {
         private readonly ILogger<ContinentController> _logger;
         private readonly IMediator _mediator;
@@ -33,7 +32,7 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<>))]
-        [HttpPost("continent-countries")]
+        [HttpPost("countries")]
         public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync(GetContinentCountriesRequestDto getContinentCountriesDto, CancellationToken cancellationToken)
         {
             _ = getContinentCountriesDto ?? throw new ArgumentNullException(nameof(getContinentCountriesDto));

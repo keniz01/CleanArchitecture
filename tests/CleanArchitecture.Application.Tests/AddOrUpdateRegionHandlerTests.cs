@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Application.Region;
-using CleanArchitecture.Application.Region.AddOrUpdateRegion;
+﻿using CleanArchitecture.Application.Region.AddOrUpdateRegion;
+using CleanArchitecture.Application.Region.GetRegionCountries;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
@@ -10,6 +10,7 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Region.GetRegion;
 
 namespace CleanArchitecture.Application.Tests
 {
@@ -60,10 +61,14 @@ namespace CleanArchitecture.Application.Tests
         [Test]
         public async Task Integration_Test_Region_AddOrUpdateRegionRequestHandler_Should_return_added_region()
         {
-            var handler = new GetRegionCountriesRequestHandler(_regionRepository);
-            var response = await handler.Handle(new GetRegionCountriesRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 20), CancellationToken.None);
+            var getRegionRequestHandler = new GetRegionRequestHandler(_regionRepository);
 
-            CollectionAssert.IsNotEmpty(response.PagedResults.Data);
+            var getRegionRequest = await getRegionRequestHandler.Handle(new GetRegionRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
+            var addOrUpdateRegionRequestHandler = new AddOrUpdateRegionRequestHandler(_regionRepository);
+            getRegionRequest.Region.UpdateName("South America Demo");
+            var response = await addOrUpdateRegionRequestHandler.Handle(new AddOrUpdateRegionRequest(getRegionRequest.Region), CancellationToken.None);
+
+            Assert.IsNotNull(response.Region);
         }
     }
 }

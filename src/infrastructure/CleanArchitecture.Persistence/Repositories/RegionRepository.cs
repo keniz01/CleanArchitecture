@@ -37,7 +37,26 @@ namespace CleanArchitecture.Persistence.Repositories
         public async Task<Region> AddOrUpdateRegionAsync(Region region, CancellationToken cancellationToken)
         {
             _ = region ?? throw new ArgumentNullException(nameof(region));
-            _context.Entry(region).State = region.Id == Guid.Empty ? EntityState.Added : EntityState.Modified;
+            //_context.Entry(region).State = region.Id == Guid.Empty ? EntityState.Added : EntityState.Modified;
+            if (region.Id == Guid.Empty)
+            {
+                // Only add region to continent. Cannot have standalone regions.
+                if (region.ContinentId != Guid.Empty)
+                {
+                    _context.Add(region);
+                }
+            }
+            else
+            {
+                //Query original entity from local cache.
+                var trackedEntity = _context.Regions.Local.SingleOrDefault(r => r.Id == region.Id);
+                _ = trackedEntity ?? throw new ArgumentNullException("Entity instance changed.");
+
+                //Circumvents AutoMapper issues with creating new instances.
+                _context.Entry(trackedEntity).CurrentValues.SetValues(region);
+                //_context.Update(region);
+            }
+
             await _context.SaveChangesAsync(cancellationToken);
             return region;
         }
@@ -45,7 +64,9 @@ namespace CleanArchitecture.Persistence.Repositories
         public async Task<Region> GetRegionAsync(Guid regionId, CancellationToken cancellationToken)
         {
             return await _context.Regions
+                .Include(region => region.Continent)
                 .Include(region => region.Countries.OrderBy(country => country.Name))
+                .ThenInclude(country => country.CapitalCity)
                 .SingleOrDefaultAsync(region => region.Id == regionId, cancellationToken);
         }
     }
