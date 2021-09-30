@@ -35,7 +35,7 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<GetRegionCountriesResponseDto>))]
         [HttpPost("")]
-        public async Task<ApiResponse<GetRegionResponseDto>> GetRegionAsync(GetRegionRequestDto getRegionRequestDto, CancellationToken cancellationToken)
+        public async Task<ApiResponse<GetRegionResponseDto>> GetRegionAsync([FromBody] GetRegionRequestDto getRegionRequestDto, CancellationToken cancellationToken)
         {
             _ = getRegionRequestDto ?? throw new ArgumentNullException(nameof(getRegionRequestDto));
 
@@ -54,7 +54,7 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<GetRegionCountriesResponseDto>))]
         [HttpPost("countries")]
-        public async Task<ApiResponse<GetRegionCountriesResponseDto>> GetRegionCountriesAsync(GetRegionCountriesRequestDto getRegionCountriesRequestDto, CancellationToken cancellationToken)
+        public async Task<ApiResponse<GetRegionCountriesResponseDto>> GetRegionCountriesAsync([FromBody] GetRegionCountriesRequestDto getRegionCountriesRequestDto, CancellationToken cancellationToken)
         {
             _ = getRegionCountriesRequestDto ?? throw new ArgumentNullException(nameof(getRegionCountriesRequestDto));
 
@@ -73,7 +73,7 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<AddOrUpdateRegionResponseDto>))]
         [HttpPost("add-or-update")]
-        public async Task<ApiResponse<AddOrUpdateRegionResponseDto>> AddOrUpdateRegionAsync(AddOrUpdateRegionRequestDto addOrUpdateRegionRequestDto, CancellationToken cancellationToken)
+        public async Task<ApiResponse<AddOrUpdateRegionResponseDto>> AddOrUpdateRegionAsync([FromBody] AddOrUpdateRegionRequestDto addOrUpdateRegionRequestDto, CancellationToken cancellationToken)
         {
             _ = addOrUpdateRegionRequestDto ?? throw new ArgumentNullException(nameof(addOrUpdateRegionRequestDto));
 

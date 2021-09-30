@@ -33,7 +33,7 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<>))]
         [HttpPost("countries")]
-        public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync(GetContinentCountriesRequestDto getContinentCountriesDto, CancellationToken cancellationToken)
+        public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync([FromBody] GetContinentCountriesRequestDto getContinentCountriesDto, CancellationToken cancellationToken)
         {
             _ = getContinentCountriesDto ?? throw new ArgumentNullException(nameof(getContinentCountriesDto));
 

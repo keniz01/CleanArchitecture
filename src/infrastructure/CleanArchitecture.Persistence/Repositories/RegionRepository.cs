@@ -48,13 +48,18 @@ namespace CleanArchitecture.Persistence.Repositories
             }
             else
             {
-                //Query original entity from local cache.
+                // Query original entity from local cache (online entity change tracking - unit tests).
                 var trackedEntity = _context.Regions.Local.SingleOrDefault(r => r.Id == region.Id);
-                _ = trackedEntity ?? throw new ArgumentNullException("Entity instance changed.");
 
-                //Circumvents AutoMapper issues with creating new instances.
-                _context.Entry(trackedEntity).CurrentValues.SetValues(region);
-                //_context.Update(region);
+                if (trackedEntity is null)
+                {
+                    _context.Update(region);
+                }
+                else
+                {
+                    //Circumvents AutoMapper issues with creating new instances (unit test).
+                    _context.Entry(trackedEntity).CurrentValues.SetValues(region);
+                }
             }
 
             await _context.SaveChangesAsync(cancellationToken);
