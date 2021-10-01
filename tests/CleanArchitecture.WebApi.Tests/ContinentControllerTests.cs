@@ -38,7 +38,7 @@ namespace CleanArchitecture.WebApi.Tests
                 await continentController.GetContinentCountriesAsync(
                     new GetContinentCountriesRequestDto {ContinentId = Guid.NewGuid()}, CancellationToken.None);
 
-            Assert.IsTrue(continentCountries.Data.PagedResults.Count > 0);
+            Assert.IsTrue(continentCountries.Data.Countries.Count > 0);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace CleanArchitecture.WebApi.Tests
 
             var countries = await controller.GetContinentCountriesAsync(request, CancellationToken.None);
 
-            Assert.IsTrue(countries.Data.PagedResults.Count > 0);
+            Assert.IsTrue(countries.Data.Countries.Count > 0);
         }
     }
 }

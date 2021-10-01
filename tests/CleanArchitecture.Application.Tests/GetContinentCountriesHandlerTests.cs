@@ -35,13 +35,13 @@ namespace CleanArchitecture.Application.Tests
             var repository = new Mock<IContinentRepository>();
             repository.Setup(repo =>
                     repo.GetContinentCountriesAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(() => new PagedList<Country>(new List<Country>()
+                .ReturnsAsync(() => new PagedList<Domain.Entities.Country>(new List<Domain.Entities.Country>()
                 {
-                    new Country(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
+                    new Domain.Entities.Country(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))),
-                    new Country(Guid.NewGuid(), "Wales", 110000, new Coordinate(34.748383, -12.828839),
+                    new Domain.Entities.Country(Guid.NewGuid(), "Wales", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Cardiff", 264, new Coordinate(34.748383, -12.828839))),
-                    new Country(Guid.NewGuid(), "Republic of Ireland", 110000, new Coordinate(34.748383, -12.828839),
+                    new Domain.Entities.Country(Guid.NewGuid(), "Republic of Ireland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))
                 }, 1, 20, 100, 200));
 

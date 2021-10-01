@@ -24,6 +24,7 @@ namespace CleanArchitecture.WebApi.Tests
                 .AddMediatR(typeof(GetContinentCountriesRequest).GetTypeInfo().Assembly)
                 .AddScoped<IContinentRepository, ContinentRepository>()
                 .AddScoped<IRegionRepository, RegionRepository>()
+                .AddScoped<ICountryRepository, CountryRepository>()
                 .AddDbContext<DatabaseContext>(context =>
                     context.UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;"))
                 .BuildServiceProvider();
@@ -34,7 +35,7 @@ namespace CleanArchitecture.WebApi.Tests
             return _serviceProvider.GetRequiredService<T>();
         }
 
-        public RegionDto GetRegionTestData()
+        public static RegionDto GetRegionTestData()
         {
             var region = new RegionDto
             {

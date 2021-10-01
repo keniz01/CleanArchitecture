@@ -1,6 +1,9 @@
-﻿namespace CleanArchitecture.WebApi.Models
+﻿using System.Collections.Generic;
+
+namespace CleanArchitecture.WebApi.Models
 {
-    public class GetContinentCountriesResponseDto : PagedResponseBase<CountryDto>
+    public class GetContinentCountriesResponseDto : PagedResponseBase
     {
+        public IList<CountryDto> Countries { get; set; }
     }
 }

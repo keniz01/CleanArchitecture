@@ -24,14 +24,20 @@ namespace CleanArchitecture.Persistence.Tests
         }
 
         [Test]
-        public async Task Region_GetRegion_Should_Return_Region_By_region_Id()
+        public async Task Integration_Test_Region_GetRegion_Should_Return_Region_By_region_Id()
         {
             var region = await _regionRepository.GetRegionAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), CancellationToken.None);
             Assert.IsFalse(region.Id == Guid.Empty);
         }
 
         [Test]
-        public async Task Region_AddOrUpdateRegion_Should_Update_region_by_region_id()
+        public void Integration_Test_Region_Should_fail_when_on_creation_when_DbContext_is_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => _ = new RegionRepository(null));
+        }
+
+        [Test]
+        public async Task Integration_Test_Region_AddOrUpdateRegion_Should_Update_region_by_region_id()
         {
             var region = await _regionRepository.GetRegionAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), CancellationToken.None);
             region

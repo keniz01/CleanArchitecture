@@ -8,7 +8,9 @@ namespace CleanArchitecture.Domain.Services
 {
     public interface IRegionRepository
     {
-        Task<PagedList<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<PagedList<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize,
+            CancellationToken cancellationToken);
+
         Task<Region> AddOrUpdateRegionAsync(Region region, CancellationToken cancellationToken);
         Task<Region> GetRegionAsync(Guid regionId, CancellationToken cancellationToken);
     }

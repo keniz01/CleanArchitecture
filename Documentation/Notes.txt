@@ -7,3 +7,6 @@ May need to run this command to apply migrations, the MigrationManager class fai
 --------------------------------------------------------------------------------------------------------------
 
 C:\Source\Repos\CleanArchitecture\src\presentation\CleanArchitecture.WebApi>dotnet ef database update --project C:\Source\Repos\CleanArchitecture\src\infrastructure\CleanArchitecture.Persistence
+
+TODO:
+Replace "Dto" with "Data"

@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Region.AddOrUpdateRegion;
-using CleanArchitecture.Application.Region.GetRegionCountries;
+using CleanArchitecture.Application.Region.GetRegion;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
@@ -10,7 +10,6 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Region.GetRegion;
 
 namespace CleanArchitecture.Application.Tests
 {
@@ -32,19 +31,25 @@ namespace CleanArchitecture.Application.Tests
         }
 
         [Test]
+        public void Unit_Test_Region_Should_fail_when_on_creation_when_IRegionRepository_is_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => _ = new AddOrUpdateRegionRequestHandler(null));
+        }
+
+        [Test]
         public async Task Unit_Test_Region_AddOrUpdateRegionRequestHandler_Should_return_added_region()
         {
             var repository = new Mock<IRegionRepository>();
 
             var regionId = Guid.NewGuid();
             var region = new Domain.Entities.Region(regionId, "Demo Region", 1223, new(-1900, 2300))
-                .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Scotland", 110000,
+                .AddOrUpdateCountry(new Domain.Entities.Country(Guid.NewGuid(), "Scotland", 110000,
                     new Coordinate(34.748383, -12.828839),
                     new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))))
-                .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Wales", 110000,
+                .AddOrUpdateCountry(new Domain.Entities.Country(Guid.NewGuid(), "Wales", 110000,
                     new Coordinate(34.748383, -12.828839),
                     new CapitalCity(Guid.NewGuid(), "Cardiff", 264, new Coordinate(34.748383, -12.828839))))
-                .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Republic of Ireland", 110000,
+                .AddOrUpdateCountry(new Domain.Entities.Country(Guid.NewGuid(), "Republic of Ireland", 110000,
                     new Coordinate(34.748383, -12.828839),
                     new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839))));
 

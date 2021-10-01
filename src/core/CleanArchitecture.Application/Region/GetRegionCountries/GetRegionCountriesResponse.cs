@@ -10,8 +10,8 @@ namespace CleanArchitecture.Application.Region.GetRegionCountries
 
         }
 
-        public GetRegionCountriesResponse(PagedList<Country> pagedResults) : this() => PagedResults = pagedResults;
+        public GetRegionCountriesResponse(PagedList<Domain.Entities.Country> pagedResults) : this() => PagedResults = pagedResults;
 
-        public PagedList<Country> PagedResults { get; }
+        public PagedList<Domain.Entities.Country> PagedResults { get; }
     }
 }

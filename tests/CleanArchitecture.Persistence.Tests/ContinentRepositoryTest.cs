@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Persistence.Tests
 {
@@ -21,6 +22,12 @@ namespace CleanArchitecture.Persistence.Tests
                 .Options;
             var context = new DatabaseContext(options);
             _continentRepository = new ContinentRepository(context);
+        }
+
+        [Test]
+        public void Integration_Test_Continent_Should_fail_when_on_creation_when_DbContext_is_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => _ = new ContinentRepository(null));
         }
 
         [Test]
@@ -46,7 +53,7 @@ namespace CleanArchitecture.Persistence.Tests
             continent
                 .UpdateName("Asia")
                 .UpdateArea(44580000)
-                .UpdateCoordinates(34.0479, 100.6197);
+                .UpdateCoordinates(new Coordinate(34.0479, 100.6197));
 
             continent = await _continentRepository.AddOrUpdateContinentAsync(continent, CancellationToken.None);
 

@@ -31,17 +31,6 @@ namespace CleanArchitecture.Domain.Exceptions
                     }
 
                     break;
-
-                case TypeCode.Object:
-                    if (typeof(T) == typeof(Guid))
-                    {
-                        if (!Guid.TryParse(input.ToString(), out _))
-                        {
-                            throw new InputViolationException(nameof(input));
-                        }
-                    }
-
-                    break;
             }
 
             return input;

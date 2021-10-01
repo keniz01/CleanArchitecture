@@ -2,10 +2,8 @@
 
 namespace CleanArchitecture.WebApi.Models
 {
-    public abstract class PagedResponseBase<T>
+    public abstract class PagedResponseBase
     {
-        public List<T> PagedResults { get; set; }
-
         public int PageNumber { get; set; }
 
         public int PageSize { get; set; }

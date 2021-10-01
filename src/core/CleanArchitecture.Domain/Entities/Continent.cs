@@ -57,9 +57,10 @@ namespace CleanArchitecture.Domain.Entities
             return this;
         }
 
-        public Continent UpdateCoordinates(double latitude, double longitude)
+        public Continent UpdateCoordinates(Coordinate coordinates)
         {
-            Coordinates = new Coordinate(latitude, longitude);
+            _ = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
+            Coordinates = coordinates;
             return this;
         }
     }

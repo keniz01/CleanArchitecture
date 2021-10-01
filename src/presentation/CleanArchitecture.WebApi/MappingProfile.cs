@@ -1,5 +1,6 @@
 using AutoMapper;
 using CleanArchitecture.Application.Continent;
+using CleanArchitecture.Application.Country.Search;
 using CleanArchitecture.Application.Region.AddOrUpdateRegion;
 using CleanArchitecture.Application.Region.GetRegion;
 using CleanArchitecture.Application.Region.GetRegionCountries;
@@ -18,13 +19,22 @@ namespace CleanArchitecture.WebApi
         /// </summary>
         public MappingProfile()
         {
+            CreateMap<GetCountrySearchResponse, GetCountrySearchResponseDto>()
+                .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Results.TotalRecords))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Results.PageSize))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Results.Data))
+                .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Results.PageNumber))
+                .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Results.TotalPages))
+                .ReverseMap();
+            CreateMap<GetCountrySearchRequest, GetCountrySearchRequestDto>()
+                .ReverseMap();
             CreateMap<ContinentDto, Continent>();
             CreateMap<GetRegionCountriesRequestDto, GetRegionCountriesRequest>();
             CreateMap<GetContinentCountriesRequestDto, GetContinentCountriesRequest>();
             CreateMap<GetContinentCountriesResponse, GetContinentCountriesResponseDto>()
                 .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.PagedResults.TotalRecords))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PagedResults.PageSize))
-                .ForMember(dest => dest.PagedResults, opt => opt.MapFrom(src => src.PagedResults.Data))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.PagedResults.Data))
                 .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.PagedResults.PageNumber))
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.PagedResults.TotalPages));
             CreateMap<Country, CountryDto>().ReverseMap();
@@ -36,7 +46,7 @@ namespace CleanArchitecture.WebApi
             CreateMap<GetRegionCountriesResponse, GetRegionCountriesResponseDto>()
                 .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.PagedResults.TotalRecords))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PagedResults.PageSize))
-                .ForMember(dest => dest.PagedResults, opt => opt.MapFrom(src => src.PagedResults.Data))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.PagedResults.Data))
                 .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.PagedResults.PageNumber))
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.PagedResults.TotalPages))
                 .ReverseMap();

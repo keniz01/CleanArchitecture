@@ -21,6 +21,13 @@ namespace CleanArchitecture.Domain.Tests
         }
 
         [Test]
+        public void Unit_test_Continent_Create_Continent_Should_Throw_CoordinatesViolationException_When_Coordinates_Is_Null()
+        {
+            var continent = new Continent(Guid.NewGuid(), "Europe", 100264, new Coordinate(55.953251, -3.188267));
+            Assert.Throws<CoordinatesViolationException>(() => _ = continent.UpdateCoordinates(null));
+        }
+
+        [Test]
         public void Create_Continent_Should_Throw_CoordinatesViolationException_When_Coordinates_Is_Null()
         {
             Assert.Throws<CoordinatesViolationException>(() => _ = new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, default));
@@ -33,7 +40,14 @@ namespace CleanArchitecture.Domain.Tests
         }
 
         [Test]
-        public void Update_Continent_Should_Add_Or_Update_Region()
+        public void Unit_Test_Continent_AddOrUpdateRegion_Should_Throw_RegionViolationException_when_region_is_null()
+        {
+            var continent = new Continent(Guid.NewGuid(), "Europe", 100264, new Coordinate(55.953251, -3.188267));
+            Assert.Throws<RegionViolationException>(() => _ = continent.AddOrUpdateRegion(null));
+        }
+
+        [Test]
+        public void Unit_Test_Continent_AddOrUpdateRegion_Should_Add_Or_Update_Region()
         {
             var continent = new Continent(Guid.NewGuid(), "Europe", 100264, new Coordinate(55.953251, -3.188267));
 

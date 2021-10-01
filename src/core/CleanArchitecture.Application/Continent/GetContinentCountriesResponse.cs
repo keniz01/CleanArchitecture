@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Pagination;
+﻿using CleanArchitecture.Domain.Pagination;
 
 namespace CleanArchitecture.Application.Continent
 {
@@ -10,8 +9,8 @@ namespace CleanArchitecture.Application.Continent
 
         }
 
-        public GetContinentCountriesResponse(PagedList<Country> pagedResults) : this() => PagedResults = pagedResults;
+        public GetContinentCountriesResponse(PagedList<Domain.Entities.Country> pagedResults) : this() => PagedResults = pagedResults;
 
-        public PagedList<Country> PagedResults { get; }
+        public PagedList<Domain.Entities.Country> PagedResults { get; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.WebApi.Models
 {
-    public class GetRegionCountriesResponseDto : PagedResponseBase
+    public class GetCountrySearchResponseDto : PagedResponseBase
     {
         public List<CountryDto> Countries { get; set; }
     }

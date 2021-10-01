@@ -38,7 +38,7 @@ namespace CleanArchitecture.WebApi.Tests
                 GetService<IMapper>());
             var response = await controller.GetRegionCountriesAsync(
                 new GetRegionCountriesRequestDto {RegionId = Guid.NewGuid()}, CancellationToken.None);
-            Assert.IsTrue(response.Data.PagedResults.Count > 0);
+            Assert.IsTrue(response.Data.Countries.Count > 0);
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace CleanArchitecture.WebApi.Tests
 
             var response = await controller.GetRegionCountriesAsync(request, CancellationToken.None);
 
-            Assert.IsTrue(response.Data.PagedResults.Count > 0);
+            Assert.IsTrue(response.Data.Countries.Count > 0);
         }
 
         [Test]

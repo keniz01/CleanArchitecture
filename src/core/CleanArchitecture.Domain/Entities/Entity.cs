@@ -1,6 +1,4 @@
-﻿using CleanArchitecture.Domain.Exceptions;
-
-namespace CleanArchitecture.Domain.Entities
+﻿namespace CleanArchitecture.Domain.Entities
 {
     public class Entity<TId> : IEntity<TId>
     {
@@ -9,7 +7,7 @@ namespace CleanArchitecture.Domain.Entities
 
         }
 
-        public Entity(TId id) : this() => Id = id.Validate();
+        public Entity(TId id) : this() => Id = id;
 
         /// <summary>
         /// Entity identifier.
