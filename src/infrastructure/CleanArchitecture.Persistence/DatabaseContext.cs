@@ -44,6 +44,14 @@ namespace CleanArchitecture.Persistence
                         sa.Property(p => p.Longitude).HasColumnName("Longitude");
                     });
 
+                builder.OwnsOne(
+                    o => o.AuditDates,
+                    sa =>
+                    {
+                        sa.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                        sa.Property(p => p.ModifiedDate).HasColumnName("ModifiedDate");
+                    });
+
                 builder.Navigation(o => o.Coordinates)
                     .IsRequired();
             });
@@ -75,6 +83,14 @@ namespace CleanArchitecture.Persistence
                         sa.Property(p => p.Longitude).HasColumnName("Longitude");
                     });
 
+                builder.OwnsOne(
+                    o => o.AuditDates,
+                    sa =>
+                    {
+                        sa.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                        sa.Property(p => p.ModifiedDate).HasColumnName("ModifiedDate");
+                    });
+
                 builder.Navigation(o => o.Coordinates)
                     .IsRequired();
             });
@@ -100,6 +116,14 @@ namespace CleanArchitecture.Persistence
                     {
                         sa.Property(p => p.Latitude).HasColumnName("Latitude");
                         sa.Property(p => p.Longitude).HasColumnName("Longitude");
+                    });
+
+                builder.OwnsOne(
+                    o => o.AuditDates,
+                    sa =>
+                    {
+                        sa.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                        sa.Property(p => p.ModifiedDate).HasColumnName("ModifiedDate");
                     });
 
                 builder.Navigation(o => o.Coordinates)
@@ -131,6 +155,14 @@ namespace CleanArchitecture.Persistence
                     {
                         sa.Property(p => p.Latitude).HasColumnName("Latitude");
                         sa.Property(p => p.Longitude).HasColumnName("Longitude");
+                    });
+
+                builder.OwnsOne(
+                    o => o.AuditDates,
+                    sa =>
+                    {
+                        sa.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
+                        sa.Property(p => p.ModifiedDate).HasColumnName("ModifiedDate");
                     });
 
                 builder.Navigation(o => o.Coordinates)

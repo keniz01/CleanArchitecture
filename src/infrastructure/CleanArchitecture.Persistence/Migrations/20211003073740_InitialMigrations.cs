@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CleanArchitecture.Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,8 @@ namespace CleanArchitecture.Persistence.Migrations
                     Area = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +32,9 @@ namespace CleanArchitecture.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Area = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false)
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +50,9 @@ namespace CleanArchitecture.Persistence.Migrations
                     Area = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    ContinentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ContinentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,7 +75,9 @@ namespace CleanArchitecture.Persistence.Migrations
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
                     RegionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CapitalCityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CapitalCityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

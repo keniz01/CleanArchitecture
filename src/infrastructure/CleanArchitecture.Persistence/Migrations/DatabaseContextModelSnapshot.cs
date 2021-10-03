@@ -28,9 +28,6 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -124,6 +121,27 @@ namespace CleanArchitecture.Persistence.Migrations
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.CapitalCity", b =>
                 {
+                    b.OwnsOne("CleanArchitecture.Domain.Entities.AuditDates", "AuditDates", b1 =>
+                        {
+                            b1.Property<Guid>("CapitalCityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedDate");
+
+                            b1.Property<DateTime>("ModifiedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedDate");
+
+                            b1.HasKey("CapitalCityId");
+
+                            b1.ToTable("CapitalCity");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CapitalCityId");
+                        });
+
                     b.OwnsOne("CleanArchitecture.Domain.Entities.Coordinate", "Coordinates", b1 =>
                         {
                             b1.Property<Guid>("CapitalCityId")
@@ -145,12 +163,35 @@ namespace CleanArchitecture.Persistence.Migrations
                                 .HasForeignKey("CapitalCityId");
                         });
 
+                    b.Navigation("AuditDates");
+
                     b.Navigation("Coordinates")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Continent", b =>
                 {
+                    b.OwnsOne("CleanArchitecture.Domain.Entities.AuditDates", "AuditDates", b1 =>
+                        {
+                            b1.Property<Guid>("ContinentId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedDate");
+
+                            b1.Property<DateTime>("ModifiedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedDate");
+
+                            b1.HasKey("ContinentId");
+
+                            b1.ToTable("Continent");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ContinentId");
+                        });
+
                     b.OwnsOne("CleanArchitecture.Domain.Entities.Coordinate", "Coordinates", b1 =>
                         {
                             b1.Property<Guid>("ContinentId")
@@ -172,6 +213,8 @@ namespace CleanArchitecture.Persistence.Migrations
                                 .HasForeignKey("ContinentId");
                         });
 
+                    b.Navigation("AuditDates");
+
                     b.Navigation("Coordinates")
                         .IsRequired();
                 });
@@ -189,6 +232,27 @@ namespace CleanArchitecture.Persistence.Migrations
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("CleanArchitecture.Domain.Entities.AuditDates", "AuditDates", b1 =>
+                        {
+                            b1.Property<Guid>("CountryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedDate");
+
+                            b1.Property<DateTime>("ModifiedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedDate");
+
+                            b1.HasKey("CountryId");
+
+                            b1.ToTable("Country");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CountryId");
+                        });
 
                     b.OwnsOne("CleanArchitecture.Domain.Entities.Coordinate", "Coordinates", b1 =>
                         {
@@ -211,6 +275,8 @@ namespace CleanArchitecture.Persistence.Migrations
                                 .HasForeignKey("CountryId");
                         });
 
+                    b.Navigation("AuditDates");
+
                     b.Navigation("CapitalCity");
 
                     b.Navigation("Coordinates")
@@ -226,6 +292,27 @@ namespace CleanArchitecture.Persistence.Migrations
                         .HasForeignKey("ContinentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("CleanArchitecture.Domain.Entities.AuditDates", "AuditDates", b1 =>
+                        {
+                            b1.Property<Guid>("RegionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedDate");
+
+                            b1.Property<DateTime>("ModifiedDate")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedDate");
+
+                            b1.HasKey("RegionId");
+
+                            b1.ToTable("Region");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RegionId");
+                        });
 
                     b.OwnsOne("CleanArchitecture.Domain.Entities.Coordinate", "Coordinates", b1 =>
                         {
@@ -247,6 +334,8 @@ namespace CleanArchitecture.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("RegionId");
                         });
+
+                    b.Navigation("AuditDates");
 
                     b.Navigation("Continent");
 

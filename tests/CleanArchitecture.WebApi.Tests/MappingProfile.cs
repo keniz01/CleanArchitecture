@@ -28,7 +28,8 @@ namespace CleanArchitecture.WebApi.Tests
                 .ReverseMap();
             CreateMap<GetCountrySearchRequest, GetCountrySearchRequestDto>()
                 .ReverseMap();
-            CreateMap<ContinentDto, Continent>();
+            CreateMap<ContinentDto, Continent>()
+                .ForMember(dest => dest.AuditDates, opt => opt.Ignore());
             CreateMap<GetRegionCountriesRequestDto, GetRegionCountriesRequest>();
             CreateMap<GetContinentCountriesRequestDto, GetContinentCountriesRequest>();
             CreateMap<GetContinentCountriesResponse, GetContinentCountriesResponseDto>()
@@ -41,6 +42,7 @@ namespace CleanArchitecture.WebApi.Tests
             CreateMap<CapitalCity, CapitalCityDto>().ReverseMap();
             CreateMap<Coordinate, CoordinateDto>().ReverseMap();
             CreateMap<RegionDto, Region>()
+                .ForMember(dest => dest.AuditDates, opt => opt.Ignore())
                 .ForMember(dest => dest.Continent, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<GetRegionCountriesResponse, GetRegionCountriesResponseDto>()

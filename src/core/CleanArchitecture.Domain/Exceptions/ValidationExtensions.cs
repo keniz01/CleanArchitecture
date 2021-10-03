@@ -25,7 +25,7 @@ namespace CleanArchitecture.Domain.Exceptions
                     break;
 
                 case TypeCode.Double:
-                    if (Convert.ToInt32(input.ToString()) < 0)
+                    if (Convert.ToDouble(input.ToString()) < 0)
                     {
                         throw new InputViolationException(nameof(input));
                     }

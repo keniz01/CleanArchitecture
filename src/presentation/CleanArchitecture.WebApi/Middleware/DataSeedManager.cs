@@ -23,8 +23,7 @@ namespace CleanArchitecture.WebApi.Middleware
 
             var continents = new List<Continent>()
             {
-                new Continent(Guid.NewGuid(), "Africa", 30370000,
-                        new(-8.783195, 34.508522))
+                new Continent(Guid.NewGuid(), "Africa", 30370000, new(-8.783195, 34.508522))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "East Africa", 2467000, new(1.957709, 37.297203))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Uganda", 241037, new(1.373333, 32.290276),
                             new CapitalCity(Guid.NewGuid(), "Kampala", 189, new(0, 0))))
@@ -42,7 +41,7 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Harare", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Zambia", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Lusaka", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Sychelles", 0, new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Seychelles (Republic Of)", 459, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Victoria", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Madagascar", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Antananarivo", 0, new(0, 0))))
@@ -71,7 +70,7 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Libreville", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "São Tomé and Príncipe", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "São Tomé", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Republic of the Congo", 0, new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Congo (Republic of)", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Brazzaville", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cameroon", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Yaoundé", 0, new(0, 0))))
@@ -81,10 +80,13 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Bangui", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Angola", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Luanda", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Democratic Republic of the Congo", 0,
-                            new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Congo (Democratic Republic of)", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Kinshasa", 0, new(0, 0)))))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "West Africa", 0, new(0, 0))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Mauritania", 1030000, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Nouakchott", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cape Verde", 4033, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Praia", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Liberia", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Monrovia", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Benin", 0, new(0, 0),
@@ -101,7 +103,7 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Banjul", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Mali", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Bamako", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Ivory Coast", 0, new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Côte d'Ivoire (Ivory Coast)", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Yamoussoukro", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Guinea", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Conakra", 0, new(0, 0))))
@@ -141,6 +143,8 @@ namespace CleanArchitecture.WebApi.Middleware
                     .AddOrUpdateRegion(new Region(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), "South America", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Suriname", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Paramaribo", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Trinidad & Tobago", 5131, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Port of Spain", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "French Guyana", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Cayenne", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Venezuela", 0, new(0, 0),
@@ -169,12 +173,49 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Georgetown", 0, new(0, 0))))),
                 new Continent(Guid.NewGuid(), "North America", 0, new(0, 0))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "North America", 0, new(0, 0))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Antigua and Barbuda", 440, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "St. John's", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Bahamas", 13878, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Nassau", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Barbados", 439, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Bridgetown", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cuba", 109884, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Havana", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Dominica", 750, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Roseau", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Saint Vincent and the Grenadines", 389, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Kingstown", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Saint Lucia", 617, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Castries", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Saint Kitts & Nevis", 261, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Basseterre", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Grenada", 348.5, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "St. George's", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Dominican Republic", 48671, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Santo Domingo", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Haiti", 27750, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Port-au-Prince", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Mexico", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Mexico City", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "United States of America", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Washington, DC", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Canada", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Ottawa", 0, new(0, 0))))),
+                            new CapitalCity(Guid.NewGuid(), "Ottawa", 0, new(0, 0)))))
+                    .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Central America", 0, new(0, 0))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Belize", 22966, new(0, 0),
+                                new CapitalCity(Guid.NewGuid(), "Belmopan", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "El Salvador", 21041, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "San Salvador", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Honduras", 112492, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Tegucigalpa", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Nicaragua", 130375, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Managua", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Panama", 75417, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Panama City", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Costa Rica", 51100, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "San José", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Guatemala", 108889, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Guatemala City", 0, new(0, 0))))),
                 new Continent(Guid.NewGuid(), "Oceania", 0, new(0, 0))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Australasia", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Australia", 0, new(0, 0),
@@ -224,6 +265,8 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Budapest", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Belarus", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Minsk", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Georgia", 69700, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Tbilisi", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Bulgaria", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Sofia", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Moldova", 0, new(0, 0),
@@ -258,7 +301,7 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Valletta", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Portugal", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Lisbon", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Vatican City", 0, new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Vatican City (Holly See)", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Vatican City", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Andorra", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Andoraa la Vella", 0, new(0, 0))))
@@ -268,10 +311,14 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "Madrid", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Slovenia", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Ljubljana", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Republic of Macedonia", 0, new(0, 0),
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "North Macedonia (Republic Of)", 25713, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Skopje", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Greece", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Athens", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Croatia", 56594, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Zagreb", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cyprus", 9251, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Nicosia", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Italy", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Rome", 0, new(0, 0)))))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Northern Europe", 0, new(0, 0))
@@ -300,6 +347,29 @@ namespace CleanArchitecture.WebApi.Middleware
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Republic of Ireland", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Dublin", 0, new(0, 0))))),
                 new Continent(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), "Asia", 0, new(0, 0))
+                    .AddOrUpdateRegion(new Region(Guid.NewGuid(), "South East Asia", 0, new(0, 0))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Brunei", 5765, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Bandar Seri Begawan", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cambodia", 181035, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Phnom Penh", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "East Timor", 14874, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Dili", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Indonesia", 1904569, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Jakarta", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Laos", 236800, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Vientiane", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Malaysia", 329847, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Kuala Lumpur", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Myanmar", 676578, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Nay Pwi Taw", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Philipines", 300000, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Manila", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Thailand", 513210, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Bangkok", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Vietnam", 331210, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Hanoi", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Singapore", 719.2, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Singapore City", 0, new(0, 0)))))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Southern Asia", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Afghanistan", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Kabul", 0, new(0, 0))))
@@ -318,28 +388,7 @@ namespace CleanArchitecture.WebApi.Middleware
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Bangladesh", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Dhakar", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Bhutan", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Thimpu", 0, new(0, 0)))))
-                    .AddOrUpdateRegion(new Region(Guid.NewGuid(), "South-Eastern Asia", 0, new(0, 0))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Cambodia", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Phnom Phen", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Indonesia", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Jakarta", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Myanmar (Burma)", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Naypyidaw", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Brunei", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Bandar Seri Begawan", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "East Timor (Timor Leste)", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Dili", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Thailand", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Bangkok", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Singapore", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Singapore", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Malaysia", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Kuala Lumpar", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Laos", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Vientiane", 0, new(0, 0))))
-                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Vietnam", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Hanoi", 0, new(0, 0)))))
+                            new CapitalCity(Guid.NewGuid(), "Thimpu", 0, new(0, 0)))))           
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Eastern Asia", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Uzbekistan", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Tashkent", 0, new(0, 0))))
@@ -352,10 +401,40 @@ namespace CleanArchitecture.WebApi.Middleware
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Turkmenistan", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Asgabat", 0, new(0, 0)))))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Western Asia", 0, new(0, 0))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Armenia", 29743, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Yerevan", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Azerbaijan", 86600, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Baku", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Bahrain", 29743, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Manama", 785.08, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Iraq", 438317, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Baghdad", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Israel", 20770, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Jerusalem", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Jordan", 89342, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Amman", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Kuwait", 17818, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Kuwait City", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Lebanon", 10452, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Beirut", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Oman", 309500, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Muscat", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Qatar", 11581, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Doha", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Saudi Arabia", 2149690, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Riyadh", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Syria", 185180, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Damascus", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Turkey", 783556, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Ankara", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "United Arab Emirates", 83600, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Abu Dhabi", 0, new(0, 0))))
+                        .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Yemen", 555000, new(0, 0),
+                            new CapitalCity(Guid.NewGuid(), "Sana'a", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "China", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Beijing", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Japan", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Tokyoa", 0, new(0, 0))))
+                            new CapitalCity(Guid.NewGuid(), "Tokyo", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "South Korea", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Seoul", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "North Korea", 0, new(0, 0),
