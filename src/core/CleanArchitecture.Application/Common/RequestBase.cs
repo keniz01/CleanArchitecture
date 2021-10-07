@@ -1,6 +1,6 @@
-﻿namespace CleanArchitecture.WebApi.Models
+﻿namespace CleanArchitecture.Application.Common
 {
-    public abstract class RequestModelBase
+    public abstract class RequestBase
     {
         private int _pageNumber, _pageSize;
 

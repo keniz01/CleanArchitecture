@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using CleanArchitecture.Application.Common;
+using MediatR;
 
 namespace CleanArchitecture.Application.Country.Search
 {
-    public class GetCountrySearchRequest : IRequest<GetCountrySearchResponse>
+    public class GetCountrySearchRequest : RequestBase, IRequest<GetCountrySearchResponse>
     {
         public GetCountrySearchRequest(string searchTerm, int pageNumber, int pageSize)
         {
@@ -10,10 +11,6 @@ namespace CleanArchitecture.Application.Country.Search
             PageNumber = pageNumber;
             PageSize = pageSize;
         }
-
-        public int PageNumber { get; }
-
-        public int PageSize { get; }
 
         public string SearchTerm { get; }
     }

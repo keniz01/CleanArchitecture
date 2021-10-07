@@ -15,7 +15,7 @@ namespace CleanArchitecture.Domain.Tests
         }
 
         [Test]
-        public void Create_Region_Should_Throw_NameiolationException_When_Name_Is_Null_Or_Empty()
+        public void Create_Region_Should_Throw_NameViolationException_When_Name_Is_Null_Or_Empty()
         {
             Assert.Throws<NameViolationException>(() => _ = new CapitalCity(Guid.NewGuid(), default, 12000, new Coordinate(55.953251, -3.188267)));
         }

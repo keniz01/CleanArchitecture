@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Application.Tests
 {
     [TestFixture]
-    public class GetRegionHandlerTests
+    public class GetRegionRequestHandlerTests
     {
         private readonly IRegionRepository _regionRepository;
 
-        public GetRegionHandlerTests()
+        public GetRegionRequestHandlerTests()
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;")
@@ -61,6 +61,12 @@ namespace CleanArchitecture.Application.Tests
             var response = await handler.Handle(new GetRegionRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
 
             Assert.IsTrue(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30") == response.Region.Id);
+        }
+
+        [Test]
+        public void Integration_Test_Region_GetRegionRequestHandler_Should_throw_ArgumentNullException_when_RegionRepository_is_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => _ = new GetRegionRequestHandler(default));
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public class Country : Entity<Guid>
+    public class Country : EntityBase
     {
         private Country(Guid id) : base(id)
         {

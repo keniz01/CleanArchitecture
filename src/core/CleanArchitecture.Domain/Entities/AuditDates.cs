@@ -6,8 +6,8 @@ namespace CleanArchitecture.Domain.Entities
     {
         public AuditDates(DateTime createdDate, DateTime modifiedDate)
         {
-            ModifiedDate = modifiedDate == DateTime.MinValue ? modifiedDate : DateTime.UtcNow;
-            CreatedDate = createdDate == DateTime.MinValue ? createdDate : DateTime.UtcNow;
+            ModifiedDate = modifiedDate == DateTime.MinValue ? DateTime.UtcNow : modifiedDate;
+            CreatedDate = createdDate == DateTime.MinValue ? DateTime.UtcNow : createdDate;
         }
 
         public DateTime CreatedDate { get; protected set; }

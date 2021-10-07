@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public class Continent : Entity<Guid>
+    public class Continent : EntityBase
     {
         private Continent(Guid id) : base(id)
         {

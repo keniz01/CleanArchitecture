@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System;
+using CleanArchitecture.Application.Common;
 
 namespace CleanArchitecture.Application.Continent
 {
-    public class GetContinentCountriesRequest : IRequest<GetContinentCountriesResponse>
+    public class GetContinentCountriesRequest : RequestBase, IRequest<GetContinentCountriesResponse>
     {
         public GetContinentCountriesRequest(Guid continentId, int pageNumber, int pageSize)
         {
@@ -13,7 +14,5 @@ namespace CleanArchitecture.Application.Continent
         }
 
         public Guid ContinentId { get; }
-        public int PageNumber { get; }
-        public int PageSize { get; }
     }
 }

@@ -2,23 +2,23 @@
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public class Entity<TId>
+    public class EntityBase
     {
-        private Entity()
+        private EntityBase()
         {
 
         }
 
-        public Entity(TId id) : this()
+        public EntityBase(Guid id) : this()
         { 
             AuditDates = new AuditDates(DateTime.UtcNow, DateTime.UtcNow);
             Id = id;
         }
 
         /// <summary>
-        /// Entity identifier.
+        /// EntityBase identifier.
         /// </summary>
-        public TId Id { get; protected set; }
+        public Guid Id { get; protected set; }
 
         public AuditDates AuditDates { get; protected set; }
     }

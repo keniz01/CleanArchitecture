@@ -1,9 +1,10 @@
 ﻿using System;
+using CleanArchitecture.Application.Common;
 using MediatR;
 
 namespace CleanArchitecture.Application.Region.GetRegionCountries
 {
-    public class GetRegionCountriesRequest : IRequest<GetRegionCountriesResponse>
+    public class GetRegionCountriesRequest : RequestBase, IRequest<GetRegionCountriesResponse>
     {
         public GetRegionCountriesRequest(Guid regionId, int pageNumber, int pageSize)
         {
@@ -13,7 +14,5 @@ namespace CleanArchitecture.Application.Region.GetRegionCountries
         }
 
         public Guid RegionId { get; }
-        public int PageNumber { get; }
-        public int PageSize { get; }
     }
 }

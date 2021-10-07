@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public class Region : Entity<Guid>
+    public class Region : EntityBase
     {
         public Region(Guid id) : base(id)
         {
