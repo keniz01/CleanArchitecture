@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CleanArchitecture.WebApi.Models
+﻿namespace CleanArchitecture.WebApi.Models
 {
     public abstract class PagedResponseBase
     {

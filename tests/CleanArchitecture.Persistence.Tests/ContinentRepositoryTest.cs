@@ -36,7 +36,7 @@ namespace CleanArchitecture.Persistence.Tests
             var response =
                 await _continentRepository.GetContinentCountriesAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"),
                     1, 10, CancellationToken.None);
-            CollectionAssert.IsNotEmpty(response.Data);
+            CollectionAssert.IsNotEmpty(response);
         }
 
         [Test]

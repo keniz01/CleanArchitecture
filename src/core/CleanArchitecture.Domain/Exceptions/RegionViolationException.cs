@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace CleanArchitecture.Domain.Exceptions
 {
@@ -7,16 +6,6 @@ namespace CleanArchitecture.Domain.Exceptions
     {
         public RegionViolationException(string message)
             : base(message)
-        {
-        }
-
-        public RegionViolationException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
-
-        public RegionViolationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }

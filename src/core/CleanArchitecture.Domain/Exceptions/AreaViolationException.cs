@@ -2,9 +2,9 @@
 
 namespace CleanArchitecture.Domain.Exceptions
 {
-    public class IdViolationException : Exception
+    public class AreaViolationException : Exception
     {
-        public IdViolationException(string message)
+        public AreaViolationException(string message)
             : base(message)
         {
         }

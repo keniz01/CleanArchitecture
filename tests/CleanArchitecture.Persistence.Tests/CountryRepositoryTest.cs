@@ -34,7 +34,7 @@ namespace CleanArchitecture.Persistence.Tests
         {
             var response =
                 await _countryRepository.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
-            CollectionAssert.IsNotEmpty(response.Data);
+            CollectionAssert.IsNotEmpty(response);
         }
 
     }

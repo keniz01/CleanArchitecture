@@ -14,8 +14,18 @@ namespace CleanArchitecture.Domain.Entities
 
         public Region(Guid id, string name, double area, Coordinate coordinates) : this(id)
         {
-            Name = name.Validate();
-            Area = area.Validate();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new NameViolationException(nameof(name));
+            }
+
+            if (area < 0)
+            {
+                throw new AreaViolationException(nameof(area));
+            }
+
+            Name = name;
+            Area = area;
             Coordinates = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
         }
 
@@ -43,20 +53,32 @@ namespace CleanArchitecture.Domain.Entities
 
         public Country GetCountryById(Guid id)
         {
-            _ = id.Validate();
+            if (id == Guid.Empty)
+            {
+                throw new IdViolationException(nameof(id));
+            }
+
             return Countries.SingleOrDefault(country => country.Id == id);
         }
 
         public Region UpdateName(string regionName)
         {
-            regionName.Validate();
+            if (string.IsNullOrWhiteSpace(regionName))
+            {
+                throw new NameViolationException(nameof(regionName));
+            }
+
             Name = regionName;
             return this;
         }
 
         public Region UpdateArea(double area)
         {
-            area.Validate();
+            if (area < 0)
+            {
+                throw new AreaViolationException(nameof(area));
+            }
+
             Area = area;
             return this;
         }

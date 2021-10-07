@@ -1,12 +1,12 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CleanArchitecture.Domain.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Persistence.Repositories
 {
@@ -22,7 +22,10 @@ namespace CleanArchitecture.Persistence.Repositories
         public async Task<Pager<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize,
             CancellationToken cancellationToken)
         {
-            regionId.Validate();
+            if (regionId == Guid.Empty)
+            {
+                throw new IdViolationException(nameof(regionId));
+            }
 
             var response = await _context.Regions
                 .Include(region => region.Countries)

@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Pagination;
+﻿using CleanArchitecture.Domain.Pagination;
 
 namespace CleanArchitecture.Application.Region.GetRegionCountries
 {

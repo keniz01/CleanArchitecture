@@ -9,15 +9,15 @@ namespace CleanArchitecture.Domain.Tests
     public class ContinentTests
     {
         [Test]
-        public void Create_Continent_Should_Throw_InputViolationException_When_Area_Is_Less_Than_0()
+        public void Create_Continent_Should_Throw_AreaViolationException_When_Area_Is_Less_Than_0()
         {
-            Assert.Throws<InputViolationException>(() => _ = new Continent(Guid.NewGuid(), "Edinburgh", -1, new Coordinate(55.953251, -3.188267)));
+            Assert.Throws<AreaViolationException>(() => _ = new Continent(Guid.NewGuid(), "Edinburgh", -1, new Coordinate(55.953251, -3.188267)));
         }
 
         [Test]
-        public void Create_Continent_Should_Throw_InputViolationException_When_Name_Is_Null_Or_Empty()
+        public void Create_Continent_Should_Throw_NameViolationException_When_Name_Is_Null_Or_Empty()
         {
-            Assert.Throws<InputViolationException>(() => _ = new Continent(Guid.NewGuid(), default, 264, new Coordinate(55.953251, -3.188267)));
+            Assert.Throws<NameViolationException>(() => _ = new Continent(Guid.NewGuid(), default, 264, new Coordinate(55.953251, -3.188267)));
         }
 
         [Test]

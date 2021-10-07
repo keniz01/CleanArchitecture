@@ -12,8 +12,18 @@ namespace CleanArchitecture.Domain.Entities
 
         public CapitalCity(Guid id, string name, double area, Coordinate coordinates) : this(id)
         {
-            Name = name.Validate();
-            Area = area.Validate();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new NameViolationException(nameof(name));
+            }
+
+            if (area < 0)
+            {
+                throw new AreaViolationException(nameof(area));
+            }
+
+            Name = name;
+            Area = area;
             Coordinates = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
         }
 
