@@ -19,7 +19,7 @@ namespace CleanArchitecture.Persistence.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<PagedList<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize,
+        public async Task<Pager<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize,
             CancellationToken cancellationToken)
         {
             regionId.Validate();

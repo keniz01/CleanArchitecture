@@ -18,7 +18,7 @@ namespace CleanArchitecture.Persistence.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<PagedList<Country>> GetCountrySearchAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public Task<Pager<Country>> GetCountrySearchAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             return _context.Countries
                 .Include(country => country.CapitalCity)

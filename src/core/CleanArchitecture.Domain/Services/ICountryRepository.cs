@@ -7,6 +7,6 @@ namespace CleanArchitecture.Domain.Services
 {
     public interface ICountryRepository
     {
-        Task<PagedList<Country>> GetCountrySearchAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<Pager<Country>> GetCountrySearchAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken);
     }
 }

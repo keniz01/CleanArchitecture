@@ -2,9 +2,9 @@
 
 namespace CleanArchitecture.Domain.Pagination
 {
-    public class PagedList<T>
+    public class Pager<T>
     {
-        public PagedList(List<T> data, int pageNumber, int pageSize, int totalPages, int totalRecords)
+        public Pager(List<T> data, int pageNumber, int pageSize, int totalPages, int totalRecords)
         {
             Data = data;
             PageNumber = pageNumber;

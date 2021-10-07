@@ -9,8 +9,8 @@ namespace CleanArchitecture.Application.Continent
 
         }
 
-        public GetContinentCountriesResponse(PagedList<Domain.Entities.Country> pagedResults) : this() => PagedResults = pagedResults;
+        public GetContinentCountriesResponse(Pager<Domain.Entities.Country> pagedResults) : this() => PagedResults = pagedResults;
 
-        public PagedList<Domain.Entities.Country> PagedResults { get; }
+        public Pager<Domain.Entities.Country> PagedResults { get; }
     }
 }

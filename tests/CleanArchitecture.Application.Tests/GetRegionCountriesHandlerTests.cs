@@ -37,7 +37,7 @@ namespace CleanArchitecture.Application.Tests
             var repository = new Mock<IRegionRepository>();
             repository.Setup(repo =>
                     repo.GetRegionCountriesAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(() => new PagedList<Domain.Entities.Country>(new List<Domain.Entities.Country>()
+                .ReturnsAsync(() => new Pager<Domain.Entities.Country>(new List<Domain.Entities.Country>()
                 {
                     new Domain.Entities.Country(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))),

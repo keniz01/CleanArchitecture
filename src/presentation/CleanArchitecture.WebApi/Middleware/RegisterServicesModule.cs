@@ -1,9 +1,8 @@
 using Autofac;
-using CleanArchitecture.Application;
+using CleanArchitecture.Application.Continent;
 using CleanArchitecture.Persistence.Repositories;
 using MediatR;
 using System.Reflection;
-using CleanArchitecture.Application.Continent;
 using Module = Autofac.Module;
 
 namespace CleanArchitecture.WebApi.Middleware
@@ -12,17 +11,17 @@ namespace CleanArchitecture.WebApi.Middleware
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register<ServiceFactory>(ctx =>
+            builder.Register<ServiceFactory>(context =>
             {
-                var c = ctx.Resolve<IComponentContext>();
-                return t => c.Resolve(t);
+                var componentContext = context.Resolve<IComponentContext>();
+                return serviceType => componentContext.Resolve(serviceType);
             });
 
             builder.RegisterAssemblyTypes(typeof(ContinentRepository).Assembly)
-                .Where(t => t.Name.EndsWith("Repository"))
+                .Where(serviceType => serviceType.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces();
 
-            // Register Mediatr.
+            // Register Mediator.
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
                 .AsImplementedInterfaces();
 

@@ -21,12 +21,12 @@ namespace CleanArchitecture.Persistence
         /// <param name="pageSize">The number of items on the page.</param>
         /// <param name="cancellationToken">Indicates if operation should ve cancelled.</param>
         /// <returns>Paginated collection with meta data.</returns>
-        public static async Task<PagedList<T>> ToPagedListAsync<T>(this IQueryable<T> records, int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public static async Task<Pager<T>> ToPagedListAsync<T>(this IQueryable<T> records, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             var totalRecords = await records.CountAsync(cancellationToken);
             var pagedResults = await records.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
-            return new PagedList<T>(pagedResults, pageNumber, pageSize, totalPages, totalRecords);
+            return new Pager<T>(pagedResults, pageNumber, pageSize, totalPages, totalRecords);
         }
     }
 }

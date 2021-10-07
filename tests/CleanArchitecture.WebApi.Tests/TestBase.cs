@@ -26,7 +26,7 @@ namespace CleanArchitecture.WebApi.Tests
                 .AddScoped<IRegionRepository, RegionRepository>()
                 .AddScoped<ICountryRepository, CountryRepository>()
                 .AddDbContext<DatabaseContext>(context =>
-                    context.UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;"))
+                    context.UseSqlServer("Data Source=192.168.0.14,1433; Initial Catalog=ContinentContext; user id=sa; password=Versuv10us; MultipleActiveResultSets=True;persist security info=false;"))
                 .BuildServiceProvider();
         }
 

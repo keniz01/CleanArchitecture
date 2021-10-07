@@ -10,7 +10,7 @@ namespace CleanArchitecture.Domain.Entities
         }
 
         public Entity(TId id) : this()
-        {
+        { 
             AuditDates = new AuditDates(DateTime.UtcNow, DateTime.UtcNow);
             Id = id;
         }

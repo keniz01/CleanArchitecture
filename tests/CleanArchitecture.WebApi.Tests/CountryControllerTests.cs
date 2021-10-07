@@ -23,7 +23,7 @@ namespace CleanArchitecture.WebApi.Tests
         {
             var mediator = new Mock<IMediator>();
             mediator.Setup(m => m.Send(It.IsAny<GetCountrySearchRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetCountrySearchResponse(new PagedList<Country>(new List<Country>
+                .ReturnsAsync(new GetCountrySearchResponse(new Pager<Country>(new List<Country>
                 {
                     new(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))),

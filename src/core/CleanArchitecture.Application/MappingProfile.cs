@@ -14,7 +14,7 @@ namespace CleanArchitecture.Application
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<PagedList<Domain.Entities.Country>, GetContinentCountriesResponse>()
+            CreateMap<Pager<Domain.Entities.Country>, GetContinentCountriesResponse>()
                 .ForMember(dest => dest.PagedResults.TotalRecords, opt => opt.MapFrom(src => src.TotalRecords))
                 .ForMember(dest => dest.PagedResults.PageSize, opt => opt.MapFrom(src => src.PageSize))
                 .ForMember(dest => dest.PagedResults.Data, opt => opt.MapFrom(src => src.Data))
