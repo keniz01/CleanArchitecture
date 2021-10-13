@@ -13,6 +13,7 @@ namespace CleanArchitecture.Application.Region.AddOrUpdateRegion
 
         public async Task<AddOrUpdateRegionResponse> Handle(AddOrUpdateRegionRequest request, CancellationToken cancellationToken)
         {
+            request.Region.AuditDates.UpdateModifiedDate(DateTime.UtcNow);
             var region = await _regionRepository.AddOrUpdateRegionAsync(request.Region, cancellationToken);
             return new AddOrUpdateRegionResponse(region);
         }

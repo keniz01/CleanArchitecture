@@ -4,7 +4,6 @@ using CleanArchitecture.Application.Region.GetRegionCountries;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.WebApi.Controllers;
-using CleanArchitecture.WebApi.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -36,9 +35,8 @@ namespace CleanArchitecture.WebApi.Tests
 
             var controller = new RegionController(GetService<ILogger<RegionController>>(), mediator.Object,
                 GetService<IMapper>());
-            var response = await controller.GetRegionCountriesAsync(
-                new GetRegionCountriesRequestDto {RegionId = Guid.NewGuid()}, CancellationToken.None);
-            Assert.IsTrue(response.Data.Countries.Count > 0);
+            var response = await controller.GetRegionCountriesAsync(Guid.NewGuid(), 1, 20, CancellationToken.None);
+            Assert.IsTrue(response.Data.Count > 0);
         }
 
         [Test]
@@ -65,8 +63,7 @@ namespace CleanArchitecture.WebApi.Tests
 
             var region = GetRegionTestData();
             region.Id = Guid.NewGuid();
-            var result = await controller.AddOrUpdateRegionAsync(new AddOrUpdateRegionRequestDto {Region = region},
-                CancellationToken.None);
+            var result = await controller.AddOrUpdateRegionAsync(region, CancellationToken.None);
 
             Assert.IsFalse(result is null);
         }
@@ -78,16 +75,9 @@ namespace CleanArchitecture.WebApi.Tests
             var controller = new RegionController(GetService<ILogger<RegionController>>(), GetService<IMediator>(),
                 GetService<IMapper>());
 
-            var request = new GetRegionCountriesRequestDto
-            {
-                PageNumber = 1,
-                PageSize = 20,
-                RegionId = Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")
-            };
+            var response = await controller.GetRegionCountriesAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 20, CancellationToken.None);
 
-            var response = await controller.GetRegionCountriesAsync(request, CancellationToken.None);
-
-            Assert.IsTrue(response.Data.Countries.Count > 0);
+            Assert.IsTrue(response.Data.Count > 0);
         }
 
         [Test]
@@ -96,16 +86,12 @@ namespace CleanArchitecture.WebApi.Tests
             var controller = new RegionController(GetService<ILogger<RegionController>>(), GetService<IMediator>(),
                 GetService<IMapper>());
 
-            var getRegionResponse = await controller.GetRegionAsync(new GetRegionRequestDto{ RegionId = Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30") }, CancellationToken.None);
-            getRegionResponse.Data.Region.Name = "South America Test 01";
-            var request = new AddOrUpdateRegionRequestDto
-            {
-                Region = getRegionResponse.Data.Region
-            };
+            var getRegionResponse = await controller.GetRegionAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), CancellationToken.None);
+            getRegionResponse.Data.Name = "South America Test 01";
 
-            var response = await controller.AddOrUpdateRegionAsync(request, CancellationToken.None);
+            var response = await controller.AddOrUpdateRegionAsync(getRegionResponse.Data, CancellationToken.None);
 
-            Assert.IsTrue(Equals(response.Data.Region.Name, "South America Test 01"));
+            Assert.IsTrue(Equals(response.Data.Name, "South America Test 01"));
         }
     }
 }

@@ -35,10 +35,9 @@ namespace CleanArchitecture.WebApi.Tests
 
             var continentController = new ContinentController(GetService<ILogger<ContinentController>>(), mediator.Object, GetService<IMapper>());
             var continentCountries =
-                await continentController.GetContinentCountriesAsync(
-                    new GetContinentCountriesRequestDto {ContinentId = Guid.NewGuid()}, CancellationToken.None);
+                await continentController.GetContinentCountriesAsync(Guid.NewGuid(), 1, 20, CancellationToken.None);
 
-            Assert.IsTrue(continentCountries.Data.Countries.Count > 0);
+            Assert.IsTrue(continentCountries.Data.Count > 0);
         }
 
         [Test]
@@ -46,16 +45,9 @@ namespace CleanArchitecture.WebApi.Tests
         {
             var controller = new ContinentController(GetService<ILogger<ContinentController>>(), GetService<IMediator>(), GetService<IMapper>());
 
-            var request = new GetContinentCountriesRequestDto
-            {
-                PageNumber = 1,
-                PageSize = 20, 
-                ContinentId = Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD")
-            };
+            var countries = await controller.GetContinentCountriesAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), 1, 20, CancellationToken.None);
 
-            var countries = await controller.GetContinentCountriesAsync(request, CancellationToken.None);
-
-            Assert.IsTrue(countries.Data.Countries.Count > 0);
+            Assert.IsTrue(countries.Data.Count > 0);
         }
     }
 }

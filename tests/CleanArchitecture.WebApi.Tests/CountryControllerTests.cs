@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using CleanArchitecture.Application.Country.Search;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
+using CleanArchitecture.WebApi.Controllers;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -9,9 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Country.Search;
-using CleanArchitecture.WebApi.Controllers;
-using CleanArchitecture.WebApi.Models;
 
 namespace CleanArchitecture.WebApi.Tests
 {
@@ -19,7 +18,8 @@ namespace CleanArchitecture.WebApi.Tests
     public class CountryControllerTests : TestBase
     {
         [Test]
-        public async Task Unit_Test_Country_GetCountriesBySearchTermAsync_Should_return_countries_on_matching_search_term()
+        public async Task
+            Unit_Test_Country_GetCountriesBySearchTermAsync_Should_return_countries_on_matching_search_term()
         {
             var mediator = new Mock<IMediator>();
             mediator.Setup(m => m.Send(It.IsAny<GetCountrySearchRequest>(), It.IsAny<CancellationToken>()))
@@ -35,26 +35,20 @@ namespace CleanArchitecture.WebApi.Tests
 
             var controller = new CountryController(GetService<ILogger<CountryController>>(), mediator.Object,
                 GetService<IMapper>());
-            var response = await controller.GetCountrySearchAsync(new GetCountrySearchRequestDto { SearchTerm = "uga" }, CancellationToken.None);
-            Assert.IsTrue(response.Data.Countries.Count > 0);
+            var response = await controller.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
+            Assert.IsTrue(response.Data.Count > 0);
         }
 
         [Test]
-        public async Task Integration_Test_Country_GetCountriesBySearchTermAsync_Should_return_countries_on_matching_search_term()
+        public async Task
+            Integration_Test_Country_GetCountriesBySearchTermAsync_Should_return_countries_on_matching_search_term()
         {
             var controller = new CountryController(GetService<ILogger<CountryController>>(), GetService<IMediator>(),
                 GetService<IMapper>());
 
-            var request = new GetCountrySearchRequestDto
-            {
-                PageNumber = 1,
-                PageSize = 20,
-                SearchTerm = "uga"
-            };
+            var response = await controller.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
 
-            var response = await controller.GetCountrySearchAsync(request, CancellationToken.None);
-
-            Assert.IsTrue(response.Data.Countries.Count > 0);
+            Assert.IsTrue(response.Data.Count > 0);
         }
     }
 }

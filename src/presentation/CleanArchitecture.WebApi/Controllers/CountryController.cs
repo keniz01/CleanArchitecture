@@ -31,19 +31,22 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesErrorResponseType(typeof(ApiResponse<GetCountrySearchResponseDto>))]
-        [HttpPost("countries")]
-        public async Task<ApiResponse<GetCountrySearchResponseDto>> GetCountrySearchAsync([FromBody] GetCountrySearchRequestDto getCountrySearchRequestDto, CancellationToken cancellationToken)
+        [ProducesErrorResponseType(typeof(ApiResponse<PagerDto<CountryDto>>))]
+        [HttpGet("search/search-term/{searchTerm}/page/{pageNumber}/size/{pageSize}/country-search")]
+        public async Task<ApiResponse<PagerDto<CountryDto>>> GetCountrySearchAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            _ = getCountrySearchRequestDto ?? throw new ArgumentNullException(nameof(getCountrySearchRequestDto));
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return new ApiResponse<PagerDto<CountryDto>>("Search parameter cannot be empty or null.");
+            }
 
             _logger.LogInformation("Calling GetCountrySearchAsync().");
 
-            var request = _mapper.Map<GetCountrySearchRequest>(getCountrySearchRequestDto);
+            var request = new GetCountrySearchRequest(searchTerm, pageNumber, pageSize);
             var response = await _mediator.Send(request, cancellationToken);
-            var result = _mapper.Map<GetCountrySearchResponseDto>(response);
+            var result = _mapper.Map<PagerDto<CountryDto>>(response);
 
-            return new ApiResponse<GetCountrySearchResponseDto>(result);
+            return new ApiResponse<PagerDto<CountryDto>>(result);
         }
     }
 }

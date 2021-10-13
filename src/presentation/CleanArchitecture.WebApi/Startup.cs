@@ -29,9 +29,9 @@ namespace CleanArchitecture.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCustomSwagger();
             }
 
-            app.UseCustomSwagger();
             app.UseRouting();
 
             app.UseSerilogRequestLogging();

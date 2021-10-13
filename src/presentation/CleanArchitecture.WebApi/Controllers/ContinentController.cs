@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,18 +33,21 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(ApiResponse<>))]
-        [HttpPost("countries")]
-        public async Task<ApiResponse<GetContinentCountriesResponseDto>> GetContinentCountriesAsync([FromBody] GetContinentCountriesRequestDto getContinentCountriesDto, CancellationToken cancellationToken)
+        [HttpGet("{continentId}/page/{pageNumber}/size/{pageSize}/continent-countries")]
+        public async Task<ApiResponse<IList<CountryDto>>> GetContinentCountriesAsync(Guid continentId, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            _ = getContinentCountriesDto ?? throw new ArgumentNullException(nameof(getContinentCountriesDto));
+            if (continentId == Guid.Empty)
+            {
+                return new ApiResponse<IList<CountryDto>>("ContinentId violation.");
+            }
 
             _logger.LogInformation("Calling GetContinentCountriesAsync().");
 
-            var request = _mapper.Map<GetContinentCountriesRequest>(getContinentCountriesDto);
+            var request = new GetContinentCountriesRequest(continentId, pageNumber, pageSize);
             var response = await _mediator.Send(request, cancellationToken);
-            var result = _mapper.Map<GetContinentCountriesResponseDto>(response);
+            var result = _mapper.Map<IList<CountryDto>>(response);
 
-            return new ApiResponse<GetContinentCountriesResponseDto>(result);
+            return new ApiResponse<IList<CountryDto>>(result);
         }
     }
 }

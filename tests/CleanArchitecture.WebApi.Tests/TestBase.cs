@@ -20,7 +20,7 @@ namespace CleanArchitecture.WebApi.Tests
         {
             _serviceProvider = new ServiceCollection()
                 .AddLogging()
-                .AddAutoMapper(Assembly.GetExecutingAssembly())
+                .AddAutoMapper(typeof(MappingProfile))
                 .AddMediatR(typeof(GetContinentCountriesRequest).GetTypeInfo().Assembly)
                 .AddScoped<IContinentRepository, ContinentRepository>()
                 .AddScoped<IRegionRepository, RegionRepository>()

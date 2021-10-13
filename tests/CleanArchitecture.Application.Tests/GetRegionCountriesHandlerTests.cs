@@ -50,7 +50,7 @@ namespace CleanArchitecture.Application.Tests
             var handler = new GetRegionCountriesRequestHandler(repository.Object);
             var response = await handler.Handle(new GetRegionCountriesRequest(Guid.NewGuid(), 1, 20), CancellationToken.None);
 
-            CollectionAssert.IsNotEmpty(response.PagedResults);
+            CollectionAssert.IsNotEmpty(response.Pager);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace CleanArchitecture.Application.Tests
             var handler = new GetRegionCountriesRequestHandler(_regionRepository);
             var response = await handler.Handle(new GetRegionCountriesRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 20), CancellationToken.None);
 
-            CollectionAssert.IsNotEmpty(response.PagedResults);
+            CollectionAssert.IsNotEmpty(response.Pager);
         }
     }
 }
