@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.WebApi.Models
+﻿using System.Collections.Generic;
+
+namespace CleanArchitecture.WebApi.Models
 {
     public class CountryDto : ModelBase
     {
@@ -12,6 +14,6 @@
         public CoordinateDto Coordinates { get; set; }
 
         /// <summary>Country capital city.</summary>
-        public CapitalCityDto CapitalCity { get; set; }
+        public IList<CapitalCityDto> CapitalCities { get; set; }
     }
 }

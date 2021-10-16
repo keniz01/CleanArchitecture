@@ -43,7 +43,18 @@ namespace CleanArchitecture.Domain.Entities
         public Continent AddOrUpdateRegion(Region region)
         {
             _ = region ?? throw new RegionViolationException(nameof(region));
-            Regions.Add(region);
+
+            var subRegion = Regions.SingleOrDefault(subRegion => subRegion.Id == region.Id);
+
+            if (subRegion == null)
+            {
+                Regions.Add(region);
+            }
+            else
+            {
+                var index = Regions.IndexOf(subRegion);
+                Regions[index] = region;
+            }
             return this;
         }
 

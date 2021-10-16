@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
-using CleanArchitecture.WebApi.Client;
+﻿using CleanArchitecture.WebApi.Client;
+using System.Collections.Generic;
 
 namespace CleanArchitecture.WebUI.Pages.Home
 {
     public class PagedCountrySearchViewModel
     {
-        public bool Success { get; set; }
+        public ICollection<CountryDto> PagedList { get; set; }
 
-        public string Message { get; set; }
+        public int PageNumber { get; set; }
 
-        public IList<CountryDto> Data { get; set; }
+        public int PageSize { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public int TotalRecords { get; set; }
     }
 }

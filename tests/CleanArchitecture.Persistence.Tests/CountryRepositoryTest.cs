@@ -29,13 +29,24 @@ namespace CleanArchitecture.Persistence.Tests
             Assert.Throws<ArgumentNullException>(() => _ = new CountryRepository(null));
         }
 
-        [Test]
-        public async Task Integrated_Test_GetCountrySearchAsync_Should_Return_A_List_Of_Countries_On_matching_search_term()
+        [TestCase("ira")]
+        [TestCase("south")]
+        [TestCase("uga")]
+        public async Task Integrated_Test_GetCountriesMatchingSearchTermAsync_Should_Return_Countries_matching_search_term(string searchTerm)
         {
             var response =
-                await _countryRepository.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
-            CollectionAssert.IsNotEmpty(response);
+                await _countryRepository.GetCountriesMatchingSearchTermAsync(searchTerm, 1, 10, CancellationToken.None);
+            CollectionAssert.IsNotEmpty(response.PagedList);
         }
 
+        [TestCase('a')]
+        [TestCase('s')]
+        [TestCase('y')]
+        public async Task Integrated_Test_GetCountriesMatchingSearchTermAsync_Should_Return_Countries_starting_with_alphabet(char alphabet)
+        {
+            var response =
+                await _countryRepository.GetCountriesStartingWithAlphabetAsync(alphabet, 1, 10, CancellationToken.None);
+            CollectionAssert.IsNotEmpty(response.PagedList);
+        }
     }
 }

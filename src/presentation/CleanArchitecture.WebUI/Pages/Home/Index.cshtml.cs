@@ -12,7 +12,7 @@ namespace CleanArchitecture.WebUI.Pages.Home
     public class IndexModel : PageModel
     {
         private readonly IClient _client;
-        private ILogger<IndexModel> _logger;
+        private readonly ILogger<IndexModel> _logger;
         private readonly IMapper _mapper;
 
         public IndexModel(IClient client, ILogger<IndexModel> logger, IMapper mapper)
@@ -26,19 +26,36 @@ namespace CleanArchitecture.WebUI.Pages.Home
         {
         }
 
-        public async Task<ActionResult> OnPostSearchCountries(GetCountrySearchRequestViewModel requestViewModel)
+        public async Task<ActionResult> OnPostCountriesByAlphabetAsync([FromBody]GetCountriesStartingWithAlphabetViewModel viewModel)
         {
-            _logger.LogInformation("Calling GetSearchCountriesAsync()");
+            _logger.LogInformation("Calling OnPostCountriesByAlphabetAsync()");
 
             if (!ModelState.IsValid)
             {
-                throw new TooManyModelErrorsException(nameof(requestViewModel));
+                throw new TooManyModelErrorsException(nameof(viewModel));
             }
 
             var countries =
-                await _client.CountrySearchAsync(requestViewModel.SearchTerm, requestViewModel.PageNumber, requestViewModel.PageSize);
+                await _client.CountriesStartingWithAlphabetAsync(viewModel.Alphabet.ToString(), viewModel.PageNumber,
+                    viewModel.PageSize);
             var pagedViewModel = _mapper.Map<PagedCountrySearchViewModel>(countries);
             return new JsonResult(pagedViewModel);
+        }
+
+        public async Task<ActionResult> OnPostCountriesBySearchTermAsync([FromBody]GetCountriesBySearchTermViewModel viewModel)
+        {
+            _logger.LogInformation("Calling OnPostCountriesBySearchTermAsync()");
+
+            if (!ModelState.IsValid)
+            {
+                throw new TooManyModelErrorsException(nameof(viewModel));
+            }
+
+            var countries =
+                await _client.CountriesBySearchTermAsync(viewModel.SearchTerm, viewModel.PageNumber,
+                    viewModel.PageSize);
+            var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
+            return new JsonResult(result);
         }
     }
 }

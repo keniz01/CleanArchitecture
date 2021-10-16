@@ -28,11 +28,16 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -70,9 +75,6 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("CapitalCityId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -81,9 +83,6 @@ namespace CleanArchitecture.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CapitalCityId")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -121,6 +120,12 @@ namespace CleanArchitecture.Persistence.Migrations
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.CapitalCity", b =>
                 {
+                    b.HasOne("CleanArchitecture.Domain.Entities.Country", "Country")
+                        .WithMany("CapitalCities")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("CleanArchitecture.Domain.Entities.AuditDates", "AuditDates", b1 =>
                         {
                             b1.Property<Guid>("CapitalCityId")
@@ -167,6 +172,8 @@ namespace CleanArchitecture.Persistence.Migrations
 
                     b.Navigation("Coordinates")
                         .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Continent", b =>
@@ -221,12 +228,6 @@ namespace CleanArchitecture.Persistence.Migrations
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Country", b =>
                 {
-                    b.HasOne("CleanArchitecture.Domain.Entities.CapitalCity", "CapitalCity")
-                        .WithOne("Country")
-                        .HasForeignKey("CleanArchitecture.Domain.Entities.Country", "CapitalCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CleanArchitecture.Domain.Entities.Region", "Region")
                         .WithMany("Countries")
                         .HasForeignKey("RegionId")
@@ -276,8 +277,6 @@ namespace CleanArchitecture.Persistence.Migrations
                         });
 
                     b.Navigation("AuditDates");
-
-                    b.Navigation("CapitalCity");
 
                     b.Navigation("Coordinates")
                         .IsRequired();
@@ -343,14 +342,14 @@ namespace CleanArchitecture.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.CapitalCity", b =>
-                {
-                    b.Navigation("Country");
-                });
-
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Continent", b =>
                 {
                     b.Navigation("Regions");
+                });
+
+            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Country", b =>
+                {
+                    b.Navigation("CapitalCities");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Region", b =>

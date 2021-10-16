@@ -37,5 +37,7 @@ namespace CleanArchitecture.Domain.Entities
         public Coordinate Coordinates { get; protected set; }
 
         public Country Country { get; protected set; }
+
+        public Guid CountryId { get; protected set; }
     }
 }

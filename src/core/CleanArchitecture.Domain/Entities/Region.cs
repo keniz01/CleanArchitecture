@@ -47,7 +47,18 @@ namespace CleanArchitecture.Domain.Entities
         public Region AddOrUpdateCountry(Country country)
         {
             _ = country ?? throw new CountryViolationException(nameof(country));
-            Countries.Add(country);
+
+            var state = Countries.SingleOrDefault(state => state.Id == country.Id);
+
+            if (state == null)
+            {
+                Countries.Add(country);
+            }
+            else
+            {
+                var index = Countries.IndexOf(state);
+                Countries[index] = state;
+            }
             return this;
         }
 

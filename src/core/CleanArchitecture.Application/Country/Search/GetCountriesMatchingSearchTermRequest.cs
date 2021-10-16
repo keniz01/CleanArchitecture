@@ -3,9 +3,9 @@ using MediatR;
 
 namespace CleanArchitecture.Application.Country.Search
 {
-    public class GetCountrySearchRequest : RequestBase, IRequest<GetCountrySearchResponse>
+    public class GetCountriesMatchingSearchTermRequest : RequestBase, IRequest<GetCountriesMatchingSearchTermResponse>
     {
-        public GetCountrySearchRequest(string searchTerm, int pageNumber, int pageSize)
+        public GetCountriesMatchingSearchTermRequest(string searchTerm, int pageNumber, int pageSize)
         {
             SearchTerm = searchTerm;
             PageNumber = pageNumber;

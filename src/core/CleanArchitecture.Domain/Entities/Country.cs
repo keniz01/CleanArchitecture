@@ -1,5 +1,7 @@
 ﻿using CleanArchitecture.Domain.Exceptions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CleanArchitecture.Domain.Entities
 {
@@ -25,7 +27,8 @@ namespace CleanArchitecture.Domain.Entities
             Name = name;
             Area = area;
             Coordinates = coordinates ?? throw new CoordinatesViolationException(nameof(coordinates));
-            CapitalCity = capitalCity ?? throw new CapitalCityViolationException(nameof(capitalCity));
+            capitalCity = capitalCity ?? throw new CapitalCityViolationException(nameof(capitalCity));
+            CapitalCities.Add(capitalCity);
         }
 
         /// <summary>Country name.</summary>
@@ -38,12 +41,29 @@ namespace CleanArchitecture.Domain.Entities
         public Coordinate Coordinates { get; protected set; }
 
         /// <summary>Country capital city.</summary>
-        public CapitalCity CapitalCity { get; protected set; }
+        public IList<CapitalCity> CapitalCities { get; protected set; } = new List<CapitalCity>();
 
         public Guid RegionId { get; protected set; }
 
         public Region Region { get; protected set; }
 
-        public Guid CapitalCityId { get; protected set; }
+        public Country AddOrUpdateCapitalCity(CapitalCity capitalCity)
+        {
+            capitalCity = capitalCity ?? throw new CapitalCityViolationException(nameof(capitalCity));
+
+            var city = CapitalCities.SingleOrDefault(city => city.Id == capitalCity.Id);
+
+            if (city == null)
+            {
+                CapitalCities.Add(capitalCity);
+            }
+            else
+            {
+                var index = CapitalCities.IndexOf(city);
+                CapitalCities[index] = capitalCity;
+            }
+            
+            return this;
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace CleanArchitecture.Application.Tests
             var handler = new GetContinentCountriesRequestHandler(repository.Object);
             var response = await handler.Handle(new GetContinentCountriesRequest(Guid.NewGuid(), 1, 20), CancellationToken.None);
 
-            CollectionAssert.IsNotEmpty(response.PagedResults);
+            CollectionAssert.IsNotEmpty(response.Pager.PagedList);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace CleanArchitecture.Application.Tests
             var handler = new GetContinentCountriesRequestHandler(_continentRepository);
             var response = await handler.Handle(new GetContinentCountriesRequest(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), 1, 20), CancellationToken.None);
 
-            CollectionAssert.IsNotEmpty(response.PagedResults);
+            CollectionAssert.IsNotEmpty(response.Pager.PagedList);
         }
     }
 }

@@ -1,16 +1,39 @@
-﻿$(function() {
-    $.each($('#navigation-area li.list-group-item'),
+﻿$(function () {
+
+    $.each($('#navigation-area li'),
         function(i, v) {
             $(v).on('click',
                 function (e) {
-                    postData('/index/searchcountries', { searchTerm: $(e.target).data('value') })
+                    let viewModel = {
+                        PageNumber: 1,
+                        PageSize: 10,
+                        Alphabet: $(e.target).data('value')
+                    }
+                    postData('/home?handler=CountriesByAlphabet', viewModel)
                         .then(data => {
                             console.log(data); // JSON data parsed by `data.json()` call
                         });
                 });
         });
 
-    async function postData(url = '', data = {}) {
+    $(document).on('keyup', '#search-area input',
+        function (e) {
+            if (e.keyCode !== 13) {
+                return;
+            }
+
+            let viewModel = {
+                PageNumber: 1,
+                PageSize: 10,
+                SearchTerm: $(e.target).val()
+            }
+            postData('/home?handler=CountriesBySearchTerm', viewModel)
+                .then(data => {
+                    console.log(data); // JSON data parsed by `data.json()` call
+                });
+        });
+
+    async function postData(url, data) {
         // Default options are marked with *
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.

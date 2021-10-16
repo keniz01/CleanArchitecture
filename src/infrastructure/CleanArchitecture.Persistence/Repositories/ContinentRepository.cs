@@ -29,7 +29,7 @@ namespace CleanArchitecture.Persistence.Repositories
             var response = await _context.Continents
                 .Include(elem => elem.Regions)
                 .ThenInclude(elem => elem.Countries)
-                .ThenInclude(elem => elem.CapitalCity)
+                .ThenInclude(elem => elem.CapitalCities)
                 .Where(elem => elem.Id == continentId)
                 .SelectMany(elem => elem.Regions.SelectMany(region => region.Countries))
                 .OrderBy(country => country.Name)

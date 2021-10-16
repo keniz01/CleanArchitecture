@@ -36,7 +36,7 @@ namespace CleanArchitecture.WebApi.Tests
             var controller = new RegionController(GetService<ILogger<RegionController>>(), mediator.Object,
                 GetService<IMapper>());
             var response = await controller.GetRegionCountriesAsync(Guid.NewGuid(), 1, 20, CancellationToken.None);
-            Assert.IsTrue(response.Data.Count > 0);
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace CleanArchitecture.WebApi.Tests
 
             var response = await controller.GetRegionCountriesAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 20, CancellationToken.None);
 
-            Assert.IsTrue(response.Data.Count > 0);
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
         }
 
         [Test]

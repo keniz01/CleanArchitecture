@@ -2,22 +2,21 @@
 
 namespace CleanArchitecture.Domain.Pagination
 {
-    public class Pager<T> : List<T>
+    public class Pager<T>
     {
         public Pager(List<T> pagedList, int pageNumber, int pageSize, int totalPages, int totalRecords)
         {
-            //PagedList = pagedList;
-            AddRange(pagedList);
+            PagedList = pagedList;
             PageNumber = pageNumber;
             PageSize = pageSize;
             TotalPages = totalPages;
             TotalRecords = totalRecords;
         }
 
-        ///// <summary>
-        ///// The list after paging.
-        ///// </summary>
-        //public IList<T> PagedList { get; }
+        /// <summary>
+        /// The list after paging.
+        /// </summary>
+        public IList<T> PagedList { get; }
 
         /// <summary>
         /// The current page number.

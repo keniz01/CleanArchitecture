@@ -29,7 +29,7 @@ namespace CleanArchitecture.Persistence.Repositories
 
             var response = await _context.Regions
                 .Include(region => region.Countries)
-                .ThenInclude(country => country.CapitalCity)
+                .ThenInclude(country => country.CapitalCities)
                 .Where(region => region.Id == regionId)
                 .SelectMany(region => region.Countries)
                 .OrderBy(country => country.Name)
@@ -75,7 +75,7 @@ namespace CleanArchitecture.Persistence.Repositories
             return await _context.Regions
                 .Include(region => region.Continent)
                 .Include(region => region.Countries.OrderBy(country => country.Name))
-                .ThenInclude(country => country.CapitalCity)
+                .ThenInclude(country => country.CapitalCities)
                 .SingleOrDefaultAsync(region => region.Id == regionId, cancellationToken);
         }
     }

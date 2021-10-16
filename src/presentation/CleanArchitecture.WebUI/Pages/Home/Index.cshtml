@@ -2,17 +2,43 @@
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
 @{
 }
-<div id="content-area">
-    <div id="navigation-area" class="w-50">
-        <ul class="list-group list-group-horizontal">
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        /*background-color: #333333;*/
+        display: inline-flex;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        /*color: white;*/
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        /*background-color: #111111;*/
+    }
+</style>
+<div id="content-area" class="text-center">
+    <nav id="navigation-area" class="form-group flex-column">
+        <ul>
             @for (var i = 0; i < 26; i++)
             {
-                <li class="list-group-item"><a href="#" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
+                <li><a href="#" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
             }
         </ul>
-    </div>
-    <div id="search-area">
-        <input class="w-75" placeholder="Search country or capital city in the world ..."/>
+    </nav>
+    <div id="search-area" class="form-group">
+        <input class="w-75 form-control m-auto" placeholder="Search country or capital city in the world ..."/>
     </div>
     <div id="results-area">
 

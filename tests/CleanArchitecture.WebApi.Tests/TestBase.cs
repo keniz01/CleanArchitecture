@@ -54,15 +54,18 @@ namespace CleanArchitecture.WebApi.Tests
 
                             Latitude = -3.4748383, Longitude = 3.828839
                         },
-                        CapitalCity = new CapitalCityDto
+                        CapitalCities = new List<CapitalCityDto>
                         {
-                            Id = Guid.NewGuid(),
-                            Name = "Edinburgh",
-                            Area = 264,
-                            Coordinates = new CoordinateDto
+                            new()
                             {
-                                Latitude = -1.748383,
-                                Longitude = 2.828839
+                                Id = Guid.NewGuid(),
+                                Name = "Edinburgh",
+                                Area = 264,
+                                Coordinates = new CoordinateDto
+                                {
+                                    Latitude = -1.748383,
+                                    Longitude = 2.828839
+                                }
                             }
                         }
                     },
@@ -76,15 +79,18 @@ namespace CleanArchitecture.WebApi.Tests
 
                             Latitude = -3.4748383, Longitude = 3.828839
                         },
-                        CapitalCity = new CapitalCityDto
+                        CapitalCities = new List<CapitalCityDto>
                         {
-                            Id = Guid.NewGuid(),
-                            Name = "Cardiff",
-                            Area = 264,
-                            Coordinates = new CoordinateDto
+                            new()
                             {
-                                Latitude = -1.748383,
-                                Longitude = 2.828839
+                                Id = Guid.NewGuid(),
+                                Name = "Cardiff",
+                                Area = 264,
+                                Coordinates = new CoordinateDto
+                                {
+                                    Latitude = -1.748383,
+                                    Longitude = 2.828839
+                                }
                             }
                         }
                     },
@@ -98,15 +104,18 @@ namespace CleanArchitecture.WebApi.Tests
 
                             Latitude = -3.4748383, Longitude = 3.828839
                         },
-                        CapitalCity = new CapitalCityDto
+                        CapitalCities = new List<CapitalCityDto>
                         {
-                            Id = Guid.NewGuid(),
-                            Name = "Dublin",
-                            Area = 264,
-                            Coordinates = new CoordinateDto
+                            new()
                             {
-                                Latitude = -1.748383,
-                                Longitude = 2.828839
+                                Id = Guid.NewGuid(),
+                                Name = "Dublin",
+                                Area = 264,
+                                Coordinates = new CoordinateDto
+                                {
+                                    Latitude = -1.748383,
+                                    Longitude = 2.828839
+                                }
                             }
                         }
                     }

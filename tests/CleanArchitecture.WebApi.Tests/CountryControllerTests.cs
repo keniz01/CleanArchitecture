@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Country.Alphabetical;
 
 namespace CleanArchitecture.WebApi.Tests
 {
@@ -22,8 +23,8 @@ namespace CleanArchitecture.WebApi.Tests
             Unit_Test_Country_GetCountriesBySearchTermAsync_Should_return_countries_on_matching_search_term()
         {
             var mediator = new Mock<IMediator>();
-            mediator.Setup(m => m.Send(It.IsAny<GetCountrySearchRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetCountrySearchResponse(new Pager<Country>(new List<Country>
+            mediator.Setup(m => m.Send(It.IsAny<GetCountriesMatchingSearchTermRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetCountriesMatchingSearchTermResponse(new Pager<Country>(new List<Country>
                 {
                     new(Guid.NewGuid(), "Scotland", 110000, new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Edinburgh", 264, new Coordinate(34.748383, -12.828839))),
@@ -35,8 +36,8 @@ namespace CleanArchitecture.WebApi.Tests
 
             var controller = new CountryController(GetService<ILogger<CountryController>>(), mediator.Object,
                 GetService<IMapper>());
-            var response = await controller.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
-            Assert.IsTrue(response.Data.Count > 0);
+            var response = await controller.GetCountriesMatchingSearchTermAsync("uga", 1, 10, CancellationToken.None);
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
         }
 
         [Test]
@@ -46,9 +47,37 @@ namespace CleanArchitecture.WebApi.Tests
             var controller = new CountryController(GetService<ILogger<CountryController>>(), GetService<IMediator>(),
                 GetService<IMapper>());
 
-            var response = await controller.GetCountrySearchAsync("uga", 1, 10, CancellationToken.None);
+            var response = await controller.GetCountriesMatchingSearchTermAsync("uga", 1, 10, CancellationToken.None);
 
-            Assert.IsTrue(response.Data.Count > 0);
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
+        }
+
+        [Test]
+        public async Task Unit_Test_Country_GetCountriesByAlphabetAsync_Should_return_countries_by_alphabet_letter()
+        {
+            var mediator = new Mock<IMediator>();
+            mediator.Setup(m => m.Send(It.IsAny<GetCountriesByAlphabetRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetCountriesByAlphabetResponse(new Pager<Country>(new List<Country>
+                {
+                    new(Guid.NewGuid(), "Republic of Ireland", 110000, new Coordinate(34.748383, -12.828839),
+                        new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))
+                }, 1, 10, 1, 1)));
+
+            var controller = new CountryController(GetService<ILogger<CountryController>>(), mediator.Object,
+                GetService<IMapper>());
+            var response = await controller.GetCountriesByAlphabetAsync('r', 1, 10, CancellationToken.None);
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
+        }
+
+        [Test]
+        public async Task Integration_Test_Country_GetCountriesByAlphabetAsync_Should_return_countries_by_alphabet_letter()
+        {
+            var controller = new CountryController(GetService<ILogger<CountryController>>(), GetService<IMediator>(),
+                GetService<IMapper>());
+
+            var response = await controller.GetCountriesByAlphabetAsync('a', 1, 10, CancellationToken.None);
+
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
         }
     }
 }

@@ -130,7 +130,9 @@ namespace CleanArchitecture.WebApi.Middleware
                             new CapitalCity(Guid.NewGuid(), "El Aaiún", 0, new(0, 0)))))
                     .AddOrUpdateRegion(new Region(Guid.NewGuid(), "Southern Africa", 0, new(0, 0))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "South Africa", 0, new(0, 0),
-                            new CapitalCity(Guid.NewGuid(), "Pretoria", 0, new(0, 0))))
+                            new CapitalCity(Guid.NewGuid(), "Pretoria", 0, new(0, 0)))
+                            .AddOrUpdateCapitalCity(new CapitalCity(Guid.NewGuid(), "Bloemfontein", 0, new(0, 0)))
+                            .AddOrUpdateCapitalCity(new CapitalCity(Guid.NewGuid(), "Cape Town", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Botswana", 0, new(0, 0),
                             new CapitalCity(Guid.NewGuid(), "Gaborone", 0, new(0, 0))))
                         .AddOrUpdateCountry(new Country(Guid.NewGuid(), "Namibia", 0, new(0, 0),
