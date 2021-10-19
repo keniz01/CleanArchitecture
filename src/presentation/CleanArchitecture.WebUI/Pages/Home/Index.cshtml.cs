@@ -1,11 +1,13 @@
 using AutoMapper;
 using CleanArchitecture.WebApi.Client;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using CleanArchitecture.WebUI.Pages.Home.ViewModels;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace CleanArchitecture.WebUI.Pages.Home
 {
@@ -26,7 +28,8 @@ namespace CleanArchitecture.WebUI.Pages.Home
         {
         }
 
-        public async Task<ActionResult> OnPostCountriesByAlphabetAsync([FromBody]GetCountriesStartingWithAlphabetViewModel viewModel)
+        public async Task<ActionResult> OnPostCountriesByAlphabetAsync(
+            [FromBody] GetCountriesStartingWithAlphabetViewModel viewModel)
         {
             _logger.LogInformation("Calling OnPostCountriesByAlphabetAsync()");
 
@@ -39,7 +42,12 @@ namespace CleanArchitecture.WebUI.Pages.Home
                 await _client.CountriesStartingWithAlphabetAsync(viewModel.Alphabet.ToString(), viewModel.PageNumber,
                     viewModel.PageSize);
             var pagedViewModel = _mapper.Map<PagedCountrySearchViewModel>(countries);
-            return new JsonResult(pagedViewModel);
+
+            return new PartialViewResult
+            {
+                ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
+                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, pagedViewModel)
+            };
         }
 
         public async Task<ActionResult> OnPostCountriesBySearchTermAsync([FromBody]GetCountriesBySearchTermViewModel viewModel)
@@ -55,7 +63,12 @@ namespace CleanArchitecture.WebUI.Pages.Home
                 await _client.CountriesBySearchTermAsync(viewModel.SearchTerm, viewModel.PageNumber,
                     viewModel.PageSize);
             var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
-            return new JsonResult(result);
+
+            return new PartialViewResult
+            {
+                ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
+                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, result)
+            };
         }
     }
 }

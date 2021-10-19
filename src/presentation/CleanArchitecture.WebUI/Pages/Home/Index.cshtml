@@ -2,34 +2,8 @@
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
 @{
 }
-<style>
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        /*background-color: #333333;*/
-        display: inline-flex;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        /*color: white;*/
-        text-align: center;
-        padding: 16px;
-        text-decoration: none;
-    }
-
-    li a:hover {
-        /*background-color: #111111;*/
-    }
-</style>
 <div id="content-area" class="text-center">
-    <nav id="navigation-area" class="form-group flex-column">
+    <nav id="navigation-area" class="form-group">
         <ul>
             @for (var i = 0; i < 26; i++)
             {
@@ -38,7 +12,7 @@
         </ul>
     </nav>
     <div id="search-area" class="form-group">
-        <input class="w-75 form-control m-auto" placeholder="Search country or capital city in the world ..."/>
+        <input class="w-50 form-control m-auto" placeholder="Search country or capital city in the world ..."/>
     </div>
     <div id="results-area">
 

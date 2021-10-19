@@ -1,6 +1,6 @@
 using AutoMapper;
 using CleanArchitecture.WebApi.Client;
-using CleanArchitecture.WebUI.Pages.Home;
+using CleanArchitecture.WebUI.Pages.Home.ViewModels;
 
 namespace CleanArchitecture.WebUI
 {

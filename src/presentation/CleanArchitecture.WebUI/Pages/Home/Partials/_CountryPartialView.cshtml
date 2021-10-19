@@ -1,0 +1,24 @@
+﻿@model CleanArchitecture.WebUI.Pages.Home.ViewModels.PagedCountrySearchViewModel
+<div class="table-responsive">
+    <table class="table w-100">
+        <colgroup>
+            @*<col class="col-sm-4">*@
+            <col class="col-md-3">
+            <col class="col-md-1">
+            <col class="col-md-2">
+            <col class="col-md-3">
+        </colgroup>
+        <tbody class="text-left">
+            @foreach (var country in Model.PagedList)
+            {
+                <tr>
+                    @*<td>@country.Id</td>*@
+                    <td>@country.Name</td>
+                    <td>@country.Area</td>
+                    <td>@($"{country.Coordinates.Latitude}, {country.Coordinates.Longitude}")</td>
+                    <td>@string.Join(", ", country.CapitalCities.Select(capitalCity => capitalCity.Name))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

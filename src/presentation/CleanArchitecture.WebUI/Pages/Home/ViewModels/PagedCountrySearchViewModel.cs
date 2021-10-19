@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.WebApi.Client;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CleanArchitecture.WebApi.Client;
 
-namespace CleanArchitecture.WebUI.Pages.Home
+namespace CleanArchitecture.WebUI.Pages.Home.ViewModels
 {
     public class PagedCountrySearchViewModel
     {
