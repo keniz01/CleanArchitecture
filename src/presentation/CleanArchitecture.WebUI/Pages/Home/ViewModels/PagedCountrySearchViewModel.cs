@@ -5,6 +5,10 @@ namespace CleanArchitecture.WebUI.Pages.Home.ViewModels
 {
     public class PagedCountrySearchViewModel
     {
+        public PagedCountrySearchViewModel()
+        {
+            PagedList = new List<CountryDto>();
+        }
         public ICollection<CountryDto> PagedList { get; set; }
 
         public int PageNumber { get; set; }

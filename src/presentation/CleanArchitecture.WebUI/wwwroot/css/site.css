@@ -70,7 +70,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-#navigation-area ul {
+.nav-menu-top ul, .nav-menu-bottom ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -79,11 +79,11 @@ body {
     display: inline-flex;
 }
 
-#navigation-area li {
+.nav-menu-top li, .nav-menu-bottom li {
     float: left;
 }
 
-#navigation-area li a {
+.nav-menu-top li a, .nav-menu-bottom li a {
     display: block;
     /*color: white;*/
     text-align: center;

@@ -1,20 +1,17 @@
 ﻿@page
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
-@{
-}
 <div id="content-area" class="text-center">
-    <nav id="navigation-area" class="form-group">
+    <nav class="nav-menu-top form-group">
         <ul>
             @for (var i = 0; i < 26; i++)
             {
-                <li><a href="#" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
+                <li><a href="javascript:" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
             }
         </ul>
     </nav>
     <div id="search-area" class="form-group">
-        <input class="w-50 form-control m-auto" placeholder="Search country or capital city in the world ..."/>
+        <input class="w-50 form-control m-auto" placeholder="Search country or capital city in the world ..." />
     </div>
     <div id="results-area">
-
     </div>
 </div>

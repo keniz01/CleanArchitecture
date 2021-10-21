@@ -1,24 +1,58 @@
 ﻿@model CleanArchitecture.WebUI.Pages.Home.ViewModels.PagedCountrySearchViewModel
 <div class="table-responsive">
-    <table class="table w-100">
-        <colgroup>
-            @*<col class="col-sm-4">*@
-            <col class="col-md-3">
-            <col class="col-md-1">
-            <col class="col-md-2">
-            <col class="col-md-3">
-        </colgroup>
-        <tbody class="text-left">
-            @foreach (var country in Model.PagedList)
-            {
+    
+    @if (Model == null)
+    {
+        return;
+    }
+
+    @if (Model.TotalRecords == 0)
+    {
+        <p>No records found.</p>
+    }
+    else
+    {
+        <p class="text-left">Found @Model.TotalRecords total records.</p>
+        <table class="table w-100 text-left">
+            <colgroup>
+                @*<col class="col-sm-4">*@
+                <col class="col-md-3">
+                <col class="col-md-1">
+                <col class="col-md-2">
+                <col class="col-md-3">
+            </colgroup>
+            <thead>
                 <tr>
-                    @*<td>@country.Id</td>*@
-                    <td>@country.Name</td>
-                    <td>@country.Area</td>
-                    <td>@($"{country.Coordinates.Latitude}, {country.Coordinates.Longitude}")</td>
-                    <td>@string.Join(", ", country.CapitalCities.Select(capitalCity => capitalCity.Name))</td>
+                    <th>Country</th>
+                    <th>Area</th>
+                    <th>Coordinates</th>
+                    <th>Capital City</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var country in Model.PagedList)
+                {
+                    <tr>
+                        @*<td>@country.Id</td>*@
+                        <td>@country.Name</td>
+                        <td>@country.Area</td>
+                        <td>@($"{country.Coordinates.Latitude}, {country.Coordinates.Longitude}")</td>
+                        <td>@string.Join(", ", country.CapitalCities.Select(capitalCity => capitalCity.Name))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav id="nav-menu-bottom" class="nav-menu-bottom">
+            <ul>
+                @if (Model.TotalPages > 1)
+                {
+                    var pages = Enumerable.Range(1, Model.TotalPages).ToArray();
+                    foreach (int page in pages)
+                    {
+                        @Html.Raw($"<li><a href='javascript:' data-value='{page}'>{page}</a></li>")
+                    }
+                }
+            </ul>
+        </nav>
+    }
 </div>
