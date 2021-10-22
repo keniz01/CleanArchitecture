@@ -22,7 +22,8 @@ namespace CleanArchitecture.Persistence.Repositories
         {
             return _context.Countries
                 .Include(country => country.CapitalCities)
-                .Where(country => EF.Functions.Like(country.Name, $"%{searchTerm}%"))
+                .Where(country => EF.Functions.Like(country.Name, searchTerm)
+                    || country.CapitalCities.Any(capitalCity => EF.Functions.Like(capitalCity.Name, searchTerm)))
                 .OrderBy(country => country.Name)
                 .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
         }

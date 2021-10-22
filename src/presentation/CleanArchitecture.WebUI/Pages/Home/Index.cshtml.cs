@@ -41,12 +41,12 @@ namespace CleanArchitecture.WebUI.Pages.Home
             var countries =
                 await _client.CountriesStartingWithAlphabetAsync(viewModel.Alphabet.ToString(), viewModel.PageNumber,
                     viewModel.PageSize);
-            var pagedViewModel = _mapper.Map<PagedCountrySearchViewModel>(countries);
+            var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
 
             return new PartialViewResult
             {
                 ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
-                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, pagedViewModel)
+                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, result)
             };
         }
 

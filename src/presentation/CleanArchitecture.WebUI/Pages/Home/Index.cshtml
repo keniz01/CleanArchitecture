@@ -1,11 +1,11 @@
 ﻿@page
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
 <div id="content-area" class="text-center">
-    <nav class="nav-menu-top form-group">
-        <ul>
+    <nav id="alphabet-menu">
+        <ul class="pagination justify-content-center">
             @for (var i = 0; i < 26; i++)
             {
-                <li><a href="javascript:" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
             }
         </ul>
     </nav>

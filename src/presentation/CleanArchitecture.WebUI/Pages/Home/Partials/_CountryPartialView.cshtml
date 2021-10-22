@@ -1,6 +1,6 @@
 ﻿@model CleanArchitecture.WebUI.Pages.Home.ViewModels.PagedCountrySearchViewModel
 <div class="table-responsive">
-    
+
     @if (Model == null)
     {
         return;
@@ -8,14 +8,13 @@
 
     @if (Model.TotalRecords == 0)
     {
-        <p>No records found.</p>
+        <p>No matching records found.</p>
     }
     else
     {
         <p class="text-left">Found @Model.TotalRecords total records.</p>
         <table class="table w-100 text-left">
             <colgroup>
-                @*<col class="col-sm-4">*@
                 <col class="col-md-3">
                 <col class="col-md-1">
                 <col class="col-md-2">
@@ -42,15 +41,32 @@
                 }
             </tbody>
         </table>
-        <nav id="nav-menu-bottom" class="nav-menu-bottom">
-            <ul>
+        <nav id="page-menu">
+            <ul class="pagination justify-content-center">
                 @if (Model.TotalPages > 1)
                 {
                     var pages = Enumerable.Range(1, Model.TotalPages).ToArray();
+
                     foreach (int page in pages)
                     {
-                        @Html.Raw($"<li><a href='javascript:' data-value='{page}'>{page}</a></li>")
+                        @Html.Raw($"<li class='page-item'><a class='page-link' href='javascript:' data-value='{page}'>{page}</a></li>")
                     }
+                }
+
+                @if (Model.TotalRecords > 5)
+                {
+                    var pageSizeListItems = new List<SelectListItem>
+                    {
+                        new("5", "5", Model.PageSize == 5),
+                        new("10", "10", Model.PageSize == 10),
+                        new("15", "15", Model.PageSize == 15),
+                        new("20", "20", Model.PageSize == 20),
+                        new("25", "25", Model.PageSize == 25),
+                        new("30", "30", Model.PageSize == 30)
+                    };
+
+                    @Html.DropDownList("page-size", pageSizeListItems,
+                        null, new { @id = "page-size", @class = "form-control col-sm-1 ml-3" })
                 }
             </ul>
         </nav>

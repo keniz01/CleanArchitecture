@@ -1,6 +1,11 @@
 ﻿$(function () {
+    'use strict';
+
+    //TODO: Refactor repetitive code.
 
     let selectedAlphabet;
+    let selectedPageSize = 5;
+    let selectedPageNumber = 1;
 
     let postData = async function (url, data) {
         // Default options are marked with *
@@ -11,65 +16,158 @@
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
-        return response.text(); // parses JSON response into native JavaScript objects
+        return response.text(); // parses text/JSON response into native JavaScript objects
+    }
+
+    let menuHighlight = function (allElements, clickedElement) {
+        switch (arguments.length) {
+            case 1:
+                {
+                    let elementIndex =
+                        [...$('#page-menu li a')].findIndex(element => Number($(element).data('value')) ===
+                            selectedPageNumber);
+                    let target = $('#page-menu li')[elementIndex];
+                    menuHighlight('#page-menu li', target);
+                }
+                break;
+            case 2:
+                $(allElements).removeClass('disabled active').css({ 'pointer-events': '' });
+                $(clickedElement).closest('li').toggleClass('disabled active')
+                    .css({ 'pointer-events': 'none' }); //Bootstrap pe-none did ont work here!
+                break;
+        }
+    }
+
+    let bindAlphabetPageNumbers = function () {
+        $('#results-area').off().on('click',
+            '#page-menu li',
+            function (pageNumberElementEvent) {
+
+                selectedPageNumber = Number($(pageNumberElementEvent.target).data('value'));
+
+                let viewModel = {
+                    PageNumber: selectedPageNumber,
+                    PageSize: Number($('#page-size option:selected').val()),
+                    Alphabet: selectedAlphabet
+                };
+
+                postData('/home?handler=CountriesByAlphabet', viewModel)
+                    .then(data => {
+                        $('#results-area').empty().html(data);
+                        menuHighlight('#page-menu li');
+                    });
+            });
+    }
+
+    let bindSearchPageNumbers = function () {
+        $('#results-area').off().on('click',
+            '#page-menu li',
+            function (pageNumberElementEvent) {
+
+                menuHighlight('#page-menu li', pageNumberElementEvent.target);
+
+                selectedPageNumber = Number($(pageNumberElementEvent.target).data('value'));
+
+                let viewModel = {
+                    PageNumber: selectedPageNumber,
+                    PageSize: Number($('#page-size option:selected').val()),
+                    SearchTerm: $('#search-area input').val()
+                };
+
+                postData('/home?handler=CountriesBySearchTerm', viewModel)
+                    .then(data => {
+                        $('#results-area').empty().html(data);
+                        menuHighlight('#page-menu li');
+                    });
+            });
+    }
+
+    let bindSearchPageSize = function () {
+        $('#results-area').on('change',
+            '#page-size',
+            function () {
+                selectedPageSize = Number($('#page-size option:selected').val());
+
+                let viewModel = {
+                    PageNumber: 1,
+                    PageSize: selectedPageSize,
+                    SearchTerm: $('#search-area input').val()
+                };
+
+                postData('/home?handler=CountriesBySearchTerm', viewModel)
+                    .then(data => {
+                        $('#results-area').empty().html(data);
+                    });
+            });
+    }
+
+    let bindAlphabetPageSize = function () {
+        $('#results-area').on('change',
+            '#page-size',
+            function () {
+                selectedPageSize = Number($('#page-size option:selected').val());
+
+                let viewModel = {
+                    PageNumber: 1,
+                    PageSize: selectedPageSize,
+                    Alphabet: selectedAlphabet
+                };
+
+                postData('/home?handler=CountriesByAlphabet', viewModel)
+                    .then(data => {
+                        $('#results-area').empty().html(data);
+                    });
+            });
     }
 
     let bindTopNavMenu = function () {
-        $('.nav-menu-top li').on('click', function (menuLiElementEvent) {
-        selectedAlphabet = $(menuLiElementEvent.target).data('value');
+        $('#alphabet-menu li').on('click', function (menuLiElementEvent) {
 
-        let viewModel = {
-            PageNumber: 1,
-            PageSize: 3,
-            Alphabet: selectedAlphabet
-        }
-        postData('/home?handler=CountriesByAlphabet', viewModel)
-            .then(data => {
-                $('#results-area').empty().html(data);
-            });
-    });
-    }
+            menuHighlight('#alphabet-menu li', menuLiElementEvent.target);
 
-    let bindPagination = function () {
-        $('#results-area').on('click', '.nav-menu-bottom li', function (pageNumberElementEvent) {
-        let viewModel = {
-            PageNumber: $(pageNumberElementEvent.target).data('value'),
-            PageSize: 3,
-            Alphabet: selectedAlphabet
-        }
-        postData('/home?handler=CountriesByAlphabet', viewModel)
-            .then(data => {
-                $('#results-area').empty().html(data);
-            });
-    });
+            selectedAlphabet = $(menuLiElementEvent.target).data('value');
+
+            let viewModel = {
+                PageNumber: 1,
+                PageSize: selectedPageSize,
+                Alphabet: selectedAlphabet
+            }
+            postData('/home?handler=CountriesByAlphabet', viewModel)
+                .then(data => {
+                    $('#results-area').empty().html(data);
+
+                    bindAlphabetPageNumbers();
+                    bindAlphabetPageSize();
+                });
+        });
     }
 
     let bindSearchBox = function () {
-        $(document).on('keyup', '#search-area input',
-        function (e) {
-            if (e.keyCode !== 13) {
+        $('#search-area input').on('keyup', function (e) {
+            if (e.keyCode !== 13 || !$(e.target).val()) {
                 return;
             }
 
             let viewModel = {
-                PageNumber: 1,
-                PageSize: 10,
+                PageNumber: selectedPageNumber,
+                PageSize: selectedPageSize,
                 SearchTerm: $(e.target).val()
             }
             postData('/home?handler=CountriesBySearchTerm', viewModel)
                 .then(data => {
                     $('#results-area').empty().html(data);
+
+                    bindSearchPageNumbers();
+                    bindSearchPageSize();
                 });
         });
     }
 
     bindTopNavMenu();
     bindSearchBox();
-    bindPagination();
 })
