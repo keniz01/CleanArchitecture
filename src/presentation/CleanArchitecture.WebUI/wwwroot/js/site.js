@@ -7,6 +7,8 @@
     let selectedPageSize = 5;
     let selectedPageNumber = 1;
 
+    $('#spinner').hide();
+
     let postData = async function (url, data) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -58,6 +60,7 @@
 
                 postData('/home?handler=CountriesByAlphabet', viewModel)
                     .then(data => {
+                        //$('#spinner').toggleClass('d-flex').hide();
                         $('#results-area').empty().html(data);
                         menuHighlight('#page-menu li');
                     });
@@ -81,6 +84,7 @@
 
                 postData('/home?handler=CountriesBySearchTerm', viewModel)
                     .then(data => {
+                        //$('#spinner').toggleClass('d-flex').hide();
                         $('#results-area').empty().html(data);
                         menuHighlight('#page-menu li');
                     });
@@ -101,6 +105,7 @@
 
                 postData('/home?handler=CountriesBySearchTerm', viewModel)
                     .then(data => {
+                        //$('#spinner').toggleClass('d-flex').hide();
                         $('#results-area').empty().html(data);
                     });
             });
@@ -110,6 +115,7 @@
         $('#results-area').on('change',
             '#page-size',
             function () {
+                
                 selectedPageSize = Number($('#page-size option:selected').val());
 
                 let viewModel = {
@@ -120,6 +126,7 @@
 
                 postData('/home?handler=CountriesByAlphabet', viewModel)
                     .then(data => {
+                        
                         $('#results-area').empty().html(data);
                     });
             });
@@ -127,6 +134,8 @@
 
     let bindTopNavMenu = function () {
         $('#alphabet-menu li').on('click', function (menuLiElementEvent) {
+
+            $('#spinner').toggleClass('d-flex').show();
 
             menuHighlight('#alphabet-menu li', menuLiElementEvent.target);
 
@@ -139,10 +148,13 @@
             }
             postData('/home?handler=CountriesByAlphabet', viewModel)
                 .then(data => {
+
                     $('#results-area').empty().html(data);
 
                     bindAlphabetPageNumbers();
                     bindAlphabetPageSize();
+
+                    $('#spinner').toggleClass('d-flex').hide();
                 });
         });
     }
@@ -152,6 +164,8 @@
             if (e.keyCode !== 13 || !$(e.target).val()) {
                 return;
             }
+
+            $('#spinner').toggleClass('d-flex').show();
 
             let viewModel = {
                 PageNumber: selectedPageNumber,
@@ -164,6 +178,8 @@
 
                     bindSearchPageNumbers();
                     bindSearchPageSize();
+
+                    $('#spinner').toggleClass('d-flex').hide();
                 });
         });
     }
