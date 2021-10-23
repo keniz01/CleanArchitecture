@@ -1,0 +1,12 @@
+Run this command to create initial migrations.
+----------------------------------------------
+
+C:\Source\Repos\CleanArchitecture\src\presentation\CleanArchitecture.WebApi>dotnet ef migrations add InitialMigration --project C:\Source\Repos\CleanArchitecture\src\infrastructure\CleanArchitecture.Persistence
+
+May need to run this command to apply migrations, the MigrationManager class fails with a network-related error
+--------------------------------------------------------------------------------------------------------------
+
+C:\Source\Repos\CleanArchitecture\src\presentation\CleanArchitecture.WebApi>dotnet ef database update --project C:\Source\Repos\CleanArchitecture\src\infrastructure\CleanArchitecture.Persistence
+
+TODO:
+Replace "Dto" with "Data"

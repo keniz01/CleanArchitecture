@@ -1,1 +1,3 @@
-Demostrates my understanding of clean software development using C#, Razor Pages and Javascript 
+# CleanArchitecture
+Learning clean architecture in C# using Razor Pages and Javascript
+
