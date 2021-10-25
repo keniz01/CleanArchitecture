@@ -24,14 +24,32 @@ namespace CleanArchitecture.Persistence.Tests
         }
 
         [Test]
+        public async Task Continent_GetCountriesByRegion_Should_Return_A_ListOf_Countries_By_RegionId()
+        {
+            var response =
+                await _countryRepository.GetCountriesByRegionAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"),
+                    1, 10, CancellationToken.None);
+            CollectionAssert.IsNotEmpty(response.PagedList);
+        }
+
+        [Test]
+        public async Task Continent_GetContinentCountries_Should_Return_A_ListOf_Countries_On_The_Continent_By_ContinentId()
+        {
+            var response =
+                await _countryRepository.GetCountriesByContinentAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"),
+                    1, 10, CancellationToken.None);
+            CollectionAssert.IsNotEmpty(response.PagedList);
+        }
+
+        [Test]
         public void Integration_Test_Country_Should_fail_when_on_creation_when_DbContext_is_null()
         {
             Assert.Throws<ArgumentNullException>(() => _ = new CountryRepository(null));
         }
 
-        [TestCase("ira")]
-        [TestCase("south")]
-        [TestCase("uga")]
+        [TestCase("%ira%")]
+        [TestCase("south%")]
+        [TestCase("uga%")]
         public async Task Integrated_Test_GetCountriesMatchingSearchTermAsync_Should_Return_Countries_matching_search_term(string searchTerm)
         {
             var response =

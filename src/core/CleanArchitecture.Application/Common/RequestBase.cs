@@ -1,20 +1,16 @@
 ﻿namespace CleanArchitecture.Application.Common
 {
-    public abstract class RequestBase
+    public class RequestBase
     {
-        private int _pageNumber, _pageSize;
-
-        public int PageNumber
+        public RequestBase(int pageNumber, int pageSize)
         {
-            get => _pageNumber;
-            set => _pageNumber = Validate(value, 1);
+            PageNumber = Validate(pageNumber, 1);
+            PageSize = Validate(pageSize, 5);
         }
 
-        public int PageSize
-        {
-            get => _pageSize;
-            set => _pageSize = Validate(value, 10);
-        }
+        public int PageNumber { get; }
+
+        public int PageSize { get; }
 
         private static int Validate(int propertyValue, int defaultValue)
         {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Application.Continent;
+using CleanArchitecture.Application.Continent.GetAll;
 using CleanArchitecture.WebApi.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -32,22 +32,23 @@ namespace CleanArchitecture.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesErrorResponseType(typeof(ApiResponse<>))]
-        [HttpGet("{continentId}/page/{pageNumber}/size/{pageSize}/continent-countries")]
-        public async Task<ApiResponse<IList<CountryDto>>> GetContinentCountriesAsync(Guid continentId, int pageNumber, int pageSize, CancellationToken cancellationToken)
+        [ProducesErrorResponseType(typeof(ApiResponse<IList<ContinentWithoutRegionsDto>>))]
+        [HttpGet("world-continents")]
+        public async Task<ApiResponse<IList<ContinentWithoutRegionsDto>>> GetAllContinentsAsync(CancellationToken cancellationToken)
         {
-            if (continentId == Guid.Empty)
-            {
-                return new ApiResponse<IList<CountryDto>>("ContinentId violation.");
-            }
+            _logger.LogInformation("Calling GetAllContinentsAsync().");
 
-            _logger.LogInformation("Calling GetContinentCountriesAsync().");
-
-            var request = new GetContinentCountriesRequest(continentId, pageNumber, pageSize);
+            var request = new GetAllContinentRequest();
             var response = await _mediator.Send(request, cancellationToken);
-            var result = _mapper.Map<IList<CountryDto>>(response);
+            var result = _mapper.Map<IList<ContinentWithoutRegionsDto>>(response.Continents);
 
-            return new ApiResponse<IList<CountryDto>>(result);
+            return new ApiResponse<IList<ContinentWithoutRegionsDto>>(result);
         }
+
+        // Get continents to list in menu
+
+        // Get continent region by continent id
+
+        // Get region countries by region id
     }
 }

@@ -31,12 +31,10 @@ namespace CleanArchitecture.Persistence.Tests
         }
 
         [Test]
-        public async Task Continent_GetContinentCountries_Should_Return_A_ListOf_Countries_On_The_Continent_By_ContinentId()
+        public async Task IntegrationTest_Continent_GetAllContinents_Should_return_all_continents()
         {
-            var response =
-                await _continentRepository.GetContinentCountriesAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"),
-                    1, 10, CancellationToken.None);
-            CollectionAssert.IsNotEmpty(response.PagedList);
+            var response = await _continentRepository.GetAllContinentsAsync(CancellationToken.None);
+            CollectionAssert.IsNotEmpty(response);
         }
 
         [Test]

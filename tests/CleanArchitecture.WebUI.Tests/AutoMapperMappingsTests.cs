@@ -9,7 +9,7 @@ namespace CleanArchitecture.WebUI.Tests
         [Test]
         public void WebUi_AutoMapper_Should_Confirm_mappings_are_valid()
         {
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+            var mappingConfig = new MapperConfiguration(config => { config.AddProfile(new MappingProfile()); });
             mappingConfig.AssertConfigurationIsValid();
         }
     }

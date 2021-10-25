@@ -31,6 +31,13 @@ namespace CleanArchitecture.Persistence.Tests
         }
 
         [Test]
+        public async Task Integration_Test_Region_GetRegionsByContinent_Should_Return_Regions_By_continent_Id()
+        {
+            var regions = await _regionRepository.GetRegionsByContinentAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), CancellationToken.None);
+            Assert.IsNotEmpty(regions);
+        }
+
+        [Test]
         public void Integration_Test_Region_Should_fail_when_on_creation_when_DbContext_is_null()
         {
             Assert.Throws<ArgumentNullException>(() => _ = new RegionRepository(null));

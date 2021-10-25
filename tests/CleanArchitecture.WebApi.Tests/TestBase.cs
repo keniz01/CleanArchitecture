@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using CleanArchitecture.Application.Continent;
+using CleanArchitecture.Application.Country.GetBy;
+using CleanArchitecture.Application.Country.GetBy.Continent;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
 using CleanArchitecture.Persistence.Repositories;
@@ -21,7 +23,7 @@ namespace CleanArchitecture.WebApi.Tests
             _serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddAutoMapper(typeof(MappingProfile))
-                .AddMediatR(typeof(GetContinentCountriesRequest).GetTypeInfo().Assembly)
+                .AddMediatR(typeof(GetCountriesByContinentRequest).GetTypeInfo().Assembly)
                 .AddScoped<IContinentRepository, ContinentRepository>()
                 .AddScoped<IRegionRepository, RegionRepository>()
                 .AddScoped<ICountryRepository, CountryRepository>()

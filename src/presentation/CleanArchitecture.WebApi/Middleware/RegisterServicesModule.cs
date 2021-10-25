@@ -3,6 +3,8 @@ using CleanArchitecture.Application.Continent;
 using CleanArchitecture.Persistence.Repositories;
 using MediatR;
 using System.Reflection;
+using CleanArchitecture.Application.Country.GetBy;
+using CleanArchitecture.Application.Country.GetBy.Continent;
 using Module = Autofac.Module;
 
 namespace CleanArchitecture.WebApi.Middleware
@@ -25,7 +27,7 @@ namespace CleanArchitecture.WebApi.Middleware
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
                 .AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(typeof(GetContinentCountriesRequestHandler).GetTypeInfo().Assembly)
+            builder.RegisterAssemblyTypes(typeof(GetCountriesByContinentRequestHandler).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(IRequestHandler<,>));
 
             base.Load(builder);

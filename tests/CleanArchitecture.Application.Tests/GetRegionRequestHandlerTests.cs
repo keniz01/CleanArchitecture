@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Application.Region.GetRegion;
-using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
 using CleanArchitecture.Persistence.Repositories;
@@ -9,6 +8,7 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Region.GetBy.Id;
 
 namespace CleanArchitecture.Application.Tests
 {
@@ -48,8 +48,8 @@ namespace CleanArchitecture.Application.Tests
                         new Coordinate(34.748383, -12.828839),
                         new CapitalCity(Guid.NewGuid(), "Dublin", 264, new Coordinate(34.748383, -12.828839)))));
 
-            var handler = new GetRegionRequestHandler(repository.Object);
-            var response = await handler.Handle(new GetRegionRequest(regionId), CancellationToken.None);
+            var handler = new GetRegionByIdRequestHandler(repository.Object);
+            var response = await handler.Handle(new GetRegionByIdRequest(regionId), CancellationToken.None);
 
             Assert.IsTrue(response.Region.Id == regionId);
         }
@@ -57,8 +57,8 @@ namespace CleanArchitecture.Application.Tests
         [Test]
         public async Task Integration_Test_Region_GetRegionRequestHandler_Should_return_region_by_region_id()
         {
-            var handler = new GetRegionRequestHandler(_regionRepository);
-            var response = await handler.Handle(new GetRegionRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
+            var handler = new GetRegionByIdRequestHandler(_regionRepository);
+            var response = await handler.Handle(new GetRegionByIdRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
 
             Assert.IsTrue(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30") == response.Region.Id);
         }
@@ -66,7 +66,7 @@ namespace CleanArchitecture.Application.Tests
         [Test]
         public void Integration_Test_Region_GetRegionRequestHandler_Should_throw_ArgumentNullException_when_RegionRepository_is_null()
         {
-            Assert.Throws<ArgumentNullException>(() => _ = new GetRegionRequestHandler(default));
+            Assert.Throws<ArgumentNullException>(() => _ = new GetRegionByIdRequestHandler(default));
         }
     }
 }

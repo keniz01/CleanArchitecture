@@ -3,6 +3,7 @@ using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,6 +78,11 @@ namespace CleanArchitecture.Persistence.Repositories
                 .Include(region => region.Countries.OrderBy(country => country.Name))
                 .ThenInclude(country => country.CapitalCities)
                 .SingleOrDefaultAsync(region => region.Id == regionId, cancellationToken);
+        }
+
+        public async Task<IList<Region>> GetRegionsByContinentAsync(Guid continentId, CancellationToken cancellationToken)
+        {
+            return await _context.Regions.Where(region => region.ContinentId == continentId).ToListAsync(cancellationToken);
         }
     }
 }

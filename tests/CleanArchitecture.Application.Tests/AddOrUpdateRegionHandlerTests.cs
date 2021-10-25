@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Region.AddOrUpdateRegion;
-using CleanArchitecture.Application.Region.GetRegion;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence;
@@ -10,6 +9,7 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Region.GetBy.Id;
 
 namespace CleanArchitecture.Application.Tests
 {
@@ -66,9 +66,9 @@ namespace CleanArchitecture.Application.Tests
         [Test]
         public async Task Integration_Test_Region_AddOrUpdateRegionRequestHandler_Should_return_added_region()
         {
-            var getRegionRequestHandler = new GetRegionRequestHandler(_regionRepository);
+            var getRegionRequestHandler = new GetRegionByIdRequestHandler(_regionRepository);
 
-            var getRegionRequest = await getRegionRequestHandler.Handle(new GetRegionRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
+            var getRegionRequest = await getRegionRequestHandler.Handle(new GetRegionByIdRequest(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30")), CancellationToken.None);
             var addOrUpdateRegionRequestHandler = new AddOrUpdateRegionRequestHandler(_regionRepository);
             getRegionRequest.Region.UpdateName("South America Demo");
             var response = await addOrUpdateRegionRequestHandler.Handle(new AddOrUpdateRegionRequest(getRegionRequest.Region), CancellationToken.None);

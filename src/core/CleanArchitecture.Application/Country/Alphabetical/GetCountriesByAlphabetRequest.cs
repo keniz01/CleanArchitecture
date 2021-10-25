@@ -8,10 +8,6 @@ namespace CleanArchitecture.Application.Country.Alphabetical
         public char Alphabet { get; }
 
         public GetCountriesByAlphabetRequest(char alphabet, int pageNumber, int pageSize)
-        {
-            Alphabet = alphabet;
-            PageNumber = pageNumber;
-            PageSize = pageSize;
-        }
+            : base(pageNumber, pageSize) => Alphabet = alphabet;
     }
 }

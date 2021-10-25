@@ -47,7 +47,7 @@ namespace CleanArchitecture.WebApi.Tests
             var controller = new CountryController(GetService<ILogger<CountryController>>(), GetService<IMediator>(),
                 GetService<IMapper>());
 
-            var response = await controller.GetCountriesMatchingSearchTermAsync("uga", 1, 10, CancellationToken.None);
+            var response = await controller.GetCountriesMatchingSearchTermAsync("uga%", 1, 10, CancellationToken.None);
 
             Assert.IsTrue(response.Data.PagedList.Count > 0);
         }
@@ -76,6 +76,17 @@ namespace CleanArchitecture.WebApi.Tests
                 GetService<IMapper>());
 
             var response = await controller.GetCountriesByAlphabetAsync('a', 1, 10, CancellationToken.None);
+
+            Assert.IsTrue(response.Data.PagedList.Count > 0);
+        }
+
+        [Test]
+        public async Task Integration_Test_Country_GetCountriesByRegionAsync_Should_return_countries_by_region_id()
+        {
+            var controller = new CountryController(GetService<ILogger<CountryController>>(), GetService<IMediator>(),
+                GetService<IMapper>());
+
+            var response = await controller.GetCountriesByRegionAsync(Guid.Parse("76801F02-F191-4CBE-AA52-3D66C9D68D30"), 1, 10, CancellationToken.None);
 
             Assert.IsTrue(response.Data.PagedList.Count > 0);
         }

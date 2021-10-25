@@ -70,6 +70,18 @@ namespace CleanArchitecture.WebApi.Tests
 
         [Test]
         public async Task
+            Integration_Test_GetRegionsByContinentAsync_Should_return_regions_by_continent_id()
+        {
+            var controller = new RegionController(GetService<ILogger<RegionController>>(), GetService<IMediator>(),
+                GetService<IMapper>());
+
+            var response = await controller.GetRegionsByContinentAsync(Guid.Parse("EDC63F66-3D33-4B3E-B44D-294CC49B1FCD"), CancellationToken.None);
+
+            Assert.IsTrue(response.Data.Count > 0);
+        }
+
+        [Test]
+        public async Task
             Integration_Test_GetContinentCountriesAsync_Should_return_countries_on_continent_by_continent_id()
         {
             var controller = new RegionController(GetService<ILogger<RegionController>>(), GetService<IMediator>(),

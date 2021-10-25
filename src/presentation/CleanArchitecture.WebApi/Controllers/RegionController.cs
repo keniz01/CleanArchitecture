@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Region.AddOrUpdateRegion;
-using CleanArchitecture.Application.Region.GetRegion;
 using CleanArchitecture.Application.Region.GetRegionCountries;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.WebApi.Models;
@@ -9,9 +8,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Region.GetBy.Continent;
+using CleanArchitecture.Application.Region.GetBy.Id;
 
 namespace CleanArchitecture.WebApi.Controllers
 {
@@ -45,11 +47,27 @@ namespace CleanArchitecture.WebApi.Controllers
 
             _logger.LogInformation("Calling GetRegionCountriesAsync().");
 
-            var request = new GetRegionRequest(regionId);
+            var request = new GetRegionByIdRequest(regionId);
             var response = await _mediator.Send(request, cancellationToken);
             var result = _mapper.Map<RegionDto>(response);
 
             return new ApiResponse<RegionDto>(result);
+        }
+
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesErrorResponseType(typeof(ApiResponse<IList<RegionDto>>))]
+        [HttpGet("continent/{continentId}/regions-by-continent")]
+        public async Task<ApiResponse<IList<RegionDto>>> GetRegionsByContinentAsync(Guid continentId, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Calling GetRegionsByContinentAsync().");
+
+            var request = new GetRegionsByContinentRequest(continentId);
+            var response = await _mediator.Send(request, cancellationToken);
+            var result = _mapper.Map<IList<RegionDto>>(response.Regions);
+            return new ApiResponse<IList<RegionDto>>(result);
         }
 
         [Produces(MediaTypeNames.Application.Json)]

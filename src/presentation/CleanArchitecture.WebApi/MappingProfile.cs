@@ -1,8 +1,9 @@
 using AutoMapper;
 using CleanArchitecture.Application.Country.Alphabetical;
+using CleanArchitecture.Application.Country.GetBy.Region;
 using CleanArchitecture.Application.Country.Search;
 using CleanArchitecture.Application.Region.AddOrUpdateRegion;
-using CleanArchitecture.Application.Region.GetRegion;
+using CleanArchitecture.Application.Region.GetBy.Id;
 using CleanArchitecture.Application.Region.GetRegionCountries;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
@@ -20,7 +21,7 @@ namespace CleanArchitecture.WebApi
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<GetRegionResponse, RegionDto>()
+            CreateMap<GetRegionByIdResponse, RegionDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Region.Name))
                 .ForMember(dest => dest.Area, opt => opt.MapFrom(src => src.Region.Area))
                 .ForMember(dest => dest.Coordinates, opt => opt.MapFrom(src => src.Region.Coordinates))
@@ -59,6 +60,13 @@ namespace CleanArchitecture.WebApi
                 .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Pager.PageNumber))
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
             CreateMap<GetCountriesByAlphabetResponse, PagerDto<CountryDto>>()
+                .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Pager.TotalRecords))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Pager.PageSize))
+                .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))
+                .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Pager.PageNumber))
+                .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
+            CreateMap<Continent, ContinentWithoutRegionsDto>().ReverseMap();
+            CreateMap<GetCountriesByRegionResponse, PagerDto<CountryDto>>()
                 .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Pager.TotalRecords))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Pager.PageSize))
                 .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))

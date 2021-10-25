@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CleanArchitecture.Domain.Entities;
@@ -13,5 +14,6 @@ namespace CleanArchitecture.Domain.Services
 
         Task<Region> AddOrUpdateRegionAsync(Region region, CancellationToken cancellationToken);
         Task<Region> GetRegionAsync(Guid regionId, CancellationToken cancellationToken);
+        Task<IList<Region>> GetRegionsByContinentAsync(Guid continentId, CancellationToken none);
     }
 }

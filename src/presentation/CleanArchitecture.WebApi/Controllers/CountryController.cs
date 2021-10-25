@@ -10,6 +10,7 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using CleanArchitecture.Application.Country.Alphabetical;
+using CleanArchitecture.Application.Country.GetBy.Region;
 
 namespace CleanArchitecture.WebApi.Controllers
 {
@@ -44,6 +45,28 @@ namespace CleanArchitecture.WebApi.Controllers
             _logger.LogInformation("Calling GetCountriesMatchingSearchTermAsync().");
 
             var request = new GetCountriesMatchingSearchTermRequest(searchTerm, pageNumber, pageSize);
+            var response = await _mediator.Send(request, cancellationToken);
+            var result = _mapper.Map<PagerDto<CountryDto>>(response);
+
+            return new ApiResponse<PagerDto<CountryDto>>(result);
+        }
+
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesErrorResponseType(typeof(ApiResponse<PagerDto<CountryDto>>))]
+        [HttpGet("region/{regionId}/page/{pageNumber}/size/{pageSize}/countries-by-region")]
+        public async Task<ApiResponse<PagerDto<CountryDto>>> GetCountriesByRegionAsync(Guid regionId, int pageNumber, int pageSize, CancellationToken cancellationToken)
+        {
+            if (regionId == Guid.Empty)
+            {
+                return new ApiResponse<PagerDto<CountryDto>>($"{nameof(regionId)} is not valid.");
+            }
+
+            _logger.LogInformation("Calling GetCountriesByRegionAsync().");
+
+            var request = new GetCountriesByRegionRequest(regionId, pageNumber, pageSize);
             var response = await _mediator.Send(request, cancellationToken);
             var result = _mapper.Map<PagerDto<CountryDto>>(response);
 
