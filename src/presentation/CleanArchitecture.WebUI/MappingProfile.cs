@@ -14,6 +14,8 @@ namespace CleanArchitecture.WebUI
                 .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Data.PagedList))
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Data.TotalPages))
                 .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Data.TotalRecords));
+            CreateMap<RegionViewModel, RegionDto>().ReverseMap();
+            CreateMap<ContinentViewModel, ContinentWithoutRegionsDto>().ReverseMap();
         }
     }
 }

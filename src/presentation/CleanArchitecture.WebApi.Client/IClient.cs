@@ -20,12 +20,12 @@ namespace CleanArchitecture.WebApi.Client
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CountryDtoIListApiResponse> ContinentCountriesAsync(System.Guid continentId, int pageNumber, int pageSize);
+        System.Threading.Tasks.Task<ContinentWithoutRegionsDtoIListApiResponse> WorldContinentsAsync();
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CountryDtoIListApiResponse> ContinentCountriesAsync(System.Guid continentId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ContinentWithoutRegionsDtoIListApiResponse> WorldContinentsAsync(System.Threading.CancellationToken cancellationToken);
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -35,6 +35,15 @@ namespace CleanArchitecture.WebApi.Client
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesBySearchTermAsync(string searchTerm, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
+    
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize);
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -56,12 +65,21 @@ namespace CleanArchitecture.WebApi.Client
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize);
+        System.Threading.Tasks.Task<RegionDtoIListApiResponse> RegionsByContinentAsync(System.Guid continentId);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RegionDtoIListApiResponse> RegionsByContinentAsync(System.Guid continentId, System.Threading.CancellationToken cancellationToken);
+    
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegion2Async(System.Guid regionId, int pageNumber, int pageSize);
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegion2Async(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken);
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -103,30 +121,18 @@ namespace CleanArchitecture.WebApi.Client
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<CountryDtoIListApiResponse> ContinentCountriesAsync(System.Guid continentId, int pageNumber, int pageSize)
+        public System.Threading.Tasks.Task<ContinentWithoutRegionsDtoIListApiResponse> WorldContinentsAsync()
         {
-            return ContinentCountriesAsync(continentId, pageNumber, pageSize, System.Threading.CancellationToken.None);
+            return WorldContinentsAsync(System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<CountryDtoIListApiResponse> ContinentCountriesAsync(System.Guid continentId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<ContinentWithoutRegionsDtoIListApiResponse> WorldContinentsAsync(System.Threading.CancellationToken cancellationToken)
         {
-            if (continentId == null)
-                throw new System.ArgumentNullException("continentId");
-    
-            if (pageNumber == null)
-                throw new System.ArgumentNullException("pageNumber");
-    
-            if (pageSize == null)
-                throw new System.ArgumentNullException("pageSize");
-    
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Continent/{continentId}/page/{pageNumber}/size/{pageSize}/continent-countries");
-            urlBuilder_.Replace("{continentId}", System.Uri.EscapeDataString(ConvertToString(continentId, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Replace("{pageNumber}", System.Uri.EscapeDataString(ConvertToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Replace("{pageSize}", System.Uri.EscapeDataString(ConvertToString(pageSize, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/Continent/world-continents");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -160,7 +166,7 @@ namespace CleanArchitecture.WebApi.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<CountryDtoIListApiResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ContinentWithoutRegionsDtoIListApiResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -223,6 +229,104 @@ namespace CleanArchitecture.WebApi.Client
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Country/search/search-term/{searchTerm}/page/{pageNumber}/size/{pageSize}/countries-by-search-term");
             urlBuilder_.Replace("{searchTerm}", System.Uri.EscapeDataString(ConvertToString(searchTerm, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{pageNumber}", System.Uri.EscapeDataString(ConvertToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{pageSize}", System.Uri.EscapeDataString(ConvertToString(pageSize, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<CountryDtoPagerDtoApiResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Bad Request", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize)
+        {
+            return CountriesByRegionAsync(regionId, pageNumber, pageSize, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken)
+        {
+            if (regionId == null)
+                throw new System.ArgumentNullException("regionId");
+    
+            if (pageNumber == null)
+                throw new System.ArgumentNullException("pageNumber");
+    
+            if (pageSize == null)
+                throw new System.ArgumentNullException("pageSize");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/Country/region/{regionId}/page/{pageNumber}/size/{pageSize}/countries-by-region");
+            urlBuilder_.Replace("{regionId}", System.Uri.EscapeDataString(ConvertToString(regionId, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{pageNumber}", System.Uri.EscapeDataString(ConvertToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture)));
             urlBuilder_.Replace("{pageSize}", System.Uri.EscapeDataString(ConvertToString(pageSize, System.Globalization.CultureInfo.InvariantCulture)));
     
@@ -487,15 +591,105 @@ namespace CleanArchitecture.WebApi.Client
     
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize)
+        public System.Threading.Tasks.Task<RegionDtoIListApiResponse> RegionsByContinentAsync(System.Guid continentId)
         {
-            return CountriesByRegionAsync(regionId, pageNumber, pageSize, System.Threading.CancellationToken.None);
+            return RegionsByContinentAsync(continentId, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegionAsync(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<RegionDtoIListApiResponse> RegionsByContinentAsync(System.Guid continentId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (continentId == null)
+                throw new System.ArgumentNullException("continentId");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/Region/continent/{continentId}/regions-by-continent");
+            urlBuilder_.Replace("{continentId}", System.Uri.EscapeDataString(ConvertToString(continentId, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<RegionDtoIListApiResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Bad Request", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Not Found", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegion2Async(System.Guid regionId, int pageNumber, int pageSize)
+        {
+            return CountriesByRegion2Async(regionId, pageNumber, pageSize, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<CountryDtoPagerDtoApiResponse> CountriesByRegion2Async(System.Guid regionId, int pageNumber, int pageSize, System.Threading.CancellationToken cancellationToken)
         {
             if (regionId == null)
                 throw new System.ArgumentNullException("regionId");
@@ -818,6 +1012,39 @@ namespace CleanArchitecture.WebApi.Client
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ContinentWithoutRegionsDto 
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("area")]
+        public double Area { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("coordinates")]
+        public CoordinateDto Coordinates { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ContinentWithoutRegionsDtoIListApiResponse 
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("success")]
+        public bool Success { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("message")]
+        public string Message { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("data")]
+        public System.Collections.Generic.ICollection<ContinentWithoutRegionsDto> Data { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class CoordinateDto 
     {
         [System.Text.Json.Serialization.JsonPropertyName("latitude")]
@@ -846,21 +1073,6 @@ namespace CleanArchitecture.WebApi.Client
     
         [System.Text.Json.Serialization.JsonPropertyName("capitalCities")]
         public System.Collections.Generic.ICollection<CapitalCityDto> CapitalCities { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class CountryDtoIListApiResponse 
-    {
-        [System.Text.Json.Serialization.JsonPropertyName("success")]
-        public bool Success { get; set; }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("message")]
-        public string Message { get; set; }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("data")]
-        public System.Collections.Generic.ICollection<CountryDto> Data { get; set; }
     
     
     }
@@ -936,6 +1148,21 @@ namespace CleanArchitecture.WebApi.Client
     
         [System.Text.Json.Serialization.JsonPropertyName("data")]
         public RegionDto Data { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class RegionDtoIListApiResponse 
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("success")]
+        public bool Success { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("message")]
+        public string Message { get; set; }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("data")]
+        public System.Collections.Generic.ICollection<RegionDto> Data { get; set; }
     
     
     }

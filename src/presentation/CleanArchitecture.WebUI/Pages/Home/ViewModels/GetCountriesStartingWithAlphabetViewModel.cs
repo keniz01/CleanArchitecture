@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.WebUI.Pages.Home
+﻿namespace CleanArchitecture.WebUI.Pages.Home.ViewModels
 {
     public class GetCountriesStartingWithAlphabetViewModel
     {

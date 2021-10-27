@@ -1,0 +1,9 @@
+﻿@model IList<CleanArchitecture.WebUI.Pages.Home.ViewModels.ContinentViewModel>
+<nav>
+    <ul class="pagination justify-content-center">
+        @foreach (var continent in Model)
+        {
+            <li class="page-item" data-value="@continent.Id"><a class="page-link" href="javascript:">@continent.Name</a></li>
+        }
+    </ul>
+</nav>

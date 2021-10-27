@@ -1,16 +1,29 @@
 ﻿@page
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
 <div id="content-area" class="text-center">
-    <nav id="alphabet-menu">
+    <nav id="main-nav">
         <ul class="pagination justify-content-center">
-            @for (var i = 0; i < 26; i++)
-            {
-                <li class="page-item"><a class="page-link" href="javascript:" data-value="@(Convert.ToChar('A' + i))">@(Convert.ToChar('A' + i))</a></li>
-            }
+            <li id="countries-link" class="page-item"><a class="page-link" href="javascript:">Countries</a></li>
+            <li id="continents-link" class="page-item"><a class="page-link" href="javascript:">Continents</a></li>
         </ul>
     </nav>
-    <div id="search-area" class="form-group">
-        <input class="w-50 form-control m-auto" placeholder="Search country or capital city in the world ..." />
+
+    <div id="countries-tab" class="d-none">
+        <nav id="alphabet-menu">
+            <ul class="pagination justify-content-center">
+                @for (var i = 0; i < 26; i++)
+                {
+                    <li class="page-item" data-value="@(Convert.ToChar('A' + i))"><a class="page-link" href="javascript:">@(Convert.ToChar('A' + i))</a></li>
+                }
+            </ul>
+        </nav>
+        <div id="search-area" class="form-group">
+            <input class="w-50 form-control m-auto" placeholder="Search country or capital city in the world ..."/>
+        </div>
+    </div>
+    <div id="continents-tab" class="d-none">
+        <div id="continents-menu"></div>
+        <div id="regions-menu"></div>
     </div>
     <div id="spinner" class="justify-content-center">
         <div class="spinner-border" role="status">

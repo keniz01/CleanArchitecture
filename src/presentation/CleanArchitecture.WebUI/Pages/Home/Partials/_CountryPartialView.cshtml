@@ -49,7 +49,7 @@
 
                     foreach (int page in pages)
                     {
-                        @Html.Raw($"<li class='page-item'><a class='page-link' href='javascript:' data-value='{page}'>{page}</a></li>")
+                        @Html.Raw($"<li class='page-item' data-value='{page}'><a class='page-link' href='javascript:'>{page}</a></li>")
                     }
                 }
 

@@ -27,7 +27,7 @@ namespace CleanArchitecture.WebUI
                     .ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
             });
             services.AddHttpClient<IClient, Client>(client =>
-                client.BaseAddress = new Uri("http://localhost:24689/"));
+                client.BaseAddress = new Uri("https://localhost:44336/"));
             services.AddAutoMapper(typeof(MappingProfile));
         }
 

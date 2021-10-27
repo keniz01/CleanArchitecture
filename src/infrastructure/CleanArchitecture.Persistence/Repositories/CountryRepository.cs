@@ -23,8 +23,8 @@ namespace CleanArchitecture.Persistence.Repositories
         {
             return _context.Countries
                 .Include(country => country.CapitalCities)
-                .Where(country => EF.Functions.Like(country.Name, searchTerm)
-                    || country.CapitalCities.Any(capitalCity => EF.Functions.Like(capitalCity.Name, searchTerm)))
+                .Where(country => EF.Functions.Like(country.Name, $"%{searchTerm}%")
+                    || country.CapitalCities.Any(capitalCity => EF.Functions.Like(capitalCity.Name, $"%{searchTerm}%")))
                 .OrderBy(country => country.Name)
                 .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
         }
@@ -50,6 +50,7 @@ namespace CleanArchitecture.Persistence.Repositories
         public async Task<Pager<Country>> GetCountriesByRegionAsync(Guid regionId, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             return await _context.Countries
+                .Include(country => country.CapitalCities)
                 .Where(country => country.RegionId == regionId)
                 .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
         }
