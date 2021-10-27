@@ -277,8 +277,8 @@
             $('#spinner').toggleClass('d-flex d-none');
 
             let viewModel = {
-                PageNumber: selectedPageNumber,
-                PageSize: selectedPageSize,
+                PageNumber: 1,
+                PageSize: 5,
                 SearchTerm: $(e.target).val()
             }
             postData('/home?handler=CountriesBySearchTerm', viewModel)
