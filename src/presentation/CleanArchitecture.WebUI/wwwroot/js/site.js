@@ -1,8 +1,6 @@
 ﻿$(function () {
     'use strict';
-
-    //TODO: Refactor repetitive code.
-
+    
     let selectedAlphabet;
     let selectedPageSize = 5;
     let selectedPageNumber = 1;
@@ -10,6 +8,11 @@
 
     $('#spinner').hide();
 
+    /**
+     * Posts request and returns text data. Note: does not return Json data.
+     * @param {any} url Url to post to.
+     * @param {any} data Data to post to the server.
+     */
     let postData = async function (url, data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -27,6 +30,10 @@
         return response.text(); // parses text/JSON response into native JavaScript objects
     }
 
+    /**
+     * Marks an anchor like as clicked by disabling it.
+     * @param {any} opts parameters.
+     */
     let disableClickedLink = function(opts) {
 
         if (opts.clickedElement === undefined) {
@@ -84,22 +91,21 @@
             });
     }
 
-    let bindContinentPageNumbers = function () {
+    /**
+     * Binds click event to page numbers.
+     * @param {any} opts parameters
+     */
+    let bindPageNumbers = function (opts) {
         $('#results-area').off().on('click',
             '#page-menu li',
-            function (pageNumberElementEvent) {
+            function (event) {
 
                 $('#spinner').toggleClass('d-flex d-none');
+                selectedPageNumber = Number($(event.target).closest('li').data('value'));
+                opts.viewModel.pageSize = Number($('#page-size option:selected').val());
+                opts.viewModel.pageNumber = selectedPageNumber;
 
-                selectedPageNumber = Number($(pageNumberElementEvent.target).closest('li').data('value'));
-
-                let viewModel = {
-                    PageNumber: selectedPageNumber,
-                    PageSize: Number($('#page-size option:selected').val()),
-                    RegionId: selectedRegionId
-                };
-
-                postData('/home?handler=CountriesByRegion', viewModel)
+                postData(opts.url, opts.viewModel)
                     .then(data => {
                         $('#results-area').empty().html(data);
                         disableClickedLink({ elements: '#page-menu li', elementValue: selectedPageNumber });
@@ -108,85 +114,21 @@
             });
     }
 
-    let bindAlphabetPageNumbers = function () {
-        $('#results-area').off().on('click',
-            '#page-menu li',
-            function (pageNumberElementEvent) {
-
-                $('#spinner').toggleClass('d-flex d-none');
-                selectedPageNumber = Number($(pageNumberElementEvent.target).closest('li').data('value'));
-
-                let viewModel = {
-                    PageNumber: selectedPageNumber,
-                    PageSize: Number($('#page-size option:selected').val()),
-                    Alphabet: selectedAlphabet
-                };
-
-                postData('/home?handler=CountriesByAlphabet', viewModel)
-                    .then(data => {
-                        $('#results-area').empty().html(data);
-                        disableClickedLink({ elements: '#page-menu li', elementValue: selectedPageNumber });
-                        $('#spinner').toggleClass('d-flex d-none');
-                    });
-            });
-    }
-
-    let bindSearchPageNumbers = function () {
-        $('#results-area').off().on('click',
-            '#page-menu li',
-            function (pageNumberElementEvent) {
-
-                disableClickedLink({ elements: '#page-menu li', clickedElement: pageNumberElementEvent.target });
-
-                selectedPageNumber = Number($(pageNumberElementEvent.target).closest('li').data('value'));
-
-                let viewModel = {
-                    PageNumber: selectedPageNumber,
-                    PageSize: Number($('#page-size option:selected').val()),
-                    SearchTerm: $('#search-area input').val()
-                };
-
-                postData('/home?handler=CountriesBySearchTerm', viewModel)
-                    .then(data => {
-                        $('#results-area').empty().html(data);
-                        disableClickedLink({ elements: '#page-menu li', elementValue: selectedPageNumber });
-                    });
-            });
-    }
-
-    let bindSearchPageSize = function () {
-        $('#results-area').on('change',
-            '#page-size',
-            function () {
-                selectedPageSize = Number($('#page-size option:selected').val());
-
-                let viewModel = {
-                    PageNumber: 1,
-                    PageSize: selectedPageSize,
-                    SearchTerm: $('#search-area input').val()
-                };
-
-                postData('/home?handler=CountriesBySearchTerm', viewModel)
-                    .then(data => {
-                        $('#results-area').empty().html(data);
-                    });
-            });
-    }
-
-    let bindContinentsPageSize = function () {
+    /**
+     * Binds change event to the Page size select control.
+     * @param {any} opts parameters.
+     */
+    let bindPageSize = function (opts) {
         $('#results-area').on('change',
             '#page-size',
             function () {
 
                 selectedPageSize = Number($('#page-size option:selected').val());
+                
+                opts.viewModel.pageSize = selectedPageSize;
+                opts.viewModel.pageNumber = 1;
 
-                let viewModel = {
-                    PageNumber: 1,
-                    PageSize: selectedPageSize,
-                    RegionId: selectedRegionId
-                };
-
-                postData('/home?handler=CountriesByRegion', viewModel)
+                postData(opts.url, opts.viewModel)
                     .then(data => {
 
                         $('#results-area').empty().html(data);
@@ -194,28 +136,9 @@
             });
     }
 
-    let bindAlphabetPageSize = function () {
-        $('#results-area').on('change',
-            '#page-size',
-            function () {
-
-                selectedPageSize = Number($('#page-size option:selected').val());
-
-                let viewModel = {
-                    PageNumber: 1,
-                    PageSize: selectedPageSize,
-                    Alphabet: selectedAlphabet
-                };
-
-                postData('/home?handler=CountriesByAlphabet', viewModel)
-                    .then(data => {
-
-                        $('#results-area').empty().html(data);
-                    });
-            });
-    }
-
-
+    /**
+     * Binds click event to region menu.
+     */
     let bindRegionMenu = function () {
         $($('#regions-menu')).on('click',
             'li',
@@ -224,6 +147,7 @@
 
                 disableClickedLink({ elements: '#regions-menu li', clickedElement: e.target });
                 selectedRegionId = $(e.target).closest('li').data('value');
+
                 let viewModel = {
                     PageNumber: 1,
                     PageSize: 5,
@@ -233,15 +157,25 @@
                 postData('/home?handler=CountriesByRegion', viewModel)
                     .then(data => {
                         $('#results-area').empty().html(data);
-                        bindContinentPageNumbers();
-                        bindContinentsPageSize();
+
+                        bindPageNumbers({
+                            url: '/home?handler=CountriesByRegion',
+                            viewModel: {
+                                RegionId: selectedRegionId
+                            }
+                        });
+                        
+                        bindPageSize({ url: '/home?handler=CountriesByRegion', viewModel: { regionId: selectedRegionId } });
 
                         $('#spinner').toggleClass('d-flex d-none');
                     });
             });
     }
 
-    let bindAlphabetNavMenu = function () {
+    /**
+     * Binds click event to A-Z menu.
+     */
+    let bindAlphabetMenu = function () {
         $('#alphabet-menu li').on('click', function (menuLiElementEvent) {
 
             $('#spinner').toggleClass('d-flex d-none');
@@ -251,8 +185,8 @@
             selectedAlphabet = $(menuLiElementEvent.target).closest('li').data('value');
 
             let viewModel = {
-                PageNumber: 1,
-                PageSize: selectedPageSize,
+                PageNumber: selectedPageNumber,
+                PageSize: Number($('#page-size option:selected').val()),
                 Alphabet: selectedAlphabet
             }
             postData('/home?handler=CountriesByAlphabet', viewModel)
@@ -260,14 +194,23 @@
 
                     $('#results-area').empty().html(data);
 
-                    bindAlphabetPageNumbers();
-                    bindAlphabetPageSize();
+                    bindPageNumbers({
+                        url: '/home?handler=CountriesByAlphabet',
+                        viewModel: {
+                            Alphabet: selectedAlphabet
+                        }
+                    });
+                    
+                    bindPageSize({ url: '/home?handler=CountriesByAlphabet', viewModel: { alphabet: selectedAlphabet } });
 
                     $('#spinner').toggleClass('d-flex d-none');
                 });
         });
     }
 
+    /**
+     * Detects when an Enter key is pressed with focus on the search box.
+     */
     let bindSearchBox = function () {
         $('#search-area input').on('keyup', function (e) {
             if (e.keyCode !== 13 || !$(e.target).val()) {
@@ -284,16 +227,22 @@
             postData('/home?handler=CountriesBySearchTerm', viewModel)
                 .then(data => {
                     $('#results-area').empty().html(data);
-
-                    bindSearchPageNumbers();
-                    bindSearchPageSize();
+                    
+                    bindPageNumbers({
+                        url: '/home?handler=CountriesBySearchTerm',
+                        viewModel: {
+                            SearchTerm: $('#search-area input').val()
+                        }
+                    });
+                    
+                    bindPageSize({ url: '/home?handler=CountriesBySearchTerm', viewModel: { searchTerm: $('#search-area input').val() } });
 
                     $('#spinner').toggleClass('d-flex d-none');
                 });
         });
     }
 
-    bindAlphabetNavMenu();
+    bindAlphabetMenu();
     bindSearchBox();
     showCountriesTab();
     showContinentTab();
