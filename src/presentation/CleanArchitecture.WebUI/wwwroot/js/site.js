@@ -46,7 +46,7 @@
         if (opts.clickedElement === undefined) {
             let elementIndex =
                 [...$(opts.elements)].findIndex(element => $(element).data('value') === opts.elementValue);
-            opts.clickedElement = $(opts.elements)[elementIndex];-
+            opts.clickedElement = $(opts.elements)[elementIndex];
         }
 
         $(opts.elements).removeClass('disabled active').css({ 'pointer-events': '' });
@@ -164,8 +164,8 @@
                 selectedRegionId = $(e.target).closest('li').data('value');
 
                 let viewModel = {
-                    PageNumber: selectedPageNumber,
-                    PageSize: selectedPageSize,
+                    PageNumber: 1,
+                    PageSize: 5,
                     RegionId: selectedRegionId
                 };
 
@@ -200,7 +200,7 @@
             selectedAlphabet = $(menuLiElementEvent.target).closest('li').data('value');
 
             let viewModel = {
-                PageNumber: selectedPageNumber,
+                PageNumber: 1,
                 PageSize: selectedPageSize,
                 Alphabet: selectedAlphabet
             }
@@ -235,8 +235,8 @@
             $('#spinner').toggleClass('d-flex d-none');
 
             let viewModel = {
-                PageNumber: selectedPageNumber,
-                PageSize: selectedPageSize,
+                PageNumber: 1,
+                PageSize: 5,
                 SearchTerm: $(e.target).val()
             }
             postData('/home?handler=CountriesBySearchTerm', viewModel)
