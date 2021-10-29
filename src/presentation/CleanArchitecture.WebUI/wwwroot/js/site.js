@@ -6,6 +6,13 @@
     let selectedPageNumber = 1;
     let selectedRegionId;
 
+    let resetPage = function() {
+        selectedAlphabet = undefined;
+        selectedPageSize = 5;
+        selectedPageNumber = 1;
+        selectedRegionId = undefined;
+    }
+
     $('#spinner').hide();
 
     /**
@@ -39,7 +46,7 @@
         if (opts.clickedElement === undefined) {
             let elementIndex =
                 [...$(opts.elements)].findIndex(element => $(element).data('value') === opts.elementValue);
-            opts.clickedElement = $(opts.elements)[elementIndex];
+            opts.clickedElement = $(opts.elements)[elementIndex];-
         }
 
         $(opts.elements).removeClass('disabled active').css({ 'pointer-events': '' });
@@ -52,7 +59,12 @@
             $('#countries-tab').removeClass('d-none');
             $('#continents-tab').addClass('d-none');
             $('#results-area').empty();
+
+            $('#alphabet-menu li').removeClass('disabled active');
+
             disableClickedLink({ elements: '#main-nav li', clickedElement: e.target });
+
+            resetPage();
         });
     }
 
@@ -64,8 +76,11 @@
             $('#regions-menu').empty(); // Clear regions menu, if any.
 
             $('#spinner').toggleClass('d-flex d-none');
-            disableClickedLink({ elements: '#main-nav li', clickedElement: e.target });
 
+            resetPage();
+
+            disableClickedLink({ elements: '#main-nav li', clickedElement: e.target });
+            
             postData('/home?handler=continents')
                 .then(data => {
                     $('#continents-menu').empty().html(data);
@@ -149,8 +164,8 @@
                 selectedRegionId = $(e.target).closest('li').data('value');
 
                 let viewModel = {
-                    PageNumber: 1,
-                    PageSize: 5,
+                    PageNumber: selectedPageNumber,
+                    PageSize: selectedPageSize,
                     RegionId: selectedRegionId
                 };
 
@@ -186,7 +201,7 @@
 
             let viewModel = {
                 PageNumber: selectedPageNumber,
-                PageSize: Number($('#page-size option:selected').val()),
+                PageSize: selectedPageSize,
                 Alphabet: selectedAlphabet
             }
             postData('/home?handler=CountriesByAlphabet', viewModel)
@@ -220,8 +235,8 @@
             $('#spinner').toggleClass('d-flex d-none');
 
             let viewModel = {
-                PageNumber: 1,
-                PageSize: 5,
+                PageNumber: selectedPageNumber,
+                PageSize: selectedPageSize,
                 SearchTerm: $(e.target).val()
             }
             postData('/home?handler=CountriesBySearchTerm', viewModel)
