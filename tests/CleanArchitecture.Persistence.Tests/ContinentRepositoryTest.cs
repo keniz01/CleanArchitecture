@@ -1,29 +1,20 @@
-﻿using CleanArchitecture.Domain.Services;
+﻿using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Persistence.Tests
 {
     [TestFixture]
-    public class ContinentRepositoryTest
+    public class ContinentRepositoryTest :TestBase
     {
         private readonly IContinentRepository _continentRepository;
 
-        public ContinentRepositoryTest()
-        {
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;")
-                .EnableDetailedErrors()
-                .Options;
-            var context = new DatabaseContext(options);
-            _continentRepository = new ContinentRepository(context);
-        }
-
+        public ContinentRepositoryTest() => _continentRepository = new ContinentRepository(Context);
+        
         [Test]
         public void Integration_Test_Continent_Should_fail_when_on_creation_when_DbContext_is_null()
         {

@@ -26,6 +26,7 @@ namespace CleanArchitecture.WebApi.Tests
                 .AddMediatR(typeof(GetCountriesByContinentRequest).GetTypeInfo().Assembly)
                 .AddScoped<IContinentRepository, ContinentRepository>()
                 .AddScoped<IRegionRepository, RegionRepository>()
+                .AddScoped<IMetricsRepository, MetricsRepository>()
                 .AddScoped<ICountryRepository, CountryRepository>()
                 .AddDbContext<DatabaseContext>(context =>
                     context.UseSqlServer("Data Source=192.168.0.14,1433; Initial Catalog=ContinentContext; user id=sa; password=Versuv10us; MultipleActiveResultSets=True;persist security info=false;"))

@@ -1,33 +1,25 @@
-﻿using CleanArchitecture.Application.Country.GetBy;
+﻿using CleanArchitecture.Application.Country.GetBy.Continent;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.Domain.Services;
-using CleanArchitecture.Persistence;
 using CleanArchitecture.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Country.GetBy.Continent;
 
 namespace CleanArchitecture.Application.Tests
 {
     [TestFixture]
-    public class GetCountriesByContinentHandlerTests
+    public class GetCountriesByContinentHandlerTests : TestBase
     {
         private readonly ICountryRepository _countryRepository;
 
         public GetCountriesByContinentHandlerTests()
         {
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;")
-                .EnableDetailedErrors()
-                .Options;
-            var context = new DatabaseContext(options);
-            _countryRepository = new CountryRepository(context);
+            _countryRepository = new CountryRepository(Context);
         }
 
         [Test]

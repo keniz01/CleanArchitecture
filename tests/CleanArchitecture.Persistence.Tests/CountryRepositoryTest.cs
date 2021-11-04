@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Domain.Services;
 using CleanArchitecture.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Threading;
@@ -9,20 +8,12 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Persistence.Tests
 {
     [TestFixture]
-    public class CountryRepositoryTest
+    public class CountryRepositoryTest : TestBase
     {
         private readonly ICountryRepository _countryRepository;
 
-        public CountryRepositoryTest()
-        {
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlServer("Server=(local);Database=ContinentContext;Trusted_Connection=True;")
-                .EnableDetailedErrors()
-                .Options;
-            var context = new DatabaseContext(options);
-            _countryRepository = new CountryRepository(context);
-        }
-
+        public CountryRepositoryTest() => _countryRepository = new CountryRepository(Context);
+        
         [Test]
         public async Task Continent_GetCountriesByRegion_Should_Return_A_ListOf_Countries_By_RegionId()
         {

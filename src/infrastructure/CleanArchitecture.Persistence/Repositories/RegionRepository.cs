@@ -15,11 +15,8 @@ namespace CleanArchitecture.Persistence.Repositories
     {
         private readonly DatabaseContext _context;
 
-        public RegionRepository(DatabaseContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-
+        public RegionRepository(DatabaseContext context) => _context = context ?? throw new ArgumentNullException(nameof(context));
+        
         public async Task<Pager<Country>> GetRegionCountriesAsync(Guid regionId, int pageNumber, int pageSize,
             CancellationToken cancellationToken)
         {

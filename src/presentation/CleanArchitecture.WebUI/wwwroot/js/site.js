@@ -46,6 +46,7 @@
         if (opts.clickedElement === undefined) {
             let elementIndex =
                 [...$(opts.elements)].findIndex(element => $(element).data('value') === opts.elementValue);
+            elementIndex = elementIndex === -1 ? 0 : elementIndex;
             opts.clickedElement = $(opts.elements)[elementIndex];
         }
 
@@ -93,6 +94,8 @@
         $($('#continents-menu')).on('click',
             'li',
             function (e) {
+
+                $('#results-area').empty();
                 let continentId = $(e.target).closest('li').data('value');
 
                 disableClickedLink({ elements: '#continents-menu li', clickedElement: e.target });
@@ -111,6 +114,9 @@
      * @param {any} opts parameters
      */
     let bindPageNumbers = function (opts) {
+
+        disableClickedLink({ elements: '#page-menu li', elementValue: selectedPageNumber });
+
         $('#results-area').off().on('click',
             '#page-menu li',
             function (event) {
@@ -134,6 +140,7 @@
      * @param {any} opts parameters.
      */
     let bindPageSize = function (opts) {
+        
         $('#results-area').on('change',
             '#page-size',
             function () {
@@ -147,6 +154,7 @@
                     .then(data => {
 
                         $('#results-area').empty().html(data);
+                        disableClickedLink({ elements: '#page-menu li', elementValue: selectedPageNumber });
                     });
             });
     }
@@ -158,6 +166,8 @@
         $($('#regions-menu')).on('click',
             'li',
             function (e) {
+
+                $('#results-area').empty();
                 $('#spinner').toggleClass('d-flex d-none');
 
                 disableClickedLink({ elements: '#regions-menu li', clickedElement: e.target });

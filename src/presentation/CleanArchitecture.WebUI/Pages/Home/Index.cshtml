@@ -2,11 +2,31 @@
 @model CleanArchitecture.WebUI.Pages.Home.IndexModel
 <div id="content-area" class="text-center">
     <nav id="main-nav">
-        <ul class="pagination justify-content-center">
-            <li id="countries-link" class="page-item"><a class="page-link" href="javascript:">Countries</a></li>
-            <li id="continents-link" class="page-item"><a class="page-link" href="javascript:">Continents</a></li>
-        </ul>
+        <div class="card-container pb-3">
+            <div class="cards w-100">
+                <ul class="pagination justify-content-center w-25">
+                    <li id="countries-link" class="page-item w-100 mr-2">
+                        <a href="javascript:" class="card page-link w-100">
+                            <span>Countries</span>
+                            <span>@Model.CountryCount</span>
+                        </a>
+                    </li>
+                    <li id="continents-link" class="page-item w-100 ml-2">
+                        <a href="javascript:" class="card page-link w-100">
+                            <span>Continents</span>
+                            <span>@Model.ContinentCount</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    @*<nav id="main-nav">
+            <ul class="pagination justify-content-center">
+                <li id="countries-link" class="page-item"><a class="page-link" href="javascript:">Countries</a></li>
+                <li id="continents-link" class="page-item"><a class="page-link" href="javascript:">Continents</a></li>
+            </ul>
+        </nav>*@
 
     <div id="countries-tab" class="d-none">
         <nav id="alphabet-menu">

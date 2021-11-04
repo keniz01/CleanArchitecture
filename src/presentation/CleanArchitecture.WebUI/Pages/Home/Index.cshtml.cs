@@ -18,6 +18,12 @@ namespace CleanArchitecture.WebUI.Pages.Home
         private readonly ILogger<IndexModel> _logger;
         private readonly IMapper _mapper;
 
+        [BindProperty(SupportsGet = true)]
+        public int CountryCount { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int ContinentCount { get; set; }
+
         public IndexModel(IClient client, ILogger<IndexModel> logger, IMapper mapper)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
@@ -25,8 +31,11 @@ namespace CleanArchitecture.WebUI.Pages.Home
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
+            var response = await _client.DataMetricsAsync();
+            CountryCount = response.Data.CountryCount;
+            ContinentCount = response.Data.ContinentCount;
         }
 
         public async Task<ActionResult> OnPostCountriesByAlphabetAsync(

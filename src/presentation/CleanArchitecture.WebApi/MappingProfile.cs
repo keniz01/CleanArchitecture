@@ -2,6 +2,7 @@ using AutoMapper;
 using CleanArchitecture.Application.Country.Alphabetical;
 using CleanArchitecture.Application.Country.GetBy.Region;
 using CleanArchitecture.Application.Country.Search;
+using CleanArchitecture.Application.Metrics;
 using CleanArchitecture.Application.Region.AddOrUpdateRegion;
 using CleanArchitecture.Application.Region.GetBy.Id;
 using CleanArchitecture.Application.Region.GetRegionCountries;
@@ -72,6 +73,7 @@ namespace CleanArchitecture.WebApi
                 .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))
                 .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Pager.PageNumber))
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
+            CreateMap<GetMetricsResponse, MetricsResponseDto>();
         }
     }
 }
