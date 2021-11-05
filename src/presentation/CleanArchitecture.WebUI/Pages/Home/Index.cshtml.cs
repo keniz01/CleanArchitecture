@@ -1,14 +1,14 @@
 using AutoMapper;
 using CleanArchitecture.WebApi.Client;
+using CleanArchitecture.WebUI.Pages.Home.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchitecture.WebUI.Pages.Home.ViewModels;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace CleanArchitecture.WebUI.Pages.Home
 {
@@ -17,12 +17,8 @@ namespace CleanArchitecture.WebUI.Pages.Home
         private readonly IClient _client;
         private readonly ILogger<IndexModel> _logger;
         private readonly IMapper _mapper;
-
-        [BindProperty(SupportsGet = true)]
-        public int CountryCount { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public int ContinentCount { get; set; }
+        
+        public MetricsResponseDto Metrics { get; set; }
 
         public IndexModel(IClient client, ILogger<IndexModel> logger, IMapper mapper)
         {
@@ -33,13 +29,11 @@ namespace CleanArchitecture.WebUI.Pages.Home
 
         public async Task OnGet()
         {
-            var response = await _client.DataMetricsAsync();
-            CountryCount = response.Data.CountryCount;
-            ContinentCount = response.Data.ContinentCount;
+            Metrics = (await _client.DataMetricsAsync()).Data;
         }
 
         public async Task<ActionResult> OnPostCountriesByAlphabetAsync(
-            [FromBody] GetCountriesStartingWithAlphabetViewModel viewModel)
+            [FromBody] GetCountriesByConditionViewModel<char> viewModel)
         {
             _logger.LogInformation("Calling OnPostCountriesByAlphabetAsync()");
 
@@ -49,18 +43,61 @@ namespace CleanArchitecture.WebUI.Pages.Home
             }
 
             var countries =
-                await _client.CountriesStartingWithAlphabetAsync(viewModel.Alphabet.ToString(), viewModel.PageNumber,
+                await _client.CountriesStartingWithAlphabetAsync(viewModel.Condition.ToString(), viewModel.PageNumber,
                     viewModel.PageSize);
-            var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
+            var result = _mapper.Map<PagedSearchViewModel<CountryDto>>(countries);
 
             return new PartialViewResult
             {
-                ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
-                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, result)
+                ViewName = "~/Pages/Home/Partials/_CountryGrid.cshtml",
+                ViewData = new ViewDataDictionary<PagedSearchViewModel<CountryDto>>(ViewData, result)
             };
         }
 
-        public async Task<ActionResult> OnPostCountriesBySearchTermAsync([FromBody]GetCountriesBySearchTermViewModel viewModel)
+        public async Task<ActionResult> OnPostCapitalCitiesByAlphabetAsync(
+            [FromBody] GetCountriesByConditionViewModel<char> viewModel)
+        {
+            _logger.LogInformation("Calling OnPostCapitalCitiesByAlphabetAsync()");
+
+            if (!ModelState.IsValid)
+            {
+                throw new TooManyModelErrorsException(nameof(viewModel));
+            }
+
+            var capitalCities =
+                await _client.CapitalCitiesStartingWithAlphabetAsync(viewModel.Condition.ToString(), viewModel.PageNumber,
+                    viewModel.PageSize);
+            var result = _mapper.Map<PagedSearchViewModel<CapitalCityDto>>(capitalCities);
+
+            return new PartialViewResult
+            {
+                ViewName = "~/Pages/Home/Partials/_CapitalCityGrid.cshtml",
+                ViewData = new ViewDataDictionary<PagedSearchViewModel<CapitalCityDto>>(ViewData, result)
+            };
+        }
+
+        public async Task<ActionResult> OnPostCapitalCitiesBySearchTermAsync([FromBody] GetCountriesByConditionViewModel<string> viewModel)
+        {
+            _logger.LogInformation("Calling OnPostCapitalCitiesBySearchTermAsync()");
+
+            if (!ModelState.IsValid)
+            {
+                throw new TooManyModelErrorsException(nameof(viewModel));
+            }
+
+            var capitalCities =
+                await _client.CapitalCitiesBySearchTermAsync(viewModel.Condition, viewModel.PageNumber,
+                    viewModel.PageSize);
+            var result = _mapper.Map<PagedSearchViewModel<CapitalCityDto>>(capitalCities);
+
+            return new PartialViewResult
+            {
+                ViewName = "~/Pages/Home/Partials/_CapitalCityGrid.cshtml",
+                ViewData = new ViewDataDictionary<PagedSearchViewModel<CapitalCityDto>>(ViewData, result)
+            };
+        }
+
+        public async Task<ActionResult> OnPostCountriesBySearchTermAsync([FromBody] GetCountriesByConditionViewModel<string> viewModel)
         {
             _logger.LogInformation("Calling OnPostCountriesBySearchTermAsync()");
 
@@ -70,14 +107,14 @@ namespace CleanArchitecture.WebUI.Pages.Home
             }
 
             var countries =
-                await _client.CountriesBySearchTermAsync(viewModel.SearchTerm, viewModel.PageNumber,
+                await _client.CountriesBySearchTermAsync(viewModel.Condition, viewModel.PageNumber,
                     viewModel.PageSize);
-            var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
+            var result = _mapper.Map<PagedSearchViewModel<CountryDto>>(countries);
 
             return new PartialViewResult
             {
-                ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
-                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, result)
+                ViewName = "~/Pages/Home/Partials/_CountryGrid.cshtml",
+                ViewData = new ViewDataDictionary<PagedSearchViewModel<CountryDto>>(ViewData, result)
             };
         }
 
@@ -114,7 +151,7 @@ namespace CleanArchitecture.WebUI.Pages.Home
             };
         }
 
-        public async Task<ActionResult> OnPostCountriesByRegionAsync([FromBody] GetCountriesByRegionViewModel viewModel)
+        public async Task<ActionResult> OnPostCountriesByRegionAsync([FromBody] GetCountriesByConditionViewModel<Guid> viewModel)
         {
             _logger.LogInformation("Calling OnPostCountriesByRegionAsync()");
 
@@ -123,13 +160,13 @@ namespace CleanArchitecture.WebUI.Pages.Home
                 throw new TooManyModelErrorsException(nameof(viewModel));
             }
 
-            var countries = await _client.CountriesByRegionAsync(viewModel.RegionId, viewModel.PageNumber, viewModel.PageSize);
-            var result = _mapper.Map<PagedCountrySearchViewModel>(countries);
+            var countries = await _client.CountriesByRegionAsync(viewModel.Condition, viewModel.PageNumber, viewModel.PageSize);
+            var result = _mapper.Map<PagedSearchViewModel<CountryDto>>(countries);
 
             return new PartialViewResult
             {
-                ViewName = "~/Pages/Home/Partials/_CountryPartialView.cshtml",
-                ViewData = new ViewDataDictionary<PagedCountrySearchViewModel>(ViewData, result)
+                ViewName = "~/Pages/Home/Partials/_CountryGrid.cshtml",
+                ViewData = new ViewDataDictionary<PagedSearchViewModel<CountryDto>>(ViewData, result)
             };
         }
     }

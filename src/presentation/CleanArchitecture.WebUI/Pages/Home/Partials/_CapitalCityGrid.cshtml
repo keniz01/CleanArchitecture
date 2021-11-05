@@ -1,0 +1,73 @@
+﻿@model CleanArchitecture.WebUI.Pages.Home.ViewModels.PagedSearchViewModel<CleanArchitecture.WebApi.Client.CapitalCityDto>
+<div class="table-responsive">
+
+    @if (Model == null)
+    {
+        return;
+    }
+
+    @if (Model.TotalRecords == 0)
+    {
+        <p>No matching records found.</p>
+    }
+    else
+    {
+        <p class="text-left">Found @Model.TotalRecords matching hits.</p>
+        <table class="table table-striped table-bordered w-100 text-left">
+            <colgroup>
+                <col class="col-md-3">
+                <col class="col-md-1">
+                <col class="col-md-2">
+                <col class="col-md-3">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Capital City</th>
+                    <th>Area</th>
+                    <th>Coordinates</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var capitalCity in Model.PagedList)
+                {
+                    <tr>
+                        <td>@capitalCity.Name</td>
+                        <td>@capitalCity.Area</td>
+                        <td>@($"{capitalCity.Coordinates.Latitude}, {capitalCity.Coordinates.Longitude}")</td>
+                        <td>@capitalCity.Country</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav id="page-menu">
+            <ul class="pagination justify-content-center">
+                @if (Model.TotalPages > 1)
+                {
+                    var pages = Enumerable.Range(1, Model.TotalPages).ToArray();
+
+                    foreach (int page in pages)
+                    {
+                        @Html.Raw($"<li class='page-item' data-value='{page}'><a class='page-link' href='javascript:'>{page}</a></li>")
+                    }
+                }
+
+                @if (Model.TotalRecords > 5)
+                {
+                    var pageSizeListItems = new List<SelectListItem>
+                    {
+                        new("5", "5", Model.PageSize == 5),
+                        new("10", "10", Model.PageSize == 10),
+                        new("15", "15", Model.PageSize == 15),
+                        new("20", "20", Model.PageSize == 20),
+                        new("25", "25", Model.PageSize == 25),
+                        new("30", "30", Model.PageSize == 30)
+                    };
+
+                    @Html.DropDownList("page-size", pageSizeListItems,
+                        null, new { @id = "page-size", @class = "form-control col-sm-1 ml-3" })
+                }
+            </ul>
+        </nav>
+    }
+</div>

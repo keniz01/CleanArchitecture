@@ -1,0 +1,13 @@
+﻿<div id="countries-tab" class="d-none">
+    <nav id="country-alphabet-menu">
+        <ul class="pagination justify-content-center">
+            @for (var i = 0; i < 26; i++)
+            {
+                <li class="page-item" data-value="@(Convert.ToChar('A' + i))"><a class="page-link" href="javascript:">@(Convert.ToChar('A' + i))</a></li>
+            }
+        </ul>
+    </nav>
+    <div id="country-search-area" class="form-group">
+        <input class="w-50 form-control m-auto" placeholder="Search country / countries ..." />
+    </div>
+</div>

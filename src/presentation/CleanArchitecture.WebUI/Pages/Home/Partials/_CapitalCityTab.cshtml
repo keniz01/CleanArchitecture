@@ -1,0 +1,13 @@
+﻿<div id="capital-cities-tab" class="d-none">
+    <nav id="capital-city-alphabet-menu">
+        <ul class="pagination justify-content-center">
+            @for (var i = 0; i < 26; i++)
+            {
+                <li class="page-item" data-value="@(Convert.ToChar('A' + i))"><a class="page-link" href="javascript:">@(Convert.ToChar('A' + i))</a></li>
+            }
+        </ul>
+    </nav>
+    <div id="capital-city-search-area" class="form-group">
+        <input class="w-50 form-control m-auto" placeholder="Search capital city / cities ..." />
+    </div>
+</div>

@@ -1,6 +1,8 @@
-﻿namespace CleanArchitecture.WebApi.Models
+﻿using CleanArchitecture.WebApi.Client;
+
+namespace CleanArchitecture.WebUI.Pages.Home.ViewModels
 {
-    public class CapitalCityDto : ModelBase
+    public class CapitalCityViewModel
     {
         public string Name { get; set; }
 

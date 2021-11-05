@@ -6,6 +6,7 @@ using CleanArchitecture.Application.Metrics;
 using CleanArchitecture.Application.Region.AddOrUpdateRegion;
 using CleanArchitecture.Application.Region.GetBy.Id;
 using CleanArchitecture.Application.Region.GetRegionCountries;
+using CleanArchitecture.Application.Search;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Pagination;
 using CleanArchitecture.WebApi.Models;
@@ -36,7 +37,9 @@ namespace CleanArchitecture.WebApi
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Region.Countries))
                 .ForMember(dest => dest.ContinentId, opt => opt.MapFrom(src => src.Region.ContinentId))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Region.Id));
-            CreateMap<CapitalCity, CapitalCityDto>().ReverseMap();
+            CreateMap<CapitalCity, CapitalCityDto>()
+                .ForMember(dest => dest.Country, opts => opts.MapFrom(src => src.Country.Name))
+                .ReverseMap();
             CreateMap<Coordinate, CoordinateDto>().ReverseMap();
             CreateMap<Country, CountryDto>().ReverseMap();
             CreateMap<Region, RegionDto>().ReverseMap();
@@ -68,6 +71,20 @@ namespace CleanArchitecture.WebApi
                 .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
             CreateMap<Continent, ContinentWithoutRegionsDto>().ReverseMap();
             CreateMap<GetCountriesByRegionResponse, PagerDto<CountryDto>>()
+                .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Pager.TotalRecords))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Pager.PageSize))
+                .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))
+                .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Pager.PageNumber))
+                .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
+            CreateMap<GetMetricsResponse, MetricsResponseDto>();
+            CreateMap<GetCapitalCitiesStartingWithAlphabetResponse, PagerDto<CapitalCityDto>>()
+                .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Pager.TotalRecords))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Pager.PageSize))
+                .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))
+                .ForMember(dest => dest.PageNumber, opt => opt.MapFrom(src => src.Pager.PageNumber))
+                .ForMember(dest => dest.TotalPages, opt => opt.MapFrom(src => src.Pager.TotalPages));
+            CreateMap<Continent, ContinentWithoutRegionsDto>().ReverseMap();
+            CreateMap<GetCapitalCitiesMatchingSearchTermResponse, PagerDto<CapitalCityDto>>()
                 .ForMember(dest => dest.TotalRecords, opt => opt.MapFrom(src => src.Pager.TotalRecords))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.Pager.PageSize))
                 .ForMember(dest => dest.PagedList, opt => opt.MapFrom(src => src.Pager.PagedList))

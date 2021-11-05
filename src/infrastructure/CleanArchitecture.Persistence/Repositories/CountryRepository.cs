@@ -19,12 +19,21 @@ namespace CleanArchitecture.Persistence.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        //TODO: Move to search controller.
+        public Task<Pager<CapitalCity>> GetCapitalCitiesMatchingSearchTermAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken)
+        {
+            return _context.CapitalCities
+                .Include(country => country.Country)
+                .Where(capitalCity => EF.Functions.Like(capitalCity.Name, $"%{searchTerm}%"))
+                .OrderBy(capitalCity => capitalCity.Name)
+                .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
+        }
+
         public Task<Pager<Country>> GetCountriesMatchingSearchTermAsync(string searchTerm, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             return _context.Countries
                 .Include(country => country.CapitalCities)
-                .Where(country => EF.Functions.Like(country.Name, $"%{searchTerm}%")
-                    || country.CapitalCities.Any(capitalCity => EF.Functions.Like(capitalCity.Name, $"%{searchTerm}%")))
+                .Where(country => EF.Functions.Like(country.Name, $"%{searchTerm}%"))
                 .OrderBy(country => country.Name)
                 .ToPagedListAsync(pageNumber, pageSize, cancellationToken);
         }

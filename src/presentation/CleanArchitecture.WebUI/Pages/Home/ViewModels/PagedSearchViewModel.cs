@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using CleanArchitecture.WebApi.Client;
 
 namespace CleanArchitecture.WebUI.Pages.Home.ViewModels
 {
-    public class PagedCountrySearchViewModel
+    public class PagedSearchViewModel<T>
     {
-        public PagedCountrySearchViewModel()
+        public PagedSearchViewModel()
         {
-            PagedList = new List<CountryDto>();
+            PagedList = new List<T>();
         }
-        public ICollection<CountryDto> PagedList { get; set; }
+        public ICollection<T> PagedList { get; set; }
 
         public int PageNumber { get; set; }
 
