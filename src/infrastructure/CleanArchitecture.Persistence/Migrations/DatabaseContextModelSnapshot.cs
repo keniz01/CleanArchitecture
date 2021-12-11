@@ -75,6 +75,9 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
+                    b.Property<string>("IsoCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");

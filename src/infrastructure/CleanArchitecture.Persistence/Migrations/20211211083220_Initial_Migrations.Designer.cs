@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211014160617_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211211083220_Initial_Migrations")]
+    partial class Initial_Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,9 @@ namespace CleanArchitecture.Persistence.Migrations
 
                     b.Property<double>("Area")
                         .HasColumnType("float");
+
+                    b.Property<string>("IsoCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

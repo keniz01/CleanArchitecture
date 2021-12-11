@@ -34,6 +34,9 @@ namespace CleanArchitecture.Domain.Entities
         /// <summary>Country name.</summary>
         public string Name { get; protected set; }
 
+        /// <summary>ISO code.</summary>
+        public string IsoCode { get; protected set; }
+
         /// <summary>Country area in KM² format.</summary>
         public double Area { get; protected set; }
 
